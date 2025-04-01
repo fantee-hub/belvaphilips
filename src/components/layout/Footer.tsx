@@ -81,7 +81,10 @@ const Footer = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/contact" className="hover:underline">
+                  <Link
+                    href="/contact"
+                    className="hover:underline whitespace-nowrap"
+                  >
                     Contact Us
                   </Link>
                 </li>
