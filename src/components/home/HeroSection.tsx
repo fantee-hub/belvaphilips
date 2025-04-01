@@ -85,7 +85,7 @@ const HeroSection = () => {
           >
             <motion.h1
               variants={itemVariants}
-              className="text-5xl md:text-[71.83px] font-semibold leading-[115%]"
+              className="text-5xl md:text-[76.83px] font-semibold leading-[115%] tracking-[-3px]"
             >
               STUDIO QUALITY PHOTOGRAPHY MADE SIMPLE
             </motion.h1>
