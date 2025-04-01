@@ -73,7 +73,7 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="w-full py-16 md:py-24 relative">
+    <section className="w-full pt-16 pb-[60px] md:pt-24 md:pb-[60px] relative">
       <div className="container mx-auto px-4 flex flex-col lg:flex-row  gap-10 lg:justify-between">
         {/* Text Content */}
         <div className="w-full lg:w-[734px] pr-0 lg:pr-12 mb-10 lg:mb-0">
