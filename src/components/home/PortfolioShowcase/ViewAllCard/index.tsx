@@ -10,7 +10,7 @@ const ViewAllCard = () => {
           <br /> OUR WORK
         </h3>
         <div className="flex justify-center">
-          <div className="flex justify-center w-[98px] h-[98px] items-center border border-black">
+          <div className="flex justify-center w-[98px] h-[98px] items-center ">
             <Link href="/portfolio">
               <Image
                 src="/assets/images/arrow-right.svg"

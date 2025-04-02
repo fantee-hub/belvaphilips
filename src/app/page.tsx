@@ -2,6 +2,7 @@ import BrandsStrip from "@/components/home/Brands";
 import HeroSection from "@/components/home/HeroSection";
 import PortfolioShowcase from "@/components/home/PortfolioShowcase";
 import PricingSection from "@/components/home/PricingSection";
+import USPSection from "@/components/home/USPSection";
 import Image from "next/image";
 
 export default function Home() {
@@ -11,6 +12,7 @@ export default function Home() {
       <BrandsStrip />
       <PricingSection />
       <PortfolioShowcase />
+      <USPSection />
     </div>
   );
 }
