@@ -3,6 +3,7 @@
 import { useRef, useEffect } from "react";
 import Image from "next/image";
 import { motion, useInView, useAnimation } from "framer-motion";
+import Marquee from "react-fast-marquee";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
@@ -11,7 +12,7 @@ const testimonials = [
   {
     id: 1,
     company: "TECNO",
-    logo: "/images/testimonials/tecno.png",
+    logo: "/assets/brands/tecno.png",
     position: "Head of marketing at Tecno",
     quote:
       '"Sales doubled after updating our website with these photos. The quality speaks for itself!"',
@@ -20,7 +21,7 @@ const testimonials = [
   {
     id: 2,
     company: "BEAUTY BY AD",
-    logo: "/images/testimonials/beauty.png",
+    logo: "/assets/brands/beauty-by-ad.png",
     position: "CEO at BeatyByAd",
     quote:
       '"Every shot was pure perfection! Our product images finally match the high quality of our brand."',
@@ -29,7 +30,7 @@ const testimonials = [
   {
     id: 3,
     company: "Smirnoff",
-    logo: "/images/testimonials/smirnoff.png",
+    logo: "/assets/brands/Smirnoff.png",
     position: "Head of Digital Marketing",
     quote:
       '"We noticed a significant increase in engagement on Instagram after using their professional lifestyle shots."',
@@ -37,21 +38,12 @@ const testimonials = [
   },
   {
     id: 4,
-    company: "Nokia",
-    logo: "/images/testimonials/nokia.png",
-    position: "Product Manager",
+    company: "Ribenna",
+    logo: "/assets/brands/ribena.png",
+    position: "CEO at Ribena",
     quote:
-      '"The attention to detail in every image exceeded our expectations. Worth every penny."',
-    highlight: "exceeded our expectations",
-  },
-  {
-    id: 5,
-    company: "Indomie",
-    logo: "/images/testimonials/indomie.png",
-    position: "Marketing Director",
-    quote:
-      '"Our campaign conversion rates improved by 40% after implementing their photography."',
-    highlight: "improved by 40%",
+      '"Our ads are performing better, click-through rates have doubled since we started using BelvaPhilips!"',
+    highlight: " click-through rates have doubled",
   },
 ];
 
@@ -68,7 +60,7 @@ const HighlightedQuote = ({
 
   const parts = quote.split(highlight);
   return (
-    <p className="text-xl">
+    <p className="text-xl font-bold">
       {parts[0]}
       <span className="font-bold text-black">{highlight}</span>
       {parts[1]}
@@ -111,28 +103,25 @@ const TestimonialsSection = () => {
   };
 
   return (
-    <section
-      className="w-full py-20 bg-white border-t border-gray-100"
-      ref={ref}
-    >
-      <div className="container mx-auto px-4">
+    <section className="w-full pb-[120px] bg-white" ref={ref}>
+      <div className=" px-4">
         <motion.div
           initial="hidden"
           animate={controls}
           variants={containerVariants}
-          className="space-y-12"
+          className="space-y-10"
         >
           {/* Section Header */}
-          <div>
+          <div className="container mx-auto">
             <motion.div
               variants={itemVariants}
-              className="text-yellow-500 uppercase font-medium mb-2"
+              className="text-[#FEC845] text-sm uppercase mb-2"
             >
               REVIEWS
             </motion.div>
             <motion.h2
               variants={itemVariants}
-              className="text-5xl font-bold leading-tight"
+              className="text-[64px] font-semibold leading-[115%] tracking-[-3px]"
             >
               SEE THE RESULTS THROUGH
               <br />
@@ -142,50 +131,50 @@ const TestimonialsSection = () => {
 
           {/* Testimonials Slider */}
           <motion.div variants={itemVariants} className="w-full">
-            <Swiper
-              modules={[Autoplay]}
-              slidesPerView={1}
-              spaceBetween={24}
-              loop={true}
-              autoplay={{
-                delay: 5000,
-                disableOnInteraction: false,
-              }}
-              breakpoints={{
-                640: {
-                  slidesPerView: 2,
-                },
-                1024: {
-                  slidesPerView: 3,
-                },
-              }}
-              className="w-full"
-            >
+            <Marquee gradient={false} speed={80} pauseOnHover>
               {testimonials.map((testimonial) => (
-                <SwiperSlide key={testimonial.id}>
-                  <div className="border border-gray-200 p-6 h-full">
-                    <div className="mb-6">
-                      <div className="h-8 mb-1">
+                <div
+                  key={testimonial.id}
+                  className={`border border-gray-200 p-6 h-full max-w-[655px] w-full mr-6 relative`}
+                >
+                  <div className="mb-5">
+                    <div className="h-[120px] mb-3 flex items-center  absolute -top-[30px]">
+                      <div
+                        style={{
+                          maxWidth: "70px",
+                          minHeight: "12px",
+                          position: "relative",
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
                         <Image
                           src={testimonial.logo}
                           alt={testimonial.company}
-                          width={120}
-                          height={32}
-                          className="h-full w-auto object-contain object-left"
+                          width={71}
+                          height={50}
+                          style={{
+                            maxHeight: "120px",
+
+                            objectFit: "contain",
+                            objectPosition: "left",
+                          }}
                         />
                       </div>
-                      <p className="text-gray-600">{testimonial.position}</p>
                     </div>
-                    <div className="text-gray-600">
-                      <HighlightedQuote
-                        quote={testimonial.quote}
-                        highlight={testimonial.highlight}
-                      />
-                    </div>
+                    <p className="text-[#444444] font-medium text-[18px] mt-10">
+                      {testimonial.position}
+                    </p>
                   </div>
-                </SwiperSlide>
+                  <div className="text-gray-600">
+                    <HighlightedQuote
+                      quote={testimonial.quote}
+                      highlight={testimonial.highlight}
+                    />
+                  </div>
+                </div>
               ))}
-            </Swiper>
+            </Marquee>
           </motion.div>
         </motion.div>
       </div>

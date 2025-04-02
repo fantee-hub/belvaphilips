@@ -42,7 +42,7 @@ const PortfolioShowcase = () => {
   };
 
   return (
-    <section className="w-full pt-[25px] pb-[48px] bg-gray-50" ref={ref}>
+    <section className="w-full pt-[25px] pb-[48px] bg-[#F8F8F8]" ref={ref}>
       <div className="container mx-auto px-4">
         <motion.div
           initial="hidden"
