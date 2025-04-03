@@ -126,7 +126,7 @@ const ProcessSection = () => {
           <div>
             <motion.div
               variants={itemVariants}
-              className="text-yellow-500 uppercase font-medium mb-2"
+              className="text-[#FEC845] uppercase text-sm mb-2"
             >
               OUR PROCESS
             </motion.div>

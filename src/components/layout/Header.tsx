@@ -26,7 +26,7 @@ const Header = () => {
             alt="belvaphilips imagery"
           />
           <span
-            className={`${karla.className} text-[23.29px] flex items-center gap-[2.45px]`}
+            className={`font-logo text-[23.29px] flex items-center gap-[2.45px]`}
           >
             <span className={`font-black  `}>BELVAPHILIPS</span>
             <span className="font-light ">IMAGERY</span>

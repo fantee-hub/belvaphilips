@@ -1,5 +1,6 @@
 import BrandsStrip from "@/components/home/Brands";
 import CTASection from "@/components/home/CTASection";
+import FAQSection from "@/components/home/FAQSection";
 import HeroSection from "@/components/home/HeroSection";
 import PortfolioShowcase from "@/components/home/PortfolioShowcase";
 import PricingSection from "@/components/home/PricingSection";
@@ -19,6 +20,7 @@ export default function Home() {
       <TestimonialsSection />
       <ProcessSection />
       <CTASection />
+      <FAQSection />
     </div>
   );
 }
