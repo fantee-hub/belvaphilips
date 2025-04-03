@@ -27,12 +27,12 @@ const benefits = [
 const DaysIcon = () => (
   <div className=" h-32 flex  space-x-[14px]">
     <div className="flex items-center gap-4 -mb-8">
-      <span className="text-gray-200 text-[30px]">7</span>
-      <span className="text-gray-200 text-[30px]">6</span>
+      <span className="text-gray-200 text-[30px]">9</span>
+      <span className="text-gray-200 text-[30px]">8</span>
     </div>
 
     <div className="flex items-baseline">
-      <span className="text-[86px] font-medium">5</span>
+      <span className="text-[86px] font-medium">7</span>
       <span className="text-[30px] font-medium ml-1">days</span>
     </div>
   </div>
@@ -68,11 +68,11 @@ const ShippingIcon = () => (
 const DollarIcon = () => (
   <div className="h-32 flex items-center justify-center">
     <div className="relative flex items-center gap-[5px]">
-      <span className=" text-[28.64px] font-medium text-[#E1E1E1]">$</span>
-      <span className="text-[40.91px] font-medium text-[#E1E1E1]">$</span>
-      <span className="text-[86.01px] font-medium">$</span>
-      <span className="text-[40.91px] font-medium text-[#E1E1E1]">$</span>
-      <span className=" text-[28.64px] font-medium text-[#E1E1E1]">$</span>
+      <span className=" text-[28.64px] font-medium text-[#E1E1E1]">₦</span>
+      <span className="text-[40.91px] font-medium text-[#E1E1E1]">₦</span>
+      <span className="text-[86.01px] font-medium">₦</span>
+      <span className="text-[40.91px] font-medium text-[#E1E1E1]">₦</span>
+      <span className=" text-[28.64px] font-medium text-[#E1E1E1]">₦</span>
     </div>
   </div>
 );
