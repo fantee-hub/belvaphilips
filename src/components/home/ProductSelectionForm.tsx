@@ -7,10 +7,10 @@ import { ChevronDown } from "lucide-react";
 const productOptions = {
   Clothing: ["Model", "Flatlay", "Ghost", "Pinned", "Video"],
   Shoes: ["Model", "Catalogue", "Video"],
-  Bags: ["Model", "Flatlay", "360°", "Details", "Video"],
-  Beauty: ["Product", "Lifestyle", "Details", "Tutorial", "Video"],
-  Jewelry: ["Model", "Flatlay", "Details", "360°", "Video"],
-  Drinks: ["Product", "Lifestyle", "Pour", "Details", "Video"],
+  Bags: ["Model", "Catalogue", "Hanged", "Video"],
+  Beauty: ["Model", "Catalogue", "Swatch", "Video"],
+  Jewelry: ["Model", "Catalogue", "Video"],
+  Drinks: ["Catalogue", "Video"],
 };
 
 type ProductType = keyof typeof productOptions;
@@ -127,7 +127,7 @@ const ProductSelectionForm = () => {
                         variants={itemVariants}
                         custom={index}
                         onClick={() => handleProductSelect(product)}
-                        className="font-medium hover:text-gray-600 transition-colors w-full cursor-pointer"
+                        className="font-medium hover:text-gray-600 transition-colors  w-full cursor-pointer"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.98 }}
                       >
@@ -221,7 +221,7 @@ const ProductSelectionForm = () => {
                           variants={itemVariants}
                           custom={index}
                           onClick={() => handleShootTypeSelect(shootType)}
-                          className=" font-medium hover:text-gray-600 transition-colors w-full cursor-pointer"
+                          className=" font-medium hover:text-gray-600 transition-colors w-full px-3 cursor-pointer"
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.98 }}
                         >

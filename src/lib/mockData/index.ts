@@ -11,7 +11,7 @@ export const portfolioItems = [
     title: "Beauty",
     tags: ["Dynamic", "Motion"],
     price: "₦65,000/image",
-    image: "/assets/portfolio/beauty.png",
+    image: "/assets/portfolio/shoe-2.png",
   },
   {
     id: 3,
@@ -32,6 +32,6 @@ export const portfolioItems = [
     title: "Fashion",
     tags: ["Lifestyle", "Model"],
     price: "₦85,000/image",
-    image: "/assets/portfolio/bag.png",
+    image: "/assets/portfolio/shoe-1.png",
   },
 ];
