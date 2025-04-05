@@ -96,7 +96,7 @@ const Header = () => {
             href="/signup"
             className="w-[144px] h-[38px] flex items-center justify-center bg-[#1D1D1B] text-white rounded-full uppercase text-sm font-semibold"
           >
-            SIGN UP
+            GET STARTED
           </Link>
         </div>
 
