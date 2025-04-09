@@ -101,7 +101,7 @@ export default function Portfolio() {
 
                 <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-80 text-white py-4 px-6 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                   <Link
-                    href={`/portfolio/${item.id}`}
+                    href={`/portfolio/finalize?id=${item.id}`}
                     className="flex justify-between items-center"
                   >
                     <span className="font-medium">I WANT THIS LOOK</span>

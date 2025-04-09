@@ -46,7 +46,9 @@ const Header = () => {
           <Link
             href="/portfolio"
             className={`font-medium hover:text-gray-600 ${
-              pathname === "/portfolio" ? "text-[#1D1D1B] " : "text-[#6E6E6E]"
+              pathname.startsWith("/portfolio")
+                ? "text-[#1D1D1B] "
+                : "text-[#6E6E6E]"
             }`}
           >
             Portfolio

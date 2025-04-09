@@ -125,4 +125,12 @@ body {
   body {
     @apply bg-background text-[#1D1D1B];
   }
+  .scrollbar-hide {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
 }
