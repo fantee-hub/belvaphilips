@@ -9,7 +9,7 @@ import { IoMdCheckmark } from "react-icons/io";
 const benefits = [
   {
     icon: "days",
-    description: "Get stunning product shots in as little as 5 days.",
+    description: "Get stunning product shots in as little as 7 business days.",
   },
   {
     icon: "shipping",
