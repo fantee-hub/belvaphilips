@@ -208,7 +208,7 @@ const FAQSection = () => {
           initial="hidden"
           animate={controls}
           variants={containerVariants}
-          className="space-y-12 max-w-[1026px]"
+          className="space-y-12 max-w-[1050px]"
         >
           {/* Section Header */}
           <div>
@@ -273,11 +273,11 @@ const FAQSection = () => {
             ))}
 
             <motion.div variants={itemVariants} className="md:col-span-1 ">
-              <div className="flex items-center justify-between h-[56px] py-5 px-7 border border-[#C9C9C9]">
+              <div className="flex items-center justify-between h-[56px] py-5 px-6 border border-[#C9C9C9]">
                 <div className="flex items-center">
                   <Headphones className="h-6 w-6 mr-4" />
-                  <span className="font-semibold">
-                    CAN'T FIND YOUR QUESTION? CHAT WITH SUPPORT
+                  <span className="font-semibold ">
+                    CAN’T FIND YOUR QUESTION? CHAT WITH SUPPORT
                   </span>
                 </div>
               </div>
