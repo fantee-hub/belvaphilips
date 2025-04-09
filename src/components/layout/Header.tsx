@@ -15,7 +15,7 @@ const Header = () => {
   const pathname = usePathname();
 
   return (
-    <header className="w-full bg-white fixed left-0 right-0 z-[999] py-[30.63px] border-b border-[#E0E0E0] max-w-[1800px] mx-auto">
+    <header className="w-full bg-white fixed left-0 right-0 z-[10] py-[30.63px] border-b border-[#E0E0E0] max-w-[1800px] mx-auto">
       <div className="container mx-auto px-4 flex justify-between items-center">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-[3.68px]">

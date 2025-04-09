@@ -43,7 +43,7 @@ export default function AddPortfolioDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="!max-w-[1199px] max-h-[80vh] !rounded-none mt-[55px] overflow-y-auto scrollbar-hide">
+      <DialogContent className="!max-w-[1199px] max-h-[80vh] !rounded-none mt-3 overflow-y-auto scrollbar-hide">
         <DialogHeader className="hidden">
           <DialogTitle>Select Additional Portfolio Items</DialogTitle>
         </DialogHeader>
