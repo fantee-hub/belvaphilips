@@ -4,12 +4,10 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Karla } from "next/font/google";
+
 import { usePathname } from "next/navigation";
 import { PiCaretDown } from "react-icons/pi";
 import GetStartedModal from "../getStartedModal";
-
-const karla = Karla({ subsets: ["latin"] });
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

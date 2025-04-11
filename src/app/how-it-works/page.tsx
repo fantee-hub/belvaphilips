@@ -1,11 +1,12 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, useInView, useAnimation } from "framer-motion";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import FAQSection from "@/components/home/FAQSection";
+import GetStartedModal from "@/components/getStartedModal";
 
 // Process steps data
 const processSteps = [
@@ -99,6 +100,7 @@ const HowItWorksPage = () => {
   const controls = useAnimation();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.1 });
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     if (isInView) {
@@ -167,7 +169,10 @@ const HowItWorksPage = () => {
               </p>
 
               {step.cta && (
-                <button className="bg-black text-white w-[144px] h-[38px] inline-flex items-center justify-center rounded-full text-sm font-bold mt-auto self-start text-[#1D1D1B] cursor-pointer">
+                <button
+                  onClick={() => setIsModalOpen(true)}
+                  className="bg-black text-white w-[144px] h-[38px] inline-flex items-center justify-center rounded-full text-sm font-bold mt-auto self-start text-[#1D1D1B] cursor-pointer"
+                >
                   {step.cta.text}
                 </button>
               )}
@@ -210,6 +215,8 @@ const HowItWorksPage = () => {
         </motion.div>
       </div>
       <FAQSection />
+
+      <GetStartedModal open={isModalOpen} onOpenChange={setIsModalOpen} />
     </div>
   );
 };
