@@ -1,12 +1,11 @@
 "use client";
-
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 
 import { usePathname } from "next/navigation";
-import { PiCaretDown } from "react-icons/pi";
+
 import GetStartedModal from "../getStartedModal";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import {
@@ -18,21 +17,10 @@ import {
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isMoreDropdownOpen, setIsMoreDropdownOpen] = useState(false);
+
   const pathname = usePathname();
 
-  const dropdownVariants = {
-    hidden: {
-      opacity: 0,
-      y: -10,
-      transition: { duration: 0.2 },
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.3, ease: "easeOut" },
-    },
-  };
+  const specialPaths = ["/team", "/blog", "/contact"];
 
   return (
     <header className="w-full bg-white fixed left-0 right-0 z-[10] py-[30.63px] border-b border-[#E0E0E0] max-w-[1800px] mx-auto">
@@ -94,7 +82,13 @@ const Header = () => {
 
           <HoverCard openDelay={0} closeDelay={200}>
             <HoverCardTrigger asChild>
-              <button className="font-medium cursor-pointer text-[#6E6E6E] hover:text-[#1D1D1B] uppercase flex items-center">
+              <button
+                className={`font-medium cursor-pointer hover:text-[#1D1D1B] uppercase flex items-center ${
+                  specialPaths.includes(pathname)
+                    ? "text-[#1D1D1B]"
+                    : "text-[#6E6E6E]"
+                }`}
+              >
                 More
                 <ChevronDown className="w-4 h-4 ml-1" />
               </button>
