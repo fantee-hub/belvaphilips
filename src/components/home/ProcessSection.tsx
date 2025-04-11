@@ -95,7 +95,7 @@ const ProcessSection = () => {
     visible: {
       scaleY: 1,
       transition: {
-        duration: 1.5,
+        duration: 0.1,
         ease: "easeInOut",
       },
     },

@@ -7,11 +7,13 @@ import { motion } from "framer-motion";
 import { Karla } from "next/font/google";
 import { usePathname } from "next/navigation";
 import { PiCaretDown } from "react-icons/pi";
+import GetStartedModal from "../getStartedModal";
 
 const karla = Karla({ subsets: ["latin"] });
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const pathname = usePathname();
 
   return (
@@ -94,12 +96,12 @@ const Header = () => {
           >
             LOGIN
           </Link>
-          <Link
-            href="/signup"
-            className="w-[144px] h-[38px] flex items-center justify-center bg-[#1D1D1B] text-white rounded-full uppercase text-sm font-semibold"
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="w-[144px] h-[38px] flex items-center cursor-pointer justify-center bg-[#1D1D1B] text-white rounded-full uppercase text-sm font-semibold"
           >
             GET STARTED
-          </Link>
+          </button>
         </div>
 
         {/* Mobile Menu Button */}
@@ -166,6 +168,7 @@ const Header = () => {
           </div>
         </motion.div>
       )}
+      <GetStartedModal open={isModalOpen} onOpenChange={setIsModalOpen} />
     </header>
   );
 };
