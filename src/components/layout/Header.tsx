@@ -3,16 +3,36 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 import { usePathname } from "next/navigation";
 import { PiCaretDown } from "react-icons/pi";
 import GetStartedModal from "../getStartedModal";
+import { ChevronDown, ChevronRight } from "lucide-react";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "../ui/hover-card";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isMoreDropdownOpen, setIsMoreDropdownOpen] = useState(false);
   const pathname = usePathname();
+
+  const dropdownVariants = {
+    hidden: {
+      opacity: 0,
+      y: -10,
+      transition: { duration: 0.2 },
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.3, ease: "easeOut" },
+    },
+  };
 
   return (
     <header className="w-full bg-white fixed left-0 right-0 z-[10] py-[30.63px] border-b border-[#E0E0E0] max-w-[1800px] mx-auto">
@@ -71,19 +91,97 @@ const Header = () => {
           >
             Pricing
           </Link>
-          <Link
-            href="#"
-            className={`font-medium hover:text-gray-600 ${
-              pathname === "/#" ? "text-[#1D1D1B] " : "text-[#6E6E6E]"
-            }`}
-          >
-            <span className="flex items-center gap-[3.69px]">
-              More
-              <span>
-                <PiCaretDown />
-              </span>
-            </span>
-          </Link>
+
+          <HoverCard openDelay={0} closeDelay={200}>
+            <HoverCardTrigger asChild>
+              <button className="font-medium cursor-pointer text-[#6E6E6E] hover:text-[#1D1D1B] uppercase flex items-center">
+                More
+                <ChevronDown className="w-4 h-4 ml-1" />
+              </button>
+            </HoverCardTrigger>
+            <HoverCardContent
+              className="w-[353px] p-0 rounded-3xl shadow-lg border-[0.5px] border-[#C9C9C9]"
+              sideOffset={20}
+              alignOffset={-50}
+              side="bottom"
+              align="start"
+            >
+              <div className="p-5">
+                {/* Team Section */}
+                <Link
+                  href="/team"
+                  className="flex items-center border-b pb-[20px] border-gray-200 group mb-5"
+                >
+                  <div className="mr-4 h-[43px] w-[46px] overflow-hidden">
+                    <Image
+                      src="/assets/images/team-thumbnail.png"
+                      alt="Team"
+                      width={46}
+                      height={43}
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="flex items-center">
+                    <div className="">
+                      <h3 className="text-sm font-medium mb-1 text-[#1D1D1B]">
+                        TEAM
+                      </h3>
+                      <p className="text-[#787878] text-xs">
+                        Meet the passionate individuals behind our brand.
+                      </p>
+                    </div>
+
+                    <div>
+                      {" "}
+                      <ChevronRight className="h-6 w-6 text-gray-400 group-hover:text-black transition-colors" />
+                    </div>
+                  </div>
+                </Link>
+
+                {/* Blog Section */}
+                <Link
+                  href="/blog"
+                  className="flex items-center border-b pb-5 border-gray-200 group"
+                >
+                  <div className="mr-4 h-[43px] w-[46px] overflow-hidden">
+                    <Image
+                      src="/assets/images/blog-thumbnail.png"
+                      alt="Blog"
+                      width={46}
+                      height={43}
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className=" flex items-center ">
+                    <div>
+                      <h3 className="text-sm font-semibold mb-1 text-[#1D1D1B]">
+                        BLOG
+                      </h3>
+                      <p className="text-[#787878] text-xs">
+                        Insights, updates, and inspiration just for you.
+                      </p>
+                    </div>
+                    <div>
+                      <ChevronRight className="h-6 w-6 text-gray-400 group-hover:text-black transition-colors" />
+                    </div>
+                  </div>
+                </Link>
+
+                {/* Contact Us Section */}
+                <Link href="/contact" className="flex items-center py-5 group">
+                  <div className="flex-1">
+                    <h3 className="text-sm font-medium mb-1 text-[#1D1D1B]">
+                      CONTACT US
+                    </h3>
+                    <p className="text-[#787878] text-xs">
+                      Have questions? We're here to help!
+                    </p>
+                  </div>
+                  <ChevronRight className="h-6 w-6 text-gray-400 group-hover:text-black transition-colors" />
+                </Link>
+              </div>
+            </HoverCardContent>
+          </HoverCard>
         </nav>
 
         {/* Auth Buttons */}
