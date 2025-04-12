@@ -18,7 +18,7 @@ export default function PricingCard({
   image,
   timeline,
   price,
-  type,
+
   badge,
 }: PricingCardProps) {
   return (
@@ -31,13 +31,19 @@ export default function PricingCard({
         <Image src={image} alt={title} fill className="object-cover" />
       </div>
       <div className="p-5 border-t-[0.5px] border-[#C9C9C9] relative">
-        {badge && (
+        {(badge === "premium" || badge === "Clothing") && (
           <div
-            className="absolute top-6 right-3 text-white text-xs w-[65px] h-[17px] flex items-center justify-center rounded-full"
+            className="absolute top-6 right-3 text-white text-xs py-[2px] px-[7px] flex items-center justify-center rounded-full capitalize"
             style={{
               background: "linear-gradient(90deg, #C49524 0%, #FFE5A7 100%)",
             }}
           >
+            {badge}
+          </div>
+        )}
+
+        {badge === "basic" && (
+          <div className="absolute top-6 right-3 text-white text-xs py-[2px] px-[7px] flex items-center justify-center rounded-full bg-black capitalize">
             {badge}
           </div>
         )}

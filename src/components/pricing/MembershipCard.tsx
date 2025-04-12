@@ -53,15 +53,15 @@ export default function MembershipCard({
 
         <button
           onClick={onGetStarted}
-          className="w-full bg-black text-white h-[46px] rounded-full flex items-center justify-center font-medium hover:bg-gray-900 transition-colors"
+          className="w-full bg-black cursor-pointer text-white h-[46px] rounded-full flex items-center justify-center font-medium hover:bg-gray-900 transition-colors"
         >
           GET STARTED
         </button>
 
         <div className="space-y-3 text-sm pt-6">
-          {savingsPercentage == "No image savings " && (
+          {savingsPercentage && (
             <div className="flex items-start">
-              <span className="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center mr-2">
+              <span className=" flex items-center justify-center mr-2">
                 <Image
                   src="/assets/images/CurrencyCircleDollar.svg"
                   width={20}
@@ -86,8 +86,8 @@ export default function MembershipCard({
           )}
 
           {imagesPerMonth && (
-            <div className="flex start">
-              <span className="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center mr-2">
+            <div className="flex items-start">
+              <span className=" flex items-center justify-center mr-2">
                 <Image
                   src="/assets/images/gallery.svg"
                   width={20}
@@ -95,7 +95,7 @@ export default function MembershipCard({
                   alt="CurrencyCircelDollar"
                 />
               </span>
-              <span>{imagesPerMonth} Images per month</span>
+              <span className="-mt-1">{imagesPerMonth}</span>
             </div>
           )}
 
@@ -112,8 +112,8 @@ export default function MembershipCard({
           </div>
 
           {minimumOrder && (
-            <div className="flex items-center">
-              <span className="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center mr-2">
+            <div className="flex items-start">
+              <span className=" flex items-center justify-center mr-2">
                 <Image
                   src="/assets/images/group-gallery.svg"
                   width={20}
@@ -121,7 +121,7 @@ export default function MembershipCard({
                   alt="CurrencyCircelDollar"
                 />
               </span>
-              <span>{minimumOrder}</span>
+              <span className="">{minimumOrder}</span>
             </div>
           )}
         </div>

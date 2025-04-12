@@ -48,7 +48,7 @@ const videoOptions = [
     image: "/assets/pricing/basic.png",
     timeline: "7 business days",
     price: "₦650,000/image",
-    badge: "basic" as const,
+    badge: "" as const,
   },
 ];
 
@@ -87,7 +87,7 @@ export default function ProductVideosSection() {
             image={option.image}
             timeline={option.timeline}
             price={option.price}
-            type={option.badge}
+            badge={option.badge}
           />
         ))}
       </div>
