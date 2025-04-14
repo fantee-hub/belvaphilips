@@ -25,7 +25,7 @@ const gilroy = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "BelyaPhilips Imagery - Studio Quality Photography",
+  title: "BelvaPhilips Imagery - Studio Quality Photography",
   description: "Studio quality photography made simple",
 };
 
