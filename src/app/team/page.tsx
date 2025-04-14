@@ -80,8 +80,8 @@ const teamMembers = [
 
 export default function TeamSection() {
   return (
-    <section>
-      <div className="container container mx-auto px-4 py-16">
+    <section className="pt-[100px]">
+      <div className="container mx-auto px-4 py-16">
         <motion.h2
           className="text-[82.83px] font-semibold mb-16 leading-[115%] text-[#1D1D1B] tracking-[-3px]"
           initial={{ opacity: 0, y: -20 }}
