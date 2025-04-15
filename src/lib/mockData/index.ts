@@ -861,4 +861,18 @@ export const portfolios = [
     image: "/assets/portfolio/drinks/17.jpg",
     details: "Premium product photography for alcohol",
   },
+  {
+    id: 121,
+    title: "Drinks",
+    category: "DRINKS",
+    image: "/assets/portfolio/drinks/18.jpg",
+    details: "Premium product photography for alcohol",
+  },
+  {
+    id: 122,
+    title: "Drinks",
+    category: "DRINKS",
+    image: "/assets/portfolio/drinks/19.jpg",
+    details: "Premium product photography for alcohol",
+  },
 ];

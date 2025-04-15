@@ -1,20 +1,26 @@
+// components/home/ProductSelectionForm.tsx
 "use client";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { shootTypes } from "@/lib/mockData/portfolioData";
+// Import from the updated data file
 
-const productOptions = {
-  Clothing: ["Model", "Flatlay", "Ghost", "Pinned", "Video"],
-  Shoes: ["Model", "Catalogue", "Video"],
-  Bags: ["Model", "Catalogue", "Hanged", "Video"],
-  Beauty: ["Model", "Catalogue", "Swatch", "Video"],
-  Jewelry: ["Model", "Catalogue", "Video"],
-  Drinks: ["Catalogue", "Video"],
-};
+// Convert the shootTypes object keys to title case for display
+const productOptions: Record<string, string[]> = {};
+Object.keys(shootTypes).forEach((category) => {
+  const titleCaseCategory =
+    category.charAt(0).toUpperCase() + category.slice(1).toLowerCase();
+  productOptions[titleCaseCategory] = shootTypes[
+    category as keyof typeof shootTypes
+  ].map((type) => type.charAt(0).toUpperCase() + type.slice(1).toLowerCase());
+});
 
 type ProductType = keyof typeof productOptions;
 
 const ProductSelectionForm = () => {
+  const router = useRouter();
   const [isProductDropdownOpen, setIsProductDropdownOpen] = useState(false);
   const [isShootTypeDropdownOpen, setIsShootTypeDropdownOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<ProductType | null>(
@@ -33,6 +39,15 @@ const ProductSelectionForm = () => {
   const handleShootTypeSelect = (shootType: string) => {
     setSelectedShootType(shootType);
     setIsShootTypeDropdownOpen(false);
+  };
+
+  const handleGetQuote = () => {
+    if (selectedProduct && selectedShootType) {
+      // Navigate to the product configuration page
+      router.push(
+        `/product/${selectedProduct.toLowerCase()}/${selectedShootType.toLowerCase()}`
+      );
+    }
   };
 
   const dropdownVariants = {
@@ -287,6 +302,7 @@ const ProductSelectionForm = () => {
         disabled={!selectedProduct || !selectedShootType}
         whileHover={selectedProduct && selectedShootType ? { scale: 1.03 } : {}}
         whileTap={selectedProduct && selectedShootType ? { scale: 0.98 } : {}}
+        onClick={handleGetQuote}
       >
         GET QUOTE
       </motion.button>

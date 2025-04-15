@@ -25,7 +25,7 @@ const benefits = [
 
 // Custom Icons Components
 const DaysIcon = () => (
-  <div className=" h-32 flex  space-x-[14px]">
+  <div className=" h-32 flex space-x-[14px]">
     <div className="flex items-center gap-4 -mb-8">
       <span className="text-gray-200 text-[30px]">9</span>
       <span className="text-gray-200 text-[30px]">8</span>
