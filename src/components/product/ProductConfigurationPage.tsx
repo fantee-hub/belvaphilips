@@ -157,7 +157,7 @@ const ProductConfigurationPage = ({
             >
               {/* Category Tag */}
               <div className="mb-4">
-                <span className="flex items-center justify-center w-[107px] h-[35px] rounded-full border border-[#1D1D1B] text-lg font-medium">
+                <span className="flex items-center justify-center w-[137px] h-[35px] py-[14px] px-[11px] rounded-full border border-[#1D1D1B] text-lg font-medium">
                   {shootType}
                 </span>
               </div>
@@ -232,7 +232,13 @@ const ProductConfigurationPage = ({
               </div>
 
               {/* Order Summary */}
-              <OrderSummary basePrice={basePrice} quantity={quantity} />
+              <OrderSummary
+                basePrice={basePrice}
+                quantity={quantity}
+                selectedFinish={selectedFinish}
+                selectedShootType={selectedShootType}
+                category={category}
+              />
 
               {/* What's Included */}
               <div className="mt-8">
