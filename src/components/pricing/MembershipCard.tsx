@@ -43,7 +43,7 @@ export default function MembershipCard({
         <div className="bg-transparent border-none text-center py-[14px]"></div>
       )}
 
-      <div className="p-4 border border-gray-200 h-[95%] space-y-4">
+      <div className="p-4 border border-gray-200 h-[413px] space-y-4">
         <div>
           <h3 className="text-[20px] font-medium mb-2">{title}</h3>
           <p className="text-[#444444]">{description}</p>

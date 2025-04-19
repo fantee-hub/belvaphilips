@@ -30,7 +30,7 @@ export default function MembershipsSection() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 h-full">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 ">
         <MembershipCard
           title="PAY AS YOU GO"
           description="No commitment. Best suited for small or one-time orders."

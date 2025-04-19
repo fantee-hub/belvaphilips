@@ -5,6 +5,7 @@ import { GoArrowRight } from "react-icons/go";
 import Image from "next/image";
 import { Edit, PaperclipIcon, Pencil, Trash2, Upload } from "lucide-react";
 import { useRouter } from "next/navigation";
+import MembershipModal from "./MembershipModal";
 
 interface ProductConfig {
   category?: string;
@@ -49,6 +50,7 @@ const FinalizeProjectPage = () => {
   const [customShots, setCustomShots] = useState<
     { id?: string; name: string; src: string }[]
   >([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Retrieve product config from localStorage on component mount
   useEffect(() => {
@@ -502,7 +504,10 @@ const FinalizeProjectPage = () => {
                   <span className="font-semibold text-[#1D1D1B]">
                     Upgrade your membership in order to save up to 25%!
                   </span>
-                  <button className="bg-black text-white h-[38px] w-[106px] flex items-center justify-center text-sm font-semibold uppercase rounded-full">
+                  <button
+                    onClick={() => setIsModalOpen(true)}
+                    className="bg-black cursor-pointer text-white h-[38px] w-[106px] flex items-center justify-center text-sm font-semibold uppercase rounded-full"
+                  >
                     Upgrade
                   </button>
                 </div>
@@ -511,6 +516,7 @@ const FinalizeProjectPage = () => {
           </div>
         </div>
       </div>
+      <MembershipModal open={isModalOpen} onOpenChange={setIsModalOpen} />
     </div>
   );
 };
