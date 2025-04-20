@@ -186,7 +186,7 @@ export default function ShippingPolicy() {
                 <motion.div
                   key={`${sectionIndex}-${index}`}
                   variants={paragraphVariants}
-                  className="text-lg text-[#1D1D1B] leading-relaxed"
+                  className="text-lg text-[#444444] leading-relaxed"
                 >
                   {paragraph}
                 </motion.div>
