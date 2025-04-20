@@ -14,7 +14,7 @@ export default function MembershipModal({
 }: MembershipModalProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="!max-w-[1403px] !pt-6 !pb-[46px] bg-white border-none !rounded-none">
+      <DialogContent className="!max-w-[1300px] !pt-6 !pb-[46px] bg-white border-none !rounded-none">
         <DialogTitle className="hidden"></DialogTitle>
         <div className="flex flex-col items-center">
           <MembershipsSection />

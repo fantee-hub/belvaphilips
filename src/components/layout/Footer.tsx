@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { CiMapPin } from "react-icons/ci";
 import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
+import { FaBehance, FaPinterestP, FaXTwitter } from "react-icons/fa6";
 import { Karla } from "next/font/google";
 
 const karla = Karla({ subsets: ["latin"] });
@@ -48,18 +48,24 @@ const Footer = () => {
                   <p className="text-lg font-medium">09021431336</p>
                 </div>
               </div>
-              <div className="flex items-center gap-[17.94px]">
-                <span className="w-[52.71px] h-[52.71px] flex items-center justify-center border border-black rounded-full">
-                  <FaInstagram size={26.91} />
+              <div className="flex items-center gap-[10px]">
+                <span className="w-[40px] h-[40px] flex items-center justify-center border border-black rounded-full">
+                  <FaInstagram size={20} />
                 </span>
-                <span className="w-[52.71px] h-[52.71px] flex items-center justify-center border border-black rounded-full">
-                  <FaFacebookF size={26.91} />
+                <span className="w-[40px] h-[40px] flex items-center justify-center border border-black rounded-full">
+                  <FaFacebookF size={20} />
                 </span>
-                <span className="w-[52.71px] h-[52.71px] flex items-center justify-center border border-black rounded-full">
-                  <FaXTwitter size={26.91} />
+                <span className="w-[40px] h-[40px] flex items-center justify-center border border-black rounded-full">
+                  <FaXTwitter size={20} />
                 </span>
-                <span className="w-[52.71px] h-[52.71px] flex items-center justify-center border border-black rounded-full">
-                  <FaLinkedinIn size={26.91} />
+                <span className="w-[40px] h-[40px] flex items-center justify-center border border-black rounded-full">
+                  <FaLinkedinIn size={20} />
+                </span>
+                <span className="w-[40px] h-[40px] flex items-center justify-center border border-black rounded-full">
+                  <FaBehance />
+                </span>
+                <span className="w-[40px] h-[40px] flex items-center justify-center border border-black rounded-full">
+                  <FaPinterestP />
                 </span>
               </div>
               <div>
@@ -89,17 +95,17 @@ const Footer = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/careers" className="hover:underline">
+                  <Link href="/blog" className="hover:underline">
                     Blog
                   </Link>
                 </li>
                 <li>
-                  <Link href="/team" className="hover:underline">
+                  <Link href="/pricing" className="hover:underline">
                     Services
                   </Link>
                 </li>
                 <li>
-                  <Link href="/support" className="hover:underline">
+                  <Link href="/team" className="hover:underline">
                     Team
                   </Link>
                 </li>
@@ -112,25 +118,25 @@ const Footer = () => {
               </h4>
               <ul className="space-y-4">
                 <li>
-                  <Link href="/services" className="hover:underline">
+                  <Link href="/portfolio" className="hover:underline">
                     Portfolio
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="/pricing"
+                    href="/how-it-works"
                     className="hover:underline whitespace-nowrap"
                   >
                     How It Works
                   </Link>
                 </li>
                 <li>
-                  <Link href="/faqs" className="hover:underline">
+                  <Link href="/pricing" className="hover:underline">
                     Pricing
                   </Link>
                 </li>
                 <li>
-                  <Link href="/testimonials" className="hover:underline">
+                  <Link href="/pricing" className="hover:underline">
                     Membership
                   </Link>
                 </li>
@@ -143,32 +149,44 @@ const Footer = () => {
               </h4>
               <ul className="space-y-4">
                 <li>
-                  <Link href="/blog" className="hover:underline">
+                  <Link
+                    href="/portfolio?tab=CLOTHING"
+                    className="hover:underline"
+                  >
                     Clothing
                   </Link>
                 </li>
                 <li>
-                  <Link href="/guides" className="hover:underline">
+                  <Link href="/portfolio?tab=BAGS" className="hover:underline">
                     Bags
                   </Link>
                 </li>
                 <li>
-                  <Link href="/terms" className="hover:underline">
+                  <Link href="/portfolio?tab=SHOES" className="hover:underline">
                     Shoes
                   </Link>
                 </li>
                 <li>
-                  <Link href="/privacy" className="hover:underline">
+                  <Link
+                    href="/portfolio?tab=BEAUTY"
+                    className="hover:underline"
+                  >
                     Beauty
                   </Link>
                 </li>
                 <li>
-                  <Link href="/privacy" className="hover:underline">
+                  <Link
+                    href="/portfolio?tab=JEWELY"
+                    className="hover:underline"
+                  >
                     Jewelry
                   </Link>
                 </li>
                 <li>
-                  <Link href="/privacy" className="hover:underline">
+                  <Link
+                    href="/portfolio?tab=DRINKS"
+                    className="hover:underline"
+                  >
                     Drinks
                   </Link>
                 </li>
@@ -180,28 +198,28 @@ const Footer = () => {
                 Help
               </h4>
               <ul className="space-y-4">
-                <li>
-                  <Link href="/blog" className="hover:underline">
+                <li className="whitespace-nowrap">
+                  <Link href="/exclusivity-license" className="hover:underline">
                     Exclusivity License
                   </Link>
                 </li>
                 <li>
-                  <Link href="/guides" className="hover:underline">
+                  <Link href="/privacy-policy" className="hover:underline">
                     Privacy Policy
                   </Link>
                 </li>
                 <li>
-                  <Link href="/terms" className="hover:underline">
+                  <Link href="/shipping-policy" className="hover:underline">
                     Shipping Policy
                   </Link>
                 </li>
-                <li>
-                  <Link href="/privacy" className="hover:underline">
+                <li className="whitespace-nowrap">
+                  <Link href="/terms-conditions" className="hover:underline">
                     Terms and Conditions
                   </Link>
                 </li>
                 <li>
-                  <Link href="/privacy" className="hover:underline">
+                  <Link href="/product-returns" className="hover:underline">
                     Product Returns
                   </Link>
                 </li>
