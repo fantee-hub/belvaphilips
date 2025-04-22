@@ -1,10 +1,11 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { JSX } from "react";
 
 interface TeamMemberProps {
   name: string;
   title: string;
-  bio: string[];
+  bio: JSX.Element[];
   image: string;
   imagePosition: "left" | "right";
 }
@@ -49,7 +50,7 @@ export default function TeamMember({
         }`}
       >
         <motion.h3
-          className="text-[28px] font-semibold leading-[155%] text-[#1D1D1B]"
+          className="text-[28px] font-semibold leading-[155%] text-[#1D1D1B] uppercase"
           initial={{ opacity: 0, x: imagePosition === "left" ? 20 : -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
@@ -67,7 +68,7 @@ export default function TeamMember({
           {title}
         </motion.p>
 
-        <div className="space-y-4">
+        <div className="space-y-4 max-w-[772px]">
           {bio.map((paragraph, index) => (
             <motion.p
               key={index}
