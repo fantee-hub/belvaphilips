@@ -7,20 +7,26 @@ import PricingSection from "@/components/home/PricingSection";
 import ProcessSection from "@/components/home/ProcessSection";
 import TestimonialsSection from "@/components/home/TestimonialsSection";
 import USPSection from "@/components/home/USPSection";
+import Footer from "@/components/layout/Footer";
+import Header from "@/components/layout/Header";
 import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="pt-[100px]">
-      <HeroSection />
-      <BrandsStrip />
-      <PricingSection />
-      <PortfolioShowcase />
-      <USPSection />
-      <TestimonialsSection />
-      <ProcessSection />
-      <CTASection />
-      <FAQSection />
-    </div>
+    <>
+      <Header />
+      <div className="pt-[100px]">
+        <HeroSection />
+        <BrandsStrip />
+        <PricingSection />
+        <PortfolioShowcase />
+        <USPSection />
+        <TestimonialsSection />
+        <ProcessSection />
+        <CTASection />
+        <FAQSection />
+      </div>
+      <Footer />
+    </>
   );
 }

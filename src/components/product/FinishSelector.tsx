@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 interface FinishSelectorProps {
   selectedFinish: string;
   onSelectFinish: (finish: string) => void;
+  category: string;
+  shootType: string;
 }
 
 const finishes = [
@@ -39,13 +41,28 @@ const finishes = [
 const FinishSelector = ({
   selectedFinish,
   onSelectFinish,
+  category,
+  shootType,
 }: FinishSelectorProps) => {
+  // Filter finishes based on category and shoot type
+  const availableFinishes = finishes.filter((finish) => {
+    if (finish.title === "BASIC END FINISH") {
+      // BASIC END FINISH is only available for FLATLAY in CLOTHING and not for MODEL in any category
+      return (
+        (category === "CLOTHING" && shootType === "FLATLAY") ||
+        (category !== "CLOTHING" && shootType !== "MODEL")
+      );
+    }
+    // All other finishes are available, but MODEL must not include BASIC
+    return true;
+  });
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      {finishes.map((finish) => (
+      {availableFinishes.map((finish) => (
         <motion.div
           key={finish.id}
-          className={`border-[0.5px] border-[#1D1D1B]  p-4 cursor-pointer transition-colors ${
+          className={`border-[0.5px] border-[#1D1D1B] p-4 cursor-pointer transition-colors ${
             selectedFinish === finish.title
               ? "border-gray-800 bg-[#E3E3E3]"
               : "border-[#C9C9C9] hover:border-gray-400"

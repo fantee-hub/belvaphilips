@@ -11,38 +11,56 @@ import "swiper/css";
 const testimonials = [
   {
     id: 1,
-    company: "TECNO",
-    logo: "/assets/brands/tecno.png",
-    position: "Head of marketing at Tecno",
-    quote:
-      '"Sales doubled after updating our website with these photos. The quality speaks for itself!"',
-    highlight: "Sales doubled",
-  },
-  {
-    id: 2,
     company: "BEAUTY BY AD",
     logo: "/assets/brands/beauty-by-ad.png",
     position: "CEO at BeatyByAd",
     quote:
-      '"Every shot was pure perfection! Our product images finally match the high quality of our brand."',
+      '"Belvaphillps Imagery is a good brand. I enjoyed working with them while shooting for my products. I observed the professionalism and attention to details which have kept me satisfied with their service"',
     highlight: "pure perfection!",
   },
   {
-    id: 3,
-    company: "Smirnoff",
-    logo: "/assets/brands/Smirnoff.png",
-    position: "Head of Digital Marketing",
+    id: 2,
+    company: "OMARICODE",
+    logo: "/assets/brands/omaricode.png",
+    position: "CEO at Omaricode",
     quote:
-      '"We noticed a significant increase in engagement on Instagram after using their professional lifestyle shots."',
+      "You can't have better elsewhere, Belvaphilips Imagery is tomorrow's photography today.",
+    highlight: "Sales doubled",
+  },
+  {
+    id: 3,
+    company: "OLAH",
+    logo: "/assets/brands/olah.png",
+    position: "CEO at Olaherbals",
+    quote:
+      "Our Ads are performing awesome when we started working with you guys. Your Images drives massive engagements on our instagram.",
     highlight: "significant increase",
   },
   {
     id: 4,
-    company: "Ribenna",
-    logo: "/assets/brands/ribena.png",
-    position: "CEO at Ribena",
+    company: "COSMETIC CHEF",
+    logo: "/assets/brands/cosmetic-chef.png",
+    position: "Creative Head at CosmeticChef",
     quote:
-      '"Our ads are performing better, click-through rates have doubled since we started using BelvaPhilips!"',
+      "The Videos and the images are very fine. i cant wait to put them out there.",
+    highlight: " click-through rates have doubled",
+  },
+  {
+    id: 5,
+    company: "STYCHIES",
+    logo: "/assets/brands/stychies.png",
+    position: "Creative Head at Stychies",
+    quote:
+      "I'm very impressed and happy with your work on my project, it's amazing. i also wanted to thank you for accomodating my request.",
+    highlight: "pure perfection!",
+  },
+  {
+    id: 6,
+    company: "HENEDENA",
+    logo: "/assets/brands/henedena.png",
+    position: "Creative Head at Stychies",
+    quote:
+      "I'm very impressed and happy with your work on my project, it's amazing. i also wanted to thank you for accomodating my request.",
     highlight: " click-through rates have doubled",
   },
 ];
@@ -60,7 +78,7 @@ const HighlightedQuote = ({
 
   const parts = quote.split(highlight);
   return (
-    <p className="text-xl font-bold">
+    <p className="text-xl font-bold text-[#7E7E7E]">
       {parts[0]}
       <span className="font-bold text-black">{highlight}</span>
       {parts[1]}
@@ -135,13 +153,13 @@ const TestimonialsSection = () => {
               {testimonials.map((testimonial) => (
                 <div
                   key={testimonial.id}
-                  className={`border border-gray-200 p-6 h-full max-w-[655px] w-full mr-6 relative`}
+                  className={`border border-gray-200 p-6  max-w-[635px] h-[314px] w-full mr-6 relative`}
                 >
-                  <div className="mb-5">
-                    <div className="h-[120px] mb-3 flex items-center  absolute -top-[30px]">
+                  <div className="mb-4">
+                    <div className="h-[120px] mb-3 flex items-center  absolute -top-[5px]">
                       <div
                         style={{
-                          maxWidth: "70px",
+                          maxWidth: "80px",
                           minHeight: "12px",
                           position: "relative",
                           display: "flex",
@@ -151,10 +169,10 @@ const TestimonialsSection = () => {
                         <Image
                           src={testimonial.logo}
                           alt={testimonial.company}
-                          width={71}
+                          width={80}
                           height={50}
                           style={{
-                            maxHeight: "120px",
+                            maxHeight: "100px",
 
                             objectFit: "contain",
                             objectPosition: "left",
@@ -162,7 +180,7 @@ const TestimonialsSection = () => {
                         />
                       </div>
                     </div>
-                    <p className="text-[#444444] font-medium text-[18px] mt-10">
+                    <p className="text-[#444444] font-medium text-[18px] mt-[80px]">
                       {testimonial.position}
                     </p>
                   </div>

@@ -1,5 +1,7 @@
 "use client";
 
+import Footer from "@/components/layout/Footer";
+import Header from "@/components/layout/Header";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
@@ -102,48 +104,52 @@ export default function ExclusivityLicense() {
   };
 
   return (
-    <div className="bg-white pt-[100px]">
-      <div className="container mx-auto px-4 py-16">
-        <motion.h1
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-[82.83px] font-semibold mb-[30px] leading-[115%] tracking-[-3px]"
-        >
-          EXCLUSIVITY LICENSE
-        </motion.h1>
+    <>
+      <Header />
+      <div className="bg-white pt-[100px]">
+        <div className="container mx-auto px-4 py-16">
+          <motion.h1
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-[82.83px] font-semibold mb-[30px] leading-[115%] tracking-[-3px]"
+          >
+            EXCLUSIVITY LICENSE
+          </motion.h1>
 
-        {sections.map((section, sectionIndex) => (
-          <div key={sectionIndex} className="mb-8">
-            {section.title !== "Introduction" && (
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="text-[24px] font-semibold mb-4 capitalize leading-[150%]"
-              >
-                {section.title}
-              </motion.h2>
-            )}
-            <motion.div
-              className="space-y-4 max-w-3xl"
-              variants={containerVariants}
-              initial="hidden"
-              animate={isLoaded ? "visible" : "hidden"}
-            >
-              {section.content.map((paragraph, index) => (
-                <motion.div
-                  key={`${sectionIndex}-${index}`}
-                  variants={paragraphVariants}
-                  className="text-lg text-[#444444] leading-relaxed"
+          {sections.map((section, sectionIndex) => (
+            <div key={sectionIndex} className="mb-8">
+              {section.title !== "Introduction" && (
+                <motion.h2
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                  className="text-[24px] font-semibold mb-4 capitalize leading-[150%]"
                 >
-                  {paragraph}
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
-        ))}
+                  {section.title}
+                </motion.h2>
+              )}
+              <motion.div
+                className="space-y-4 max-w-3xl"
+                variants={containerVariants}
+                initial="hidden"
+                animate={isLoaded ? "visible" : "hidden"}
+              >
+                {section.content.map((paragraph, index) => (
+                  <motion.div
+                    key={`${sectionIndex}-${index}`}
+                    variants={paragraphVariants}
+                    className="text-lg text-[#444444] leading-relaxed"
+                  >
+                    {paragraph}
+                  </motion.div>
+                ))}
+              </motion.div>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 }

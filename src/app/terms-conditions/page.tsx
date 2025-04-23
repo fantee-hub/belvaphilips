@@ -1,5 +1,7 @@
 "use client";
 
+import Footer from "@/components/layout/Footer";
+import Header from "@/components/layout/Header";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
@@ -444,69 +446,73 @@ export default function TermsAndConditions() {
   };
 
   return (
-    <div className="bg-white pt-[100px]">
-      <div className="container mx-auto px-4 py-16">
-        <motion.h1
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-[82.83px] font-semibold mb-[20px] leading-[115%] tracking-[-3px] uppercase"
-        >
-          Terms and Conditions
-        </motion.h1>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className=" flex flex-col gap-5 mb-8 max-w-[908px]"
-        >
-          <p className="text-[#787878]">Last updated: March 29, 2025</p>
-          <p className="text-lg text-[#444444] leading-relaxed">
-            Please read these{" "}
-            <span className="text-[#1D1D1B] font-semibold">
-              Terms and Conditions ("Terms", "Terms and Conditions")
-            </span>{" "}
-            carefully.
-            <br /> Your access to and use of the Service is conditioned upon
-            your acceptance of and compliance with these Terms. These Terms
-            apply to all visitors, users and others who wish to access or use
-            the Service. By accessing or using the Service you agree to be bound
-            by these Terms. If you disagree with any part of the terms then you
-            do not have permission to access the Service.
-          </p>
-        </motion.div>
+    <>
+      <Header />
+      <div className="bg-white pt-[100px]">
+        <div className="container mx-auto px-4 py-16">
+          <motion.h1
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-[82.83px] font-semibold mb-[20px] leading-[115%] tracking-[-3px] uppercase"
+          >
+            Terms and Conditions
+          </motion.h1>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className=" flex flex-col gap-5 mb-8 max-w-[908px]"
+          >
+            <p className="text-[#787878]">Last updated: March 29, 2025</p>
+            <p className="text-lg text-[#444444] leading-relaxed">
+              Please read these{" "}
+              <span className="text-[#1D1D1B] font-semibold">
+                Terms and Conditions ("Terms", "Terms and Conditions")
+              </span>{" "}
+              carefully.
+              <br /> Your access to and use of the Service is conditioned upon
+              your acceptance of and compliance with these Terms. These Terms
+              apply to all visitors, users and others who wish to access or use
+              the Service. By accessing or using the Service you agree to be
+              bound by these Terms. If you disagree with any part of the terms
+              then you do not have permission to access the Service.
+            </p>
+          </motion.div>
 
-        {sections.map((section, sectionIndex) => (
-          <div key={sectionIndex} className="mb-8 max-w-[908px]">
-            {section.title !== "Introduction" && (
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="text-[28px] font-semibold mb-4"
-              >
-                {section.title.toUpperCase()}
-              </motion.h2>
-            )}
-            <motion.div
-              className="space-y-4"
-              variants={containerVariants}
-              initial="hidden"
-              animate={isLoaded ? "visible" : "hidden"}
-            >
-              {section.content.map((paragraph, index) => (
-                <motion.div
-                  key={`${sectionIndex}-${index}`}
-                  variants={paragraphVariants}
-                  className="text-lg text-[#444444] leading-relaxed"
+          {sections.map((section, sectionIndex) => (
+            <div key={sectionIndex} className="mb-8 max-w-[908px]">
+              {section.title !== "Introduction" && (
+                <motion.h2
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                  className="text-[28px] font-semibold mb-4"
                 >
-                  {paragraph}
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
-        ))}
+                  {section.title.toUpperCase()}
+                </motion.h2>
+              )}
+              <motion.div
+                className="space-y-4"
+                variants={containerVariants}
+                initial="hidden"
+                animate={isLoaded ? "visible" : "hidden"}
+              >
+                {section.content.map((paragraph, index) => (
+                  <motion.div
+                    key={`${sectionIndex}-${index}`}
+                    variants={paragraphVariants}
+                    className="text-lg text-[#444444] leading-relaxed"
+                  >
+                    {paragraph}
+                  </motion.div>
+                ))}
+              </motion.div>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 }

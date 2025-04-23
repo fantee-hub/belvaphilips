@@ -7,6 +7,8 @@ import FixedPricingSection from "@/components/pricing/FixedPricingSection";
 import ProductVideosSection from "@/components/pricing/ProductVideosSection";
 import FAQSection from "@/components/home/FAQSection";
 import MembershipsSection from "@/components/pricing/MembershipsSection";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 // import GetStartedCTA from "@/components/pricing/GetStartedCTA";
 // import FAQSection from "@/components/pricing/FAQSection";
 
@@ -33,26 +35,30 @@ export default function PricingPage() {
   };
 
   return (
-    <div className="pt-[100px] bg-white" ref={ref}>
-      <div className="container mx-auto px-4 py-16">
-        <motion.div
-          initial="hidden"
-          animate={controls}
-          variants={containerVariants}
-          className="space-y-20"
-        >
-          <PricingHeader />
-          <FixedPricingSection />
-          <ProductVideosSection />
-          <MembershipsSection />
-          <FAQSection />
-          {/* 
+    <>
+      <Header />
+      <div className="pt-[100px] bg-white" ref={ref}>
+        <div className="container mx-auto px-4 py-16">
+          <motion.div
+            initial="hidden"
+            animate={controls}
+            variants={containerVariants}
+            className="space-y-20"
+          >
+            <PricingHeader />
+            <FixedPricingSection />
+            <ProductVideosSection />
+            <MembershipsSection />
+            <FAQSection />
+            {/* 
           <GetStartedCTA />
           
         
            */}
-        </motion.div>
+          </motion.div>
+        </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 }

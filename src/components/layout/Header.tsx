@@ -181,7 +181,7 @@ const Header = () => {
         {/* Auth Buttons */}
         <div className="hidden md:flex space-x-3">
           <Link
-            href="/login"
+            href="/signin"
             className="w-[84px] h-[38px] flex items-center justify-center rounded-full bg-[#EBEBEB] uppercase text-sm font-medium"
           >
             LOGIN

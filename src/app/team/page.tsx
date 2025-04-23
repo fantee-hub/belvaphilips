@@ -1,4 +1,6 @@
 "use client";
+import Footer from "@/components/layout/Footer";
+import Header from "@/components/layout/Header";
 import TeamMember from "@/components/team/TeamMember";
 import { motion } from "framer-motion";
 
@@ -187,31 +189,35 @@ const teamMembers = [
 
 export default function TeamSection() {
   return (
-    <section className="pt-[100px]">
-      <div className="container mx-auto px-4 py-16">
-        <motion.h2
-          className="text-[82.83px] font-semibold mb-16 leading-[115%] text-[#1D1D1B] tracking-[-3px]"
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          MEET THE TEAM
-        </motion.h2>
+    <>
+      <Header />
+      <section className="pt-[100px]">
+        <div className="container mx-auto px-4 py-16">
+          <motion.h2
+            className="text-[82.83px] font-semibold mb-16 leading-[115%] text-[#1D1D1B] tracking-[-3px]"
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            MEET THE TEAM
+          </motion.h2>
 
-        <div>
-          {teamMembers.map((member, index) => (
-            <TeamMember
-              key={index}
-              name={member.name}
-              title={member.title}
-              bio={member.bio}
-              image={member.image}
-              imagePosition={member.imagePosition}
-            />
-          ))}
+          <div>
+            {teamMembers.map((member, index) => (
+              <TeamMember
+                key={index}
+                name={member.name}
+                title={member.title}
+                bio={member.bio}
+                image={member.image}
+                imagePosition={member.imagePosition}
+              />
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+      <Footer />
+    </>
   );
 }

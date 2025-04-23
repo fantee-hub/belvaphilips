@@ -1,5 +1,7 @@
 "use client";
 
+import Footer from "@/components/layout/Footer";
+import Header from "@/components/layout/Header";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -117,56 +119,60 @@ export default function AboutUs() {
   };
 
   return (
-    <div className="bg-white pt-[100px]">
-      <div className="container mx-auto px-4 py-16">
-        <motion.h1
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-[82.83px] font-semibold  leading-[115%] tracking-[-3px]"
-        >
-          ABOUT US
-        </motion.h1>
+    <>
+      <Header />
+      <div className="bg-white pt-[100px]">
+        <div className="container mx-auto px-4 py-16">
+          <motion.h1
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-[82.83px] font-semibold  leading-[115%] tracking-[-3px]"
+          >
+            ABOUT US
+          </motion.h1>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="flex items-center gap-2 mb-8"
-        >
-          <span className="flex items-center gap-[3.68px] mt-[70px]">
-            <Image
-              src={"/assets/images/belvaphilips.svg"}
-              width={90.7}
-              height={69.39}
-              alt="belvaphilips imagery"
-            />
-            <span
-              className={`font-logo text-[52.57px] flex items-center gap-[2.45px]`}
-            >
-              <span className={`font-black  `}>BELVAPHILIPS</span>
-              <span className="font-light ">IMAGERY</span>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="flex items-center gap-2 mb-8"
+          >
+            <span className="flex items-center gap-[3.68px] mt-[70px]">
+              <Image
+                src={"/assets/images/belvaphilips.svg"}
+                width={90.7}
+                height={69.39}
+                alt="belvaphilips imagery"
+              />
+              <span
+                className={`font-logo text-[52.57px] flex items-center gap-[2.45px]`}
+              >
+                <span className={`font-black  `}>BELVAPHILIPS</span>
+                <span className="font-light ">IMAGERY</span>
+              </span>
             </span>
-          </span>
-        </motion.div>
+          </motion.div>
 
-        <motion.div
-          className="space-y-6 max-w-[908px]"
-          variants={containerVariants}
-          initial="hidden"
-          animate={isLoaded ? "visible" : "hidden"}
-        >
-          {paragraphs.map((paragraph, index) => (
-            <motion.p
-              key={index}
-              variants={paragraphVariants}
-              className="text-lg text-[#444444] leading-relaxed"
-            >
-              {paragraph}
-            </motion.p>
-          ))}
-        </motion.div>
+          <motion.div
+            className="space-y-6 max-w-[908px]"
+            variants={containerVariants}
+            initial="hidden"
+            animate={isLoaded ? "visible" : "hidden"}
+          >
+            {paragraphs.map((paragraph, index) => (
+              <motion.p
+                key={index}
+                variants={paragraphVariants}
+                className="text-lg text-[#444444] leading-relaxed"
+              >
+                {paragraph}
+              </motion.p>
+            ))}
+          </motion.div>
+        </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 }

@@ -4,6 +4,8 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import ProductConfigurationPage from "@/components/product/ProductConfigurationPage";
 import Spinner from "@/components/ui/Spinner";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 
 export default function ProductServicePage() {
   const params = useParams();
@@ -28,5 +30,11 @@ export default function ProductServicePage() {
     );
   }
 
-  return <ProductConfigurationPage category={category} shootType={shootType} />;
+  return (
+    <>
+      <Header />
+      <ProductConfigurationPage category={category} shootType={shootType} />
+      <Footer />
+    </>
+  );
 }

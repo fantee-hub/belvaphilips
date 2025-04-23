@@ -6,6 +6,8 @@ import DeliverySpeedCard from "@/components/checkout/DeliverySpeedCard";
 import OrderSummary from "@/components/checkout/OrderSummary";
 import { GoArrowRight } from "react-icons/go";
 import MembershipModal from "@/components/product/MembershipModal";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 
 const ArrowRight = () => (
   <svg
@@ -78,119 +80,128 @@ const CheckoutPage = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex justify-center items-center">
-        <p>Loading checkout...</p>
-      </div>
+      <>
+        <Header />
+        <div className="min-h-screen flex justify-center items-center">
+          <p>Loading checkout...</p>
+        </div>
+        <Footer />
+      </>
     );
   }
 
   return (
-    <div className="pt-[60px] bg-[#F5F5F5] min-h-screen">
-      <div className="container mx-auto px-4 py-16">
-        {/* Breadcrumb */}
-        <div className="mb-6">
-          <div className="flex items-center text-sm gap-1">
-            <span className="text-[#AAAAAA] font-medium">
-              {orderDetails.category || "CLOTHING"}
-            </span>
-            <span className="text-[#AAAAAA]">
-              <GoArrowRight />
-            </span>
+    <>
+      <Header />
+      <div className="pt-[60px] bg-[#F5F5F5] min-h-screen">
+        <div className="container mx-auto px-4 py-16">
+          {/* Breadcrumb */}
+          <div className="mb-6">
+            <div className="flex items-center text-sm gap-1">
+              <span className="text-[#AAAAAA] font-medium">
+                {orderDetails.category || "CLOTHING"}
+              </span>
+              <span className="text-[#AAAAAA]">
+                <GoArrowRight />
+              </span>
 
-            <span className="text-[#AAAAAA] font-medium">
-              {orderDetails.shootType || "FLATLAY"}
-            </span>
-            <span className="text-[#AAAAAA]">
-              <GoArrowRight />
-            </span>
-            <span className="text-[#AAAAAA] font-medium">FINALIZE</span>
-            <span className="text-[#AAAAAA]">
-              <GoArrowRight />
-            </span>
-            <span className="text-[#1D1D1B] font-bold">CHECKOUT</span>
+              <span className="text-[#AAAAAA] font-medium">
+                {orderDetails.shootType || "FLATLAY"}
+              </span>
+              <span className="text-[#AAAAAA]">
+                <GoArrowRight />
+              </span>
+              <span className="text-[#AAAAAA] font-medium">FINALIZE</span>
+              <span className="text-[#AAAAAA]">
+                <GoArrowRight />
+              </span>
+              <span className="text-[#1D1D1B] font-bold">CHECKOUT</span>
+            </div>
           </div>
-        </div>
 
-        {/* Page Title */}
-        <h1 className="text-5xl leading-[110%] font-bold mb-10">
-          FINALIZE YOUR PROJECT
-        </h1>
+          {/* Page Title */}
+          <h1 className="text-5xl leading-[110%] font-bold mb-10">
+            FINALIZE YOUR PROJECT
+          </h1>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-          {/* Left column - Checkout Details */}
-          <div className="lg:col-span-1">
-            {/* Delivery Speed */}
-            <div className="mb-5">
-              <h2 className="text-[28px] font-semibold mb-2">
-                IMAGE DELIVERY SPEED
-              </h2>
-              <p className="text-[#444444] mb-6">
-                Choose the delivery speed that best fits your timeline.
-              </p>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+            {/* Left column - Checkout Details */}
+            <div className="lg:col-span-1">
+              {/* Delivery Speed */}
+              <div className="mb-5">
+                <h2 className="text-[28px] font-semibold mb-2">
+                  IMAGE DELIVERY SPEED
+                </h2>
+                <p className="text-[#444444] mb-6">
+                  Choose the delivery speed that best fits your timeline.
+                </p>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border-[#D1D1D1] border-b pb-7">
-                <DeliverySpeedCard
-                  title="STANDARD"
-                  description="Delivered within 8 business days after we receive your products and payment."
-                  selected={selectedDeliveryType === "STANDARD"}
-                  onClick={() => setSelectedDeliveryType("STANDARD")}
-                />
-                <DeliverySpeedCard
-                  title="RUSH"
-                  description="Delivered within 8 business days after we receive your products and payment."
-                  selected={selectedDeliveryType === "RUSH"}
-                  onClick={() => setSelectedDeliveryType("RUSH")}
-                />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border-[#D1D1D1] border-b pb-7">
+                  <DeliverySpeedCard
+                    title="STANDARD"
+                    description="Delivered within 8 business days after we receive your products and payment."
+                    selected={selectedDeliveryType === "STANDARD"}
+                    onClick={() => setSelectedDeliveryType("STANDARD")}
+                  />
+                  <DeliverySpeedCard
+                    title="RUSH"
+                    description="Delivered within 8 business days after we receive your products and payment."
+                    selected={selectedDeliveryType === "RUSH"}
+                    onClick={() => setSelectedDeliveryType("RUSH")}
+                  />
+                </div>
               </div>
+
+              {/* Delivery Format */}
+              <div className="mb-9">
+                <h2 className="text-[28px] font-semibold mb-2">
+                  IMAGE DELIVERY FORMAT
+                </h2>
+                <p className="text-[#1D1D1B] mb-4">
+                  Standard product photos are delivered as high-resolution 300
+                  DPI JPEGs, using the maximum quality setting at 3000×3000
+                  pixels.
+                </p>
+                <p className="text-[#1D1D1B]">
+                  Depending on the product shape, excess white space may be
+                  cropped, leaving the longest dimension at least 3000 pixels,
+                  while the other dimension is adjusted to fit the product's
+                  shape.
+                </p>
+              </div>
+
+              {/* Start Project Button */}
+              <button
+                className="w-full bg-[#1D1D1B] text-white font-bold h-[47px] font-semibold mb-10 flex items-center justify-center hover:bg-gray-800 transition-colors cursor-pointer rounded-full"
+                onClick={handleStartProject}
+              >
+                START PROJECT
+              </button>
             </div>
 
-            {/* Delivery Format */}
-            <div className="mb-9">
-              <h2 className="text-[28px] font-semibold mb-2">
-                IMAGE DELIVERY FORMAT
-              </h2>
-              <p className="text-[#1D1D1B] mb-4">
-                Standard product photos are delivered as high-resolution 300 DPI
-                JPEGs, using the maximum quality setting at 3000×3000 pixels.
-              </p>
-              <p className="text-[#1D1D1B]">
-                Depending on the product shape, excess white space may be
-                cropped, leaving the longest dimension at least 3000 pixels,
-                while the other dimension is adjusted to fit the product's
-                shape.
-              </p>
+            {/* Right column - Order Summary */}
+            <div className="lg:col-span-1">
+              <OrderSummary
+                orderDetails={orderDetails}
+                selectedDeliveryType={selectedDeliveryType}
+                onUpgrade={() => setIsModalOpen(true)}
+              />
             </div>
-
-            {/* Start Project Button */}
-            <button
-              className="w-full bg-[#1D1D1B] text-white font-bold h-[47px] font-semibold mb-10 flex items-center justify-center hover:bg-gray-800 transition-colors cursor-pointer rounded-full"
-              onClick={handleStartProject}
-            >
-              START PROJECT
-            </button>
-          </div>
-
-          {/* Right column - Order Summary */}
-          <div className="lg:col-span-1">
-            <OrderSummary
-              orderDetails={orderDetails}
-              selectedDeliveryType={selectedDeliveryType}
-              onUpgrade={() => setIsModalOpen(true)}
-            />
           </div>
         </div>
+
+        {/* Success Modal */}
+        <SuccessModal
+          open={showSuccessModal}
+          onOpenChange={setShowSuccessModal}
+          onTrackStatus={handleTrackStatus}
+          onStartNewProject={handleStartNewProject}
+        />
+
+        <MembershipModal open={isModalOpen} onOpenChange={setIsModalOpen} />
       </div>
-
-      {/* Success Modal */}
-      <SuccessModal
-        open={showSuccessModal}
-        onOpenChange={setShowSuccessModal}
-        onTrackStatus={handleTrackStatus}
-        onStartNewProject={handleStartNewProject}
-      />
-
-      <MembershipModal open={isModalOpen} onOpenChange={setIsModalOpen} />
-    </div>
+      <Footer />
+    </>
   );
 };
 

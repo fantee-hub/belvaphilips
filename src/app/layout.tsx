@@ -41,10 +41,8 @@ export default function RootLayout({
         className={` ${inter.className} antialiased ${gilroy.variable}`}
         cz-shortcut-listen="true"
       >
-        <Header />
         <ScrollTop />
         <main>{children}</main>
-        <Footer />
       </body>
     </html>
   );

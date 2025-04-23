@@ -9,7 +9,10 @@ import MembershipPlans from "./MembershipPlans";
 import RelatedCategories from "./RelatedCategories";
 import OrderSummary from "./OrderSummary";
 import Accordion from "./Accordion";
-import { getProductsByTypeAndShoot } from "@/lib/mockData/portfolioData";
+import {
+  getProductsByTypeAndShoot,
+  getProductsByTypeAndShootAndFinish,
+} from "@/lib/mockData/portfolioData";
 import { GoArrowRight } from "react-icons/go";
 import FAQSection from "../home/FAQSection";
 import Link from "next/link";
@@ -28,6 +31,19 @@ const ProductConfigurationPage = ({
   const [quantity, setQuantity] = useState(1);
   const [basePrice, setBasePrice] = useState(25000);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+
+  useEffect(() => {
+    if (selectedShootType === "MODEL") {
+      setSelectedFinish("MEDIUM END FINISH");
+    } else if (
+      category === "CLOTHING" &&
+      ["GHOST", "PINNED"].includes(selectedShootType)
+    ) {
+      setSelectedFinish("MEDIUM END FINISH");
+    } else {
+      setSelectedFinish("BASIC END FINISH");
+    }
+  }, [category, selectedShootType]);
 
   useEffect(() => {
     switch (selectedFinish) {
@@ -50,20 +66,22 @@ const ProductConfigurationPage = ({
 
   useEffect(() => {
     setSelectedImageIndex(0);
-  }, [selectedShootType]);
+  }, [selectedShootType, selectedFinish]);
 
-  // Filter products based on the selected category AND shoot type
+  // Filter products based on the selected category, shoot type, and finish
   const filteredProducts = useMemo(() => {
-    return getProductsByTypeAndShoot(category, selectedShootType);
-  }, [category, selectedShootType]);
+    return getProductsByTypeAndShootAndFinish(
+      category,
+      selectedShootType,
+      selectedFinish
+    );
+  }, [category, selectedShootType, selectedFinish]);
 
-  // Get product images for the current category and shoot type
+  // Get product images for the current category, shoot type, and finish
   const productImages = useMemo(() => {
-    // If there's no filtered products, return empty array
     if (filteredProducts.length === 0) {
       return [];
     }
-
     return filteredProducts.slice(0, 4).map((product) => product.image);
   }, [filteredProducts]);
 
@@ -113,8 +131,7 @@ const ProductConfigurationPage = ({
                       </div>
                     </div>
                   ))
-                : // Placeholder for no images
-                  Array(4)
+                : Array(4)
                     .fill(0)
                     .map((_, index) => (
                       <div key={index} className="border p-1 border-gray-200">
@@ -185,6 +202,8 @@ const ProductConfigurationPage = ({
                 <FinishSelector
                   selectedFinish={selectedFinish}
                   onSelectFinish={setSelectedFinish}
+                  category={category}
+                  shootType={selectedShootType}
                 />
               </div>
 
