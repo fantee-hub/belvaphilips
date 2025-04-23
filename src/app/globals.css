@@ -133,4 +133,10 @@ body {
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
+
+  .custom-otp-input:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border-color: none !important;
+  }
 }

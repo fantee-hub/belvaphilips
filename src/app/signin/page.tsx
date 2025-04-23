@@ -1,6 +1,16 @@
+"use client";
+
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function Signin() {
+  const [email, setEmail] = useState("");
+  const router = useRouter();
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    router.push("/otp?email=" + email);
+  };
   return (
     <div
       style={{
@@ -37,16 +47,18 @@ export default function Signin() {
             photography.
           </p>
         </div>
-        <form className="space-y-5">
+        <form className="space-y-5" onSubmit={handleSubmit}>
           <input
             type="email"
             placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             className="rounded-full outline-none bg-[#F4F4F4] px-5 h-[47px] w-full placeholder:text-[#585858]"
           />
 
           <button
             type="submit"
-            className="bg-[#1D1D1B] text-white uppercase rounded-full h-[47px] w-full flex items-center justify-center  font-semibold text-base "
+            className="bg-[#1D1D1B] cursor-pointer text-white uppercase rounded-full h-[47px] w-full flex items-center justify-center  font-semibold text-base "
           >
             Sign In
           </button>
@@ -58,7 +70,7 @@ export default function Signin() {
         </div>
 
         <div className="max-w-[323px] mx-auto">
-          <button className="flex items-center justify-center w-full h-[44px] border border-[#DADADA] rounded-full text-[#101010]  gap-2">
+          <button className="flex items-center cursor-pointer justify-center w-full h-[44px] border border-[#DADADA] rounded-full text-[#101010]  gap-2">
             <span>
               <Image
                 src={"/assets/images/google.svg"}
