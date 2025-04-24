@@ -1,11 +1,12 @@
 "use client";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { contactUs } from "@/lib/api";
 
 export default function ContactForm() {
   const [formState, setFormState] = useState({
-    firstName: "",
-    lastName: "",
+    firstname: "",
+    lastname: "",
     email: "",
     message: "",
   });
@@ -26,16 +27,23 @@ export default function ContactForm() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
-    setFormState({
-      firstName: "",
-      lastName: "",
-      email: "",
-      message: "",
-    });
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+    try {
+      const { data } = await contactUs(formState);
+      if (data) {
+        console.log(data);
+        setIsSubmitted(true);
+        setIsSubmitting(false);
+        setFormState({
+          firstname: "",
+          lastname: "",
+          email: "",
+          message: "",
+        });
+      }
+    } catch (e) {
+      console.log(e);
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -56,9 +64,9 @@ export default function ContactForm() {
             >
               <input
                 type="text"
-                name="firstName"
+                name="firstname"
                 placeholder="First Name"
-                value={formState.firstName}
+                value={formState.firstname}
                 onChange={handleChange}
                 required
                 className="w-full px-4 h-[47px] rounded-full bg-gray-100 border-none focus:outline-none focus:ring-2 focus:ring-gray-200 placeholder:text-[#585858]"
@@ -71,9 +79,9 @@ export default function ContactForm() {
             >
               <input
                 type="text"
-                name="lastName"
+                name="lastname"
                 placeholder="Last Name"
-                value={formState.lastName}
+                value={formState.lastname}
                 onChange={handleChange}
                 required
                 className="w-full px-5 h-[47px] rounded-full bg-gray-100 border-none focus:outline-none focus:ring-2 focus:ring-gray-200 placeholder:text-[#585858]"

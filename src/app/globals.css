@@ -122,8 +122,14 @@ body {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-[#1D1D1B];
+  }
+
+  *:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
   .scrollbar-hide {
     scrollbar-width: none;
