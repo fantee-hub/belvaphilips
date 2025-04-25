@@ -12,13 +12,9 @@ const formatEmail = (email: string) => {
 };
 
 export function OtpContent({
-  handleContinue,
-
   otp,
   setOtp,
 }: {
-  handleContinue: () => void;
-
   otp: string;
   setOtp: (otp: string) => void;
 }) {
@@ -64,7 +60,6 @@ export function OtpContent({
       </div>
       <div className="mt-3">
         <button
-          onClick={handleContinue}
           type="submit"
           className="bg-[#1D1D1B] cursor-pointer text-white uppercase rounded-full h-[47px] w-full flex items-center justify-center  font-semibold text-base "
         >
