@@ -7,12 +7,6 @@ import { OtpContent } from "@/components/otp-contents/otp-content";
 export default function Otp() {
   const [otp, setOtp] = useState("");
 
-  const handleContinue = async () => {
-    // if (otp.length === 6) {
-    // }
-    console.log("OTP:", otp);
-  };
-
   return (
     <main
       style={{
@@ -26,7 +20,7 @@ export default function Otp() {
     >
       <div className="absolute inset-0 bg-[#D4D4D4] opacity-95"></div>
       <Suspense fallback={<p>Loading...</p>}>
-        <OtpContent handleContinue={handleContinue} otp={otp} setOtp={setOtp} />
+        <OtpContent otp={otp} setOtp={setOtp} />
       </Suspense>
     </main>
   );
