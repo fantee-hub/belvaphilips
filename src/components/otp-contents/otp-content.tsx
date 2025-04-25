@@ -3,6 +3,8 @@ import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { OTPInput } from "./otp-inputs";
 import Image from "next/image";
+import { useState } from "react";
+import { createClient } from "@/lib/supabase/client";
 
 const formatEmail = (email: string) => {
   if (!email) return "";
@@ -11,19 +13,35 @@ const formatEmail = (email: string) => {
   return `${localPart.slice(0, 3)}...@${domain}`;
 };
 
-export function OtpContent({
-  otp,
-  setOtp,
-}: {
-  otp: string;
-  setOtp: (otp: string) => void;
-}) {
+export function OtpContent() {
   const searchParams = useSearchParams();
   const email = searchParams.get("email") || "";
   const formattedEmail = formatEmail(email);
   const router = useRouter();
+  const [otp, setOtp] = useState("");
 
   console.log(email);
+
+  const supabase = createClient();
+
+  const verifyOtp = async () => {
+    if (otp.length === 6 && email) {
+      try {
+        const { error } = await supabase.auth.verifyOtp({
+          email,
+          token: otp,
+          type: "email",
+        });
+
+        if (error) throw error;
+
+        router.push("/");
+      } catch (error) {
+        console.error("Error verifying OTP:", error);
+        // TODO: Handle error appropriately
+      }
+    }
+  };
 
   return (
     <div className="text-center bg-white shadow max-w-[423px] w-full p-8 z-10">
@@ -60,6 +78,7 @@ export function OtpContent({
       </div>
       <div className="mt-3">
         <button
+          onClick={verifyOtp}
           type="submit"
           className="bg-[#1D1D1B] cursor-pointer text-white uppercase rounded-full h-[47px] w-full flex items-center justify-center  font-semibold text-base "
         >
