@@ -1,10 +1,10 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import GetStartedModal from "../getStartedModal";
 import { ChevronDown, ChevronRight } from "lucide-react";
@@ -13,14 +13,61 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "../ui/hover-card";
+import { createClient } from "@supabase/supabase-js";
+import { data } from "framer-motion/client";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isUserAuthenticated, setIsUserAuthenticated] = useState(false);
+  const [userEmail, setUserEmail] = useState<string | null>(null);
 
   const pathname = usePathname();
+  const router = useRouter();
 
   const specialPaths = ["/team", "/blog", "/contact"];
+
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
+
+  const checkAuth = async () => {
+    // Check Supabase user session
+    const {
+      data: { user },
+      error,
+    } = await supabase.auth.getUser();
+    console.log("Supabase getUser response:", { data, error });
+    setIsUserAuthenticated(!!user);
+    setUserEmail(user?.email || null);
+  };
+
+  useEffect(() => {
+    checkAuth();
+
+    // Listen for Supabase auth changes
+    const { data: authListener } = supabase.auth.onAuthStateChange(() => {
+      console.log("Auth state changed");
+      checkAuth();
+    });
+
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
+  }, []);
+
+  useEffect(() => {
+    console.log("Header: Pathname changed, re-checking auth");
+    checkAuth();
+  }, [pathname]);
+
+  const handleUserLogout = async () => {
+    await supabase.auth.signOut();
+    setIsUserAuthenticated(false);
+    setUserEmail(null);
+    router.push("/signin");
+  };
 
   return (
     <header className="w-full bg-white fixed left-0 right-0 z-[10] py-[30.63px] border-b border-[#E0E0E0] max-w-[1800px] mx-auto">
@@ -179,13 +226,42 @@ const Header = () => {
         </nav>
 
         {/* Auth Buttons */}
-        <div className="hidden md:flex space-x-3">
-          <Link
-            href="/signin"
-            className="w-[84px] h-[38px] flex items-center justify-center rounded-full bg-[#EBEBEB] uppercase text-sm font-medium"
-          >
-            LOGIN
-          </Link>
+        <div className="hidden md:flex space-x-3 items-center">
+          {isUserAuthenticated ? (
+            <div className="flex items-center gap-1">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-5 h-5 text-gray-600"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.964 0a9 9 0 10-11.964 0m11.964 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"
+                />
+              </svg>
+              <span className="text-sm text-gray-600 truncate max-w-[120px]">
+                {userEmail}
+              </span>
+              <button
+                onClick={handleUserLogout}
+                className="w-[84px] h-[38px] flex items-center justify-center rounded-full bg-[#EBEBEB] uppercase text-sm font-medium"
+              >
+                Logout
+              </button>
+            </div>
+          ) : (
+            <Link
+              href="/signin"
+              className="w-[84px] h-[38px] flex items-center justify-center rounded-full bg-[#EBEBEB] uppercase text-sm font-medium"
+            >
+              LOGIN
+            </Link>
+          )}
+
           <button
             onClick={() => setIsModalOpen(true)}
             className="w-[144px] h-[38px] flex items-center cursor-pointer justify-center bg-[#1D1D1B] text-white rounded-full uppercase text-sm font-semibold"
@@ -242,18 +318,30 @@ const Header = () => {
               Blog
             </Link>
             <div className="flex space-x-2 pt-2">
-              <Link
-                href="/login"
-                className="px-4 py-2 border border-gray-300 rounded-md"
+              {isUserAuthenticated ? (
+                <button
+                  onClick={handleUserLogout}
+                  className="px-4 py-2 border border-gray-300 rounded-md uppercase"
+                >
+                  Logout
+                </button>
+              ) : (
+                <Link
+                  href="/signin"
+                  className="px-4 py-2 border border-gray-300 rounded-md uppercase"
+                >
+                  LOGIN
+                </Link>
+              )}
+              <button
+                onClick={() => {
+                  setIsMenuOpen(false);
+                  setIsModalOpen(true);
+                }}
+                className="px-4 py-2 bg-black text-white rounded-md uppercase"
               >
-                LOGIN
-              </Link>
-              <Link
-                href="/signup"
-                className="px-4 py-2 bg-black text-white rounded-md"
-              >
-                SIGN UP
-              </Link>
+                GET STARTED
+              </button>
             </div>
           </div>
         </motion.div>
