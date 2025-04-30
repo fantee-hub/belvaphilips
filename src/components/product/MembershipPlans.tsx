@@ -36,6 +36,9 @@ const plans = [
 
 const MembershipPlans = () => {
   const [expandedPlan, setExpandedPlan] = useState<string | null>(null);
+  const [selectedMembershipPlan, setSelectedMembershipPlan] = useState<
+    string | null
+  >(null);
 
   const toggleExpand = (planId: string) => {
     if (expandedPlan === planId) {
@@ -45,15 +48,25 @@ const MembershipPlans = () => {
     }
   };
 
+  const handleMembershipPlanToggleSelect = (planId: string) => {
+    setSelectedMembershipPlan(planId);
+  };
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      {plans.map((plan) => (
+      {plans.map((plan, index) => (
         <motion.div
           key={plan.id}
-          className="border border-gray-200 overflow-hidden"
+          className={`border border-gray-200 overflow-hidden  cursor-pointer ${
+            selectedMembershipPlan === plan.id ? "border-gray-800" : ""
+          } `}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.3 }}
+          onClick={() => {
+            toggleExpand(plan.id);
+            handleMembershipPlanToggleSelect(plan.id);
+          }}
         >
           <div className="p-5">
             <div className="flex justify-between items-start">
