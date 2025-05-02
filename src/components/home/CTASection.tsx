@@ -56,7 +56,10 @@ const CTASection = () => {
   ];
 
   return (
-    <section className="w-full pt-[100px] pb-[118px] bg-white" ref={ref}>
+    <section
+      className="w-full md:pt-[100px] pt-[90px] pb-[118px] bg-white"
+      ref={ref}
+    >
       <div className="container mx-auto px-4">
         <motion.div
           initial="hidden"
@@ -69,19 +72,19 @@ const CTASection = () => {
             variants={itemVariants}
             className="w-full md:w-1/2 md:pr-8 mb-8 md:mb-0"
           >
-            <h2 className="text-[63px] font-semibold leading-[115%] tracking-[-3px] mb-3">
+            <h2 className="md:text-[63px] text-[30px] font-semibold leading-[115%] md:tracking-[-3px] tracking-[-1px] mb-3 text-center md:text-left">
               NOT SURE WHAT
               <br />
               YOU WANT?
               <br />
               LET'S HAVE A CHAT!
             </h2>
-            <p className="text-[#444444] leading-[145%] text-lg mb-9">
+            <p className="text-[#444444] leading-[145%] md:text-lg text-sm text-center md:text-left md:mb-9 mb-7">
               Not sure what style, setting, or session is right for you? No
               worries! Book a quick call or fill out a 3-minute brief, and we'll
               figure it out together.
             </p>
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-4 justify-center md:justify-start">
               <Link
                 href="/book-call"
                 className="w-[126px] h-[38px] flex items-center justify-center text-sm bg-black text-white font-semibold rounded-full hover:bg-gray-900 transition-colors"
@@ -103,7 +106,7 @@ const CTASection = () => {
             className="w-full md:w-1/2 relative"
           >
             {isClient && (
-              <div className="relative h-[500px] w-full overflow-hidden">
+              <div className="relative  md:h-[500px] h-[240.59px] w-full overflow-hidden">
                 <Swiper
                   modules={[Autoplay, EffectFade]}
                   effect="fade"

@@ -121,7 +121,7 @@ const TestimonialsSection = () => {
   };
 
   return (
-    <section className="w-full pb-[120px] bg-white" ref={ref}>
+    <section className="w-full pb-[120px] bg-white hidden md:block" ref={ref}>
       <div className=" px-4">
         <motion.div
           initial="hidden"
