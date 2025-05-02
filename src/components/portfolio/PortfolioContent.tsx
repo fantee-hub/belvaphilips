@@ -7,11 +7,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { categories, portfolios } from "@/lib/mockData";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
+import { PiCaretDownBold } from "react-icons/pi";
 
 export default function PortfolioContent() {
   const [selectedCategory, setSelectedCategory] = useState("ALL");
   const [visibleItems, setVisibleItems] = useState(9);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -42,30 +44,31 @@ export default function PortfolioContent() {
   }, [searchParams]);
 
   const updateTab = (tab: string) => {
+    setIsDropdownOpen(false);
     router.push(`/portfolio?tab=${tab}`);
   };
 
+  const dropdownVariants = {
+    hidden: { opacity: 0, height: 0, transition: { duration: 0.3 } },
+    visible: { opacity: 1, height: "auto", transition: { duration: 0.3 } },
+  };
+
   return (
-    <div className=" bg-white pt-[100px]">
+    <div className="bg-white md:pt-[100px] pt-9">
       <div className="container mx-auto px-4 py-16">
         <motion.h1
           key={selectedCategory}
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-[82.83px] font-semibold mb-[30px] leading-[115%] tracking-[-3px]"
+          className="md:text-[82.83px] text-[38px] md:font-semibold font-bold md:mb-[30px] mb-7 leading-[115%] md:tracking-[-3px] tracking-[-0.5px]"
         >
           {selectedCategory === "ALL" ? "OUR PORTFOLIO" : selectedCategory}
         </motion.h1>
 
-        {/* Category Filters */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="flex flex-wrap gap-3 mb-8"
-        >
-          {categories.map((category, index) => (
+        {/* Category Filters - Desktop  */}
+        <div className="hidden md:flex md:flex-wrap gap-3 mb-8">
+          {categories.map((category) => (
             <motion.button
               key={category}
               onClick={() => updateTab(category)}
@@ -74,26 +77,63 @@ export default function PortfolioContent() {
                   ? "text-[#1D1D1B] font-semibold border border-[#1D1D1B]"
                   : "bg-white text-[#787878] border-gray-300 border border-[#C9C9C9]"
               } transition-colors`}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.3,
-                delay: 0.3 + index * 0.05,
-                ease: "easeOut",
-              }}
-              whileHover={{
-                scale: 1.03,
-                transition: { duration: 0.2 },
-              }}
+              whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.95 }}
             >
               {category}
             </motion.button>
           ))}
-        </motion.div>
+        </div>
+
+        {/* Category Dropdown - Mobile */}
+        <div className="md:hidden relative mb-8">
+          <motion.button
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            className="px-3 h-[34px] rounded-full border border-[#1D1D1B] text-[#1D1D1B] font-semibold flex items-center gap-2"
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            {selectedCategory}
+            <PiCaretDownBold
+              className={`transition-transform duration-300 ${
+                isDropdownOpen ? "rotate-180" : ""
+              }`}
+            />
+          </motion.button>
+
+          {/* Dropdown Menu */}
+          <AnimatePresence>
+            {isDropdownOpen && (
+              <motion.div
+                variants={dropdownVariants}
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
+                className="absolute top-full left-0 mt-2 w-[150px] bg-white border border-[#C9C9C9] rounded-lg shadow-lg z-10"
+              >
+                <div className="flex flex-col">
+                  {categories.map((category) => (
+                    <button
+                      key={category}
+                      onClick={() => updateTab(category)}
+                      className={`px-4 py-2 text-left text-[#787878] hover:bg-gray-100 ${
+                        selectedCategory.toLowerCase() ===
+                        category.toLowerCase()
+                          ? "font-semibold text-[#1D1D1B]"
+                          : ""
+                      }`}
+                    >
+                      {category}
+                    </button>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
 
         {/* Portfolio Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <AnimatePresence mode="wait">
             {filteredItems.slice(0, visibleItems).map((item, index) => (
               <motion.div
@@ -146,7 +186,7 @@ export default function PortfolioContent() {
           <div className="flex justify-center mt-10">
             <motion.button
               onClick={handleShowMore}
-              className="w-[171px] h-[55px] flex items-center justify-center uppercase bg-white text-[#1D1D1B] border border-[#C9C9C9] font-semibold cursor-pointer "
+              className="md:w-[171px] w-[127px] md:h-[55px] h-[45px] text-sm md:text-base flex items-center justify-center uppercase bg-white text-[#1D1D1B] border border-[#C9C9C9] font-semibold cursor-pointer"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
