@@ -58,13 +58,16 @@ const BrandsStrip = () => {
           variants={containerVariants}
           className="space-y-0"
         >
-          <motion.p variants={itemVariants} className="text-[#8A8A8A]">
+          <motion.p
+            variants={itemVariants}
+            className="text-[#8A8A8A] text-center md:text-left"
+          >
             Captured for leading brands
           </motion.p>
 
           <motion.div
             variants={itemVariants}
-            className="flex flex-wrap items-center justify-between gap-y-1 max-w-[927px] "
+            className="flex flex-wrap items-center justify-between gap-3 md:gap-1 max-w-[927px] md:mt-0 mt-3"
           >
             {brands.map((brand, index) => (
               <motion.div
@@ -74,13 +77,13 @@ const BrandsStrip = () => {
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.2 }}
               >
-                <div className=" relative flex items-center">
+                <div className="relative flex items-center">
                   <Image
                     src={brand.logo}
                     alt={brand.name}
                     width={120}
                     height={99}
-                    className="max-h-[99px] w-[100px] object-contain  transition-all duration-300"
+                    className="max-h-[99px] w-[100px]  object-contain  transition-all duration-300"
                   />
                 </div>
               </motion.div>
