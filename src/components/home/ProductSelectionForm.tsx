@@ -1,13 +1,11 @@
-// components/home/ProductSelectionForm.tsx
 "use client";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { shootTypes } from "@/lib/mockData/portfolioData";
-// Import from the updated data file
+import { div } from "framer-motion/client";
 
-// Convert the shootTypes object keys to title case for display
 const productOptions: Record<string, string[]> = {};
 Object.keys(shootTypes).forEach((category) => {
   const titleCaseCategory =
@@ -43,7 +41,6 @@ const ProductSelectionForm = () => {
 
   const handleGetQuote = () => {
     if (selectedProduct && selectedShootType) {
-      // Navigate to the product configuration page
       router.push(
         `/product/${selectedProduct.toLowerCase()}/${selectedShootType.toLowerCase()}`
       );
@@ -112,7 +109,7 @@ const ProductSelectionForm = () => {
             setIsProductDropdownOpen(!isProductDropdownOpen);
             setIsShootTypeDropdownOpen(false);
           }}
-          className="flex justify-between items-center w-full cursor-pointer sm:w-[210px] sm:h-[47px] px-6 py-4 bg-[#F4F4F4] rounded-full text-[#585858] focus:outline-none focus:ring-1 focus:ring-black"
+          className="flex justify-between items-center w-[250px] mx-auto cursor-pointer sm:w-[210px] sm:h-[47px] px-4 h-[45px] bg-[#F4F4F4] rounded-full text-[#585858] focus:outline-none focus:ring-1 focus:ring-black"
         >
           <span>{selectedProduct || "Select a product"}</span>
           <motion.div
@@ -126,13 +123,32 @@ const ProductSelectionForm = () => {
         <AnimatePresence>
           {isProductDropdownOpen && (
             <motion.div
-              className="absolute z-50 mt-2 w-full min-w-[315px] bg-white border border-[#C9C9C9] rounded-[20px] overflow-hidden"
+              className="absolute z-50 mt-2 lg:w-full mx-auto left-1/2 -translate-x-1/2 lg:left-0 lg:translate-x-0 lg:min-w-[315px] w-[250px] bg-white lg:border border-[0.5px] border-[#C9C9C9] rounded-[20px] lg:overflow-hidden"
               variants={dropdownVariants}
               initial="hidden"
               animate="visible"
               exit="exit"
             >
-              <div className="py-6 px-4">
+              <div className="p-5 md:hidden block">
+                {productCategories.map((product, index) => (
+                  <div key={product}>
+                    <motion.button
+                      variants={itemVariants}
+                      custom={index}
+                      onClick={() => handleProductSelect(product)}
+                      className="font-medium hover:text-gray-600 transition-colors w-full cursor-pointer text-left text-sm"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      {product}
+                    </motion.button>
+                    {index < productCategories.length - 1 && (
+                      <div className="border-b-[0.5px] border-[#C9C9C9] my-4"></div>
+                    )}
+                  </div>
+                ))}
+              </div>
+              <div className="py-6 px-4 hidden md:block">
                 {/* Top Row */}
                 <div className="flex justify-between items-center">
                   {topRow.map((product, index) => (
@@ -198,7 +214,7 @@ const ProductSelectionForm = () => {
             }
           }}
           disabled={!selectedProduct}
-          className={`flex justify-between items-center w-full sm:w-[210px] sm:h-[47px] px-6 py-4 bg-[#F4F4F4] rounded-full focus:outline-none focus:ring-1 focus:ring-black cursor-pointer ${
+          className={`flex justify-between items-center w-[250px] mx-auto cursor-pointer sm:w-[210px] sm:h-[47px] px-4 h-[45px] bg-[#F4F4F4] rounded-full text-[#585858] focus:outline-none focus:ring-1 focus:ring-black ${
             !selectedProduct
               ? "text-gray-400 cursor-not-allowed"
               : "text-gray-700"
@@ -218,13 +234,32 @@ const ProductSelectionForm = () => {
             selectedProduct &&
             availableShootTypes.length > 0 && (
               <motion.div
-                className="absolute z-50 mt-2 w-full min-w-[300px] bg-white border border-[#C9C9C9] rounded-3xl shadow-lg overflow-hidden"
+                className="absolute z-50 mt-2 lg:w-full mx-auto left-1/2 -translate-x-1/2 lg:left-0 lg:translate-x-0 lg:min-w-[315px] w-[250px] bg-white lg:border border-[0.5px] border-[#C9C9C9] rounded-[20px] lg:overflow-hidden"
                 variants={dropdownVariants}
                 initial="hidden"
                 animate="visible"
                 exit="exit"
               >
-                <div className="py-6 px-4">
+                <div className="p-5 md:hidden block">
+                  {availableShootTypes.map((shootType, index) => (
+                    <div key={shootType}>
+                      <motion.button
+                        variants={itemVariants}
+                        custom={index}
+                        onClick={() => handleShootTypeSelect(shootType)}
+                        className="font-medium hover:text-gray-600 transition-colors w-full cursor-pointer text-left text-sm"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        {shootType}
+                      </motion.button>
+                      {index < availableShootTypes.length - 1 && (
+                        <div className="border-b-[0.5px] border-[#C9C9C9] my-4"></div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+                <div className="py-6 px-4 hidden md:block">
                   <div className="flex justify-between">
                     {availableShootTypes.slice(0, 3).map((shootType, index) => (
                       <div
@@ -294,7 +329,7 @@ const ProductSelectionForm = () => {
 
       {/* Get Quote Button */}
       <motion.button
-        className={`w-[162px] h-[47px] rounded-full cursor-pointer font-semibold transition-colors ${
+        className={`md:w-[162px] w-[250px] lg:h-[47px] h-[45px] mx-auto lg:mx-0 rounded-full cursor-pointer font-semibold transition-colors ${
           selectedProduct && selectedShootType
             ? "bg-black text-white hover:bg-gray-900"
             : "bg-gray-300 text-gray-600 cursor-not-allowed"

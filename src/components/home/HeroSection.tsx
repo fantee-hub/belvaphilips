@@ -73,8 +73,8 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="w-full pt-16 pb-[60px] md:pt-24 md:pb-[60px] relative">
-      <div className="container mx-auto px-4 flex flex-col lg:flex-row  gap-10 lg:justify-between">
+    <section className="w-full pt-2 pb-[60px] md:pt-24 md:pb-[60px] relative">
+      <div className="container mx-auto px-4 flex flex-col lg:flex-row  lg:gap-10 lg:justify-between">
         {/* Text Content */}
         <div className="w-full lg:w-[734px] pr-0 lg:pr-12 mb-10 lg:mb-0">
           <motion.div
@@ -85,14 +85,14 @@ const HeroSection = () => {
           >
             <motion.h1
               variants={itemVariants}
-              className="text-5xl md:text-[76.83px] font-semibold leading-[115%] tracking-[-3px]"
+              className="text-[42px] md:text-[76.83px] text-center md:font-semibold font-bold leading-[115%] md:tracking-[-3px] tracking-[-1px] text-[#000000] text-[32px] lg:text-left"
             >
               STUDIO QUALITY PHOTOGRAPHY MADE SIMPLE
             </motion.h1>
 
             <motion.p
               variants={itemVariants}
-              className="text-[20px] text-[#444444]"
+              className="md:text-[20px] text-sm text-[#444444] font-medium md:font-normal leading-[155%] text-center lg:text-left"
             >
               We provide high-quality images that make your products look their
               best. From clean catalog images to creative angles, Belvaphilips
@@ -121,7 +121,7 @@ const HeroSection = () => {
                 disableOnInteraction: false,
               }}
               loop={true}
-              className="w-full h-[500px] overflow-hidden"
+              className="w-full lg:h-[500px] h-[300px] overflow-hidden"
             >
               {heroImages.map((image, index) => (
                 <SwiperSlide key={index}>

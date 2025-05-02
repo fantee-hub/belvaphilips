@@ -75,7 +75,7 @@ const Header = () => {
         {/* Logo */}
         <Link
           href="/"
-          className="flex items-center gap-[3.68px] hidden lg:block"
+          className="flex items-center gap-[3.68px] hidden lg:flex"
         >
           <Image
             src={"/assets/images/belvaphilips.svg"}
