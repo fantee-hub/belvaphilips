@@ -48,19 +48,19 @@ const PortfolioShowcase = () => {
           initial="hidden"
           animate={controls}
           variants={containerVariants}
-          className="space-y-12"
+          className="md:space-y-12 space-y-7"
         >
           {/* Section Header */}
           <div className="text-center">
             <motion.div
               variants={itemVariants}
-              className="text-[#FEC845] text-sm uppercase font-medium mb-4"
+              className="text-[#FEC845] md:text-sm text-xs uppercase font-medium md:mb-4 mb-3"
             >
               PORTFOLIO
             </motion.div>
             <motion.h2
               variants={itemVariants}
-              className="text-[64px] font-semibold tracking-[-3px] leading-[115%]"
+              className="md:text-[64px] text-[30px] font-semibold md:tracking-[-3px] tracking-[-1px] leading-[115%]"
             >
               OUR WORK SPEAKS
               <br />
