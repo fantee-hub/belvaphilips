@@ -126,20 +126,20 @@ const ProcessSection = () => {
           <div>
             <motion.div
               variants={itemVariants}
-              className="text-[#FEC845] uppercase text-sm mb-2"
+              className="text-[#FEC845] uppercase md:text-sm text-xs mb-2"
             >
               OUR PROCESS
             </motion.div>
             <motion.h2
               variants={itemVariants}
-              className="text-[64px] font-semibold tracking-[-3px] leading-[115%]"
+              className="md:text-[64px] text-[30px] font-semibold tracking-[-3px] leading-[115%]"
             >
               IT'S A 4-STEP PROCESS
             </motion.h2>
           </div>
 
           <div className="flex ">
-            <div className="w-[60px] relative flex flex-col items-start mt-6">
+            <div className="md:w-[60px] w-[40px] relative flex flex-col items-start md:mt-6 mt-3">
               {processSteps.map((step, index) => (
                 <div
                   key={`timeline-${index}`}
@@ -155,7 +155,7 @@ const ProcessSection = () => {
                   {/* Line */}
                   {index < processSteps.length - 1 && (
                     <motion.div
-                      className="w-[1px] h-[250px] bg-black origin-top my-2"
+                      className="w-[1px] md:h-[250px] h-[150px] bg-black origin-top my-2"
                       variants={lineVariants}
                       custom={index}
                     ></motion.div>
@@ -176,11 +176,13 @@ const ProcessSection = () => {
                   }`}
                 >
                   <div className="">
-                    <h3 className="text-[28px] font-bold leading-[115%] p-7 border-b">
+                    <h3 className="md:text-[28px] text-base font-bold leading-[115%] md:p-7 p-3 border-b">
                       <span className="text-[#A0A0A0]">{step.number}.</span>{" "}
                       {step.title}
                     </h3>
-                    <p className=" text-[24px] p-7">{step.description}</p>
+                    <p className=" md:text-[24px] text-xs md:p-7 p-3">
+                      {step.description}
+                    </p>
                   </div>
                 </motion.div>
               ))}
