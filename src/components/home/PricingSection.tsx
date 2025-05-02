@@ -64,25 +64,25 @@ const PricingSection = () => {
   };
 
   return (
-    <section className="w-full py-[60px] bg-white" ref={ref}>
+    <section className="w-full py-[30px] bg-white" ref={ref}>
       <div className="container mx-auto px-4">
         <motion.div
           initial="hidden"
           animate={controls}
           variants={containerVariants}
-          className="space-y-11"
+          className="md:space-y-11 space-y-5"
         >
           {/* Section Header */}
           <div className="max-w-3xl">
             <motion.h2
               variants={itemVariants}
-              className="text-[64px] font-semibold mb-0 tracking-[-3px]"
+              className="md:text-[64px] text-[30px] font-semibold mb-0 md:tracking-[-3px] leading-[-1px]"
             >
               PRICING MADE SIMPLE
             </motion.h2>
             <motion.p
               variants={itemVariants}
-              className="text-lg text-[#444444] -mt-1"
+              className="md:text-lg text-sm font-medium md:font-normal text-[#444444] -mt-1"
             >
               Clear and Affordable Pricing
             </motion.p>
@@ -91,17 +91,17 @@ const PricingSection = () => {
           <div className="flex flex-col md:flex-row gap-[25px]">
             <motion.div
               variants={itemVariants}
-              className="w-full md:w-2/3 border border-gray-200 p-7"
+              className="w-full md:w-2/3 border border-gray-200 p-4 md:p-7"
             >
-              <h3 className="text-[28px] font-medium mb-3">
+              <h3 className="md:text-[28px] text-base font-medium md:mb-3 mb-2">
                 PER-IMAGE FIXED PRICING
               </h3>
-              <p className="text-[#787878] max-w-[537px] mb-8">
+              <p className="text-[#787878] max-w-[537px] mb-8 text-xs md:text-base">
                 We offer fixed per-image pricing based on your selected service
                 tier, while also allowing for remote coordination.
               </p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
                 {pricingOptions.map((option, index) => (
                   <motion.div
                     key={option.title}
@@ -117,7 +117,9 @@ const PricingSection = () => {
                         className="object-cover transition-transform duration-300 hover:scale-105"
                       />
                     </div>
-                    <h4 className="font-medium">{option.title}</h4>
+                    <h4 className="font-medium text-xs md:text-base">
+                      {option.title}
+                    </h4>
                     <p className="text-[#787878] text-sm">
                       {option.description}
                     </p>
@@ -129,26 +131,29 @@ const PricingSection = () => {
             {/* Membership */}
             <motion.div
               variants={itemVariants}
-              className="w-full md:w-1/3 border border-gray-200 p-7"
+              className="w-full md:w-1/3 border border-gray-200 md:p-7 p-4"
             >
-              <h3 className="text-[28px] font-medium mb-3">MEMBERSHIP</h3>
-              <p className="text-[#787878] mb-8">
+              <h3 className="md:text-[28px] text-base font-medium md:mb-3 mb-2">
+                MEMBERSHIP
+              </h3>
+              <p className="text-[#787878] mb-8 md:text-base text-xs">
                 For businesses and professionals needing frequent edits, we also
                 provide membership plans.
               </p>
 
-              <div className="h-[195px] w-full overflow-hidden relative">
+              <div className="md:h-[195px] h-[128.87px] w-full overflow-hidden relative">
                 <div className="absolute top-0 inset-0 bg-gradient-to-br from-[#FEC845]  to-black"></div>
 
-                <div className="absolute  flex flex-col justify-end py-0 px-6 pt-[11px] right-0 top-0 text-white">
-                  <h4 className="text-[29.54px] font-black text-right">
-                    Up to <span className="text-[34px]">25%</span>
+                <div className="absolute  flex flex-col justify-end py-0 md:px-6 px-3 pt-[11px] right-0 top-0 text-white">
+                  <h4 className="md:text-[29.54px] text-[19.52px] font-black text-right">
+                    Up to{" "}
+                    <span className="md:text-[34px] text-[22.47px]">25%</span>
                   </h4>
-                  <p className="text-[29.54px] font-black mb-4 text-right">
+                  <p className="md:text-[29.54px] text-[19.52px] font-black mb-4 text-right">
                     per image savings!
                   </p>
                 </div>
-                <div className="flex justify-end absolute left-5 bottom-[23.5px]">
+                <div className="flex justify-end absolute left-5 md:bottom-[23.5px] bottom-3 md:text-base text-xs">
                   <Link
                     href="/membership"
                     className="inline-flex items-center text-white hover:underline"

@@ -67,7 +67,7 @@ const BrandsStrip = () => {
 
           <motion.div
             variants={itemVariants}
-            className="flex flex-wrap items-center justify-between gap-3 md:gap-1 max-w-[927px] md:mt-0 mt-3"
+            className="flex flex-wrap items-center justify-between gap-3 md:gap-1 max-w-[927px] lg:-mt-3 mt-3"
           >
             {brands.map((brand, index) => (
               <motion.div
