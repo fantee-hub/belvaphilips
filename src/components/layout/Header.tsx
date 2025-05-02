@@ -70,10 +70,13 @@ const Header = () => {
   };
 
   return (
-    <header className="w-full bg-white fixed left-0 right-0 z-[10] py-[30.63px] border-b border-[#E0E0E0] max-w-[1800px] mx-auto">
+    <header className="w-full bg-white fixed left-0 right-0 z-[10] lg:py-[30.63px] py-6 lg:border-b lg:border-[#E0E0E0] max-w-[1800px] mx-auto">
       <div className="container mx-auto px-4 flex justify-between items-center">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-[3.68px]">
+        <Link
+          href="/"
+          className="flex items-center gap-[3.68px] hidden lg:block"
+        >
           <Image
             src={"/assets/images/belvaphilips.svg"}
             width={40.18}
@@ -87,9 +90,27 @@ const Header = () => {
             <span className="font-light ">IMAGERY</span>
           </span>
         </Link>
+        {/* Mobile Logo */}
+        <Link
+          href="/"
+          className="flex items-center gap-[3.68px] block lg:hidden"
+        >
+          <Image
+            src={"/assets/images/belvaphilips.svg"}
+            width={30.92}
+            height={23.65}
+            alt="belvaphilips imagery"
+          />
+          <span
+            className={`font-logo text-[17.92px] flex items-center gap-[2.45px]`}
+          >
+            <span className={`font-black  `}>BELVAPHILIPS</span>
+            <span className="font-light ">IMAGERY</span>
+          </span>
+        </Link>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex space-x-10 text-sm uppercase">
+        <nav className="hidden lg:flex space-x-10 text-sm uppercase">
           <Link
             href="/"
             className={`font-medium hover:text-gray-600 ${
@@ -272,7 +293,7 @@ const Header = () => {
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden"
+          className="lg:hidden"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           {/* Hamburger Icon */}
@@ -299,25 +320,70 @@ const Header = () => {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
-          className="md:hidden bg-white py-4"
+          className="lg:hidden bg-white pt-8 pb-1"
         >
-          <div className="container mx-auto px-4 flex flex-col space-y-4">
-            <Link href="/" className="font-medium hover:text-gray-600">
+          <div className="container mx-auto px-5 flex flex-col space-y-8">
+            <Link
+              href="/"
+              className={`font-medium hover:text-gray-600 text-[22px] uppercase ${
+                pathname === "/" ? "text-[#1D1D1B] " : "text-[#6E6E6E]"
+              }`}
+            >
               Home
             </Link>
-            <Link href="/about" className="font-medium hover:text-gray-600">
-              About
+            <Link
+              href="/portfolio"
+              className={`font-medium hover:text-gray-600 text-[22px] uppercase ${
+                pathname.startsWith("/portfolio")
+                  ? "text-[#1D1D1B] "
+                  : "text-[#6E6E6E]"
+              }`}
+            >
+              Portfolio
             </Link>
-            <Link href="/services" className="font-medium hover:text-gray-600">
-              Services
+            <Link
+              href="/how-it-works"
+              className={`font-medium hover:text-gray-600 text-[22px] uppercase ${
+                pathname === "/how-it-works"
+                  ? "text-[#1D1D1B] "
+                  : "text-[#6E6E6E]"
+              }`}
+            >
+              How it works
             </Link>
-            <Link href="/work" className="font-medium hover:text-gray-600">
-              Work
+            <Link
+              href="/pricing"
+              className={`font-medium hover:text-gray-600 text-[22px] uppercase ${
+                pathname === "/pricing" ? "text-[#1D1D1B] " : "text-[#6E6E6E]"
+              }`}
+            >
+              Pricing
             </Link>
-            <Link href="/blog" className="font-medium hover:text-gray-600">
+            <Link
+              href="/team"
+              className={`font-medium hover:text-gray-600 uppercase text-[22px]  ${
+                pathname === "/team" ? "text-[#1D1D1B] " : "text-[#6E6E6E]"
+              }`}
+            >
+              Team
+            </Link>
+            <Link
+              href="/blog"
+              className={`font-medium hover:text-gray-600 uppercase text-[22px]  ${
+                pathname === "/blog" ? "text-[#1D1D1B] " : "text-[#6E6E6E]"
+              }`}
+            >
               Blog
             </Link>
-            <div className="flex space-x-2 pt-2">
+            <Link
+              href="/contact"
+              className={`font-medium hover:text-gray-600 uppercase text-[22px]  ${
+                pathname === "/contact" ? "text-[#1D1D1B] " : "text-[#6E6E6E]"
+              }`}
+            >
+              Contact
+            </Link>
+            <div className="flex flex-col space-y-3">
               {isUserAuthenticated ? (
                 <button
                   onClick={handleUserLogout}
@@ -328,9 +394,9 @@ const Header = () => {
               ) : (
                 <Link
                   href="/signin"
-                  className="px-4 py-2 border border-gray-300 rounded-md uppercase"
+                  className=" rounded-full font-medium text-sm uppercase w-full h-[40px] flex items-center justify-center text-[#1D1D1B] bg-[#EBEBEB]"
                 >
-                  LOGIN
+                  sign up
                 </Link>
               )}
               <button
@@ -338,7 +404,7 @@ const Header = () => {
                   setIsMenuOpen(false);
                   setIsModalOpen(true);
                 }}
-                className="px-4 py-2 bg-black text-white rounded-md uppercase"
+                className=" bg-[#1D1D1B] text-white rounded-full uppercase w-full h-[40px] flex items-center justify-center text-sm font-semibold"
               >
                 GET STARTED
               </button>

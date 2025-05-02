@@ -97,22 +97,22 @@ const EditorToolbar: React.FC<EditorToolbarProps> = ({
             </span>
           </button>
           {showFontSizes && (
-            <div className="absolute mt-1 bg-white border border-gray-300 rounded shadow-lg z-10">
+            <div className="absolute  bg-white border border-gray-300 rounded shadow-lg z-10">
               <button
                 onClick={() => handleFontSizeChange("Small")}
-                className="block w-full text-left px-4 py-1 hover:bg-gray-100"
+                className="block w-full text-left px-4 py-1 hover:bg-gray-100 text-xs"
               >
                 Small
               </button>
               <button
                 onClick={() => handleFontSizeChange("Medium")}
-                className="block w-full text-left px-4 py-1 hover:bg-gray-100"
+                className="block w-full text-left px-4 py-1 hover:bg-gray-100 font-medium text-sm"
               >
                 Medium
               </button>
               <button
                 onClick={() => handleFontSizeChange("Large")}
-                className="block w-full text-left px-4 py-1 hover:bg-gray-100"
+                className="block w-full text-left px-4 py-1 hover:bg-gray-100 text-base font-bold"
               >
                 Large
               </button>

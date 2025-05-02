@@ -88,7 +88,6 @@ const BlogEditor: React.FC<BlogEditorProps> = ({
         newPosition = selectedText ? end + 12 : start + 18;
         break;
       case "attachment":
-        // Open file picker dialog and handle file upload
         const input = document.createElement("input");
         input.type = "file";
         input.onchange = (e) => {
@@ -96,7 +95,7 @@ const BlogEditor: React.FC<BlogEditorProps> = ({
           if (target.files && target.files[0]) {
             const file = target.files[0];
             // Here you would typically upload the file and get a URL
-            // For now we'll just insert a placeholder
+
             const placeholderText = `[File: ${file.name}](file-url)`;
             handleInsertText(placeholderText, start);
           }
@@ -118,7 +117,6 @@ const BlogEditor: React.FC<BlogEditorProps> = ({
 
     setContent(newContent);
 
-    // Set cursor position after setting content
     setTimeout(() => {
       textarea.focus();
       textarea.setSelectionRange(newPosition, newPosition);
@@ -130,7 +128,6 @@ const BlogEditor: React.FC<BlogEditorProps> = ({
       content.substring(0, position) + text + content.substring(position);
     setContent(newContent);
 
-    // Set cursor position after the inserted text
     setTimeout(() => {
       const textarea = document.getElementById(
         "blog-content"
