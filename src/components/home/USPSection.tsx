@@ -26,14 +26,16 @@ const benefits = [
 // Custom Icons Components
 const DaysIcon = () => (
   <div className=" h-32 flex space-x-[14px]">
-    <div className="flex items-center gap-4 -mb-8">
-      <span className="text-gray-200 text-[30px]">9</span>
-      <span className="text-gray-200 text-[30px]">8</span>
+    <div className="flex items-center gap-4 md:-mb-8 -mb-1">
+      <span className="text-gray-200 md:text-[30px] text-[23.97px]">9</span>
+      <span className="text-gray-200 md:text-[30px] text-[23.97px]">8</span>
     </div>
 
     <div className="flex items-baseline">
-      <span className="text-[86px] font-medium">7</span>
-      <span className="text-[30px] font-medium ml-1">days</span>
+      <span className="md:text-[86px] text-[68.73px] font-medium">7</span>
+      <span className="md:text-[30px] text-[23.97px] font-medium ml-1">
+        days
+      </span>
     </div>
   </div>
 );
@@ -68,11 +70,19 @@ const ShippingIcon = () => (
 const DollarIcon = () => (
   <div className="h-32 flex items-center justify-center">
     <div className="relative flex items-center gap-[5px]">
-      <span className=" text-[28.64px] font-medium text-[#E1E1E1]">₦</span>
-      <span className="text-[40.91px] font-medium text-[#E1E1E1]">₦</span>
-      <span className="text-[86.01px] font-medium">₦</span>
-      <span className="text-[40.91px] font-medium text-[#E1E1E1]">₦</span>
-      <span className=" text-[28.64px] font-medium text-[#E1E1E1]">₦</span>
+      <span className="md:text-[28.64px] text-[20.97px] font-medium text-[#E1E1E1]">
+        ₦
+      </span>
+      <span className="md:text-[40.91px] text-[31.45px] font-medium text-[#E1E1E1]">
+        ₦
+      </span>
+      <span className="md:text-[86.01px] text-[70.24px] font-medium">₦</span>
+      <span className="md:text-[40.91px] text-[31.45px] font-medium text-[#E1E1E1]">
+        ₦
+      </span>
+      <span className="md:text-[28.64px] text-[20.97px] font-medium text-[#E1E1E1]">
+        ₦
+      </span>
     </div>
   </div>
 );
@@ -111,7 +121,6 @@ const USPSection = () => {
     },
   };
 
-  // Render the appropriate icon based on the type
   const renderIcon = (iconType: string) => {
     switch (iconType) {
       case "days":
@@ -126,7 +135,7 @@ const USPSection = () => {
   };
 
   return (
-    <section className="w-full py-[102px] bg-white" ref={ref}>
+    <section className="w-full md:py-[102px] py-[87px] bg-white" ref={ref}>
       <div className="container mx-auto px-4">
         <motion.div
           initial="hidden"
@@ -138,13 +147,13 @@ const USPSection = () => {
           <div className="text-center">
             <motion.div
               variants={itemVariants}
-              className="text-[#FEC845] text-sm uppercase mb-1"
+              className="text-[#FEC845] md:text-sm text-xs uppercase mb-1"
             >
               BENEFITS
             </motion.div>
             <motion.h2
               variants={itemVariants}
-              className="text-[64px] font-semibold tracking-[-3px]"
+              className="md:text-[64px] text-[30px] font-semibold md:tracking-[-3px] tracking-[-1px]"
             >
               WHY CHOOSE US?
             </motion.h2>
@@ -164,7 +173,7 @@ const USPSection = () => {
                 transition={{ duration: 0.2 }}
               >
                 {renderIcon(benefit.icon)}
-                <p className="text-[#444444] mt-4 text-lg">
+                <p className="text-[#444444] md:mt-4 mt-1 md:text-lg text-sm">
                   {benefit.description}
                 </p>
               </motion.div>
