@@ -57,7 +57,7 @@ const CTASection = () => {
 
   return (
     <section
-      className="w-full md:pt-[100px] pt-[90px] pb-[118px] bg-white"
+      className="w-full md:pt-[100px] pt-[90px] md:pb-[118px] pb-[79.41px] bg-white"
       ref={ref}
     >
       <div className="container mx-auto px-4">

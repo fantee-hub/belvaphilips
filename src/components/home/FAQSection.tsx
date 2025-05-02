@@ -145,20 +145,20 @@ const FramedContainer = ({ children }: { children: React.ReactNode }) => (
     <div className="relative">{children}</div>
 
     {/* Corner lines - top left */}
-    <div className="absolute top-0 left-0 w-4 h-px bg-black"></div>
-    <div className="absolute top-0 left-0 w-px h-4 bg-black"></div>
+    <div className="absolute top-0 left-0 md:w-4 w-3 h-px bg-black"></div>
+    <div className="absolute top-0 left-0 w-px md:h-4 h-3 bg-black"></div>
 
     {/* Corner lines - top right */}
-    <div className="absolute top-0 right-0 w-4 h-px bg-black"></div>
-    <div className="absolute top-0 right-0 w-px h-4 bg-black"></div>
+    <div className="absolute top-0 right-0 md:w-4 w-3 h-px bg-black"></div>
+    <div className="absolute top-0 right-0 w-px md:h-4 h-3 bg-black"></div>
 
     {/* Corner lines - bottom left */}
-    <div className="absolute bottom-0 left-0 w-4 h-px bg-black"></div>
-    <div className="absolute bottom-0 left-0 w-px h-4 bg-black"></div>
+    <div className="absolute bottom-0 left-0 md:w-4 w-3 h-px bg-black"></div>
+    <div className="absolute bottom-0 left-0 w-px md:h-4 h-3 bg-black"></div>
 
     {/* Corner lines - bottom right */}
-    <div className="absolute bottom-0 right-0 w-4 h-px bg-black"></div>
-    <div className="absolute bottom-0 right-0 w-px h-4 bg-black"></div>
+    <div className="absolute bottom-0 right-0 md:w-4 w-3 h-px bg-black"></div>
+    <div className="absolute bottom-0 right-0 w-px md:h-4 h-3 bg-black"></div>
   </div>
 );
 
@@ -214,13 +214,13 @@ const FAQSection = () => {
           <div>
             <motion.div
               variants={itemVariants}
-              className="text-[#FEC845] uppercase text-sm mb-2"
+              className="text-[#FEC845] uppercase md:text-sm text-xs mb-2"
             >
               FREQUENTLY ASKED QUESTIONS
             </motion.div>
             <motion.h2
               variants={itemVariants}
-              className="text-[64px] font-semibold tracking-[-3px] leading-[115%]"
+              className="md:text-[64px] text-[30px] font-semibold md:tracking-[-3px] tracking-[-1px] leading-[115%]"
             >
               GOT QUESTIONS?
               <br />
@@ -237,9 +237,9 @@ const FAQSection = () => {
                 <FramedContainer>
                   <button
                     onClick={() => toggleAccordion(index)}
-                    className="flex cursor-pointer justify-between h-[55px] bg-[#F9F9F9] items-center w-full py-5 px-7 text-left"
+                    className="flex cursor-pointer justify-between md:h-[55px] h-[45px] bg-[#F9F9F9] items-center w-full py-5 md:px-7 px-5 text-left"
                   >
-                    <span className="font-semibold text-[20px]">
+                    <span className="font-semibold md:text-[20px] text-sm">
                       {item.question}
                     </span>
                     <span className="flex-shrink-0 ml-4">
@@ -273,10 +273,10 @@ const FAQSection = () => {
             ))}
 
             <motion.div variants={itemVariants} className="md:col-span-1 ">
-              <div className="flex items-center justify-between h-[56px] py-5 px-6 border border-[#C9C9C9]">
+              <div className="flex items-center justify-between h-[56px] py-5 md:px-6 px-4 border border-[#C9C9C9]">
                 <div className="flex items-center">
                   <Headphones className="h-6 w-6 mr-4" />
-                  <span className="font-semibold ">
+                  <span className="font-semibold md:text-base text-xs">
                     CAN’T FIND YOUR QUESTION? CHAT WITH SUPPORT
                   </span>
                 </div>
