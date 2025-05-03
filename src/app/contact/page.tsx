@@ -28,17 +28,17 @@ export default function ContactPage() {
   return (
     <>
       <Header />
-      <main className="pt-[100px]">
+      <main className="md:pt-[100px] pt-9">
         <div className="container container mx-auto px-4 py-16">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <motion.div
               initial="hidden"
               animate="visible"
               variants={fadeInUp}
-              className="border-r-[0.5px] border-[#C9C9C9] pr-[51px]"
+              className="md:border-r-[0.5px] md:border-[#C9C9C9] md:pr-[51px]"
             >
               <motion.h1
-                className="text-4xl md:text-[82.83px] font-semibold mb-8 leading-[115%] tracking-[-3px]"
+                className="text-[38px]  md:text-[82.83px] md:font-semibold font-bold md:mb-8 mb-7 leading-[115%] md:tracking-[-3px] tracking-[-0.5px]"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
@@ -55,7 +55,7 @@ export default function ContactPage() {
               variants={fadeInUp}
             >
               <motion.h2
-                className="text-4xl md:text-[82.83px] font-semibold mb-8 text-[#C9C9C9] leading-[115%] tracking-[-3px]"
+                className="text-[38px] md:text-[82.83px] md:font-semibold font-bold md:mb-8 mb-7 text-[#C9C9C9] leading-[115%] md:tracking-[-3px] tracking-[-0.5px]"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
@@ -63,7 +63,7 @@ export default function ContactPage() {
                 REACH US VIA
               </motion.h2>
 
-              <div className="space-y-6 flex gap-[38px]">
+              <div className="space-y-6 flex md:gap-[38px] md:flex-row flex-col gap-0">
                 <motion.div
                   className="space-y-2"
                   initial={{ opacity: 0, x: 20 }}
