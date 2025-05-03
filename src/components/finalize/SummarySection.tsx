@@ -28,17 +28,17 @@ export default function SummarySection({
       </div>
 
       <div
-        className="py-[7px] border-[0.5px] border-[#1D1D1B] pl-3 pr-5"
+        className="py-[7px] border-[0.5px] border-[#1D1D1B] pl-3 md:pr-5 pr-3"
         style={{
           background:
             "linear-gradient(to right, #FFFFFF 30%, #E7E7E7 85%, #DEDEDE 100%)",
         }}
       >
-        <div className="flex justify-between items-center w-full">
-          <span className="font-semibold text-[#1D1D1B]">
+        <div className="flex justify-between items-center w-full gap-3 md:gap-0">
+          <span className="font-semibold text-[#1D1D1B] text-sm md:text-base">
             Upgrade your membership in order to save up to 25%!
           </span>
-          <button className="bg-black text-white h-[38px] w-[106px] flex items-center justify-center text-sm font-semibold uppercase rounded-full">
+          <button className="bg-black text-white md:h-[38px] h-[32px] md:w-[106px] px-3 md:px-0 flex items-center justify-center text-sm font-semibold uppercase rounded-full">
             Upgrade
           </button>
         </div>

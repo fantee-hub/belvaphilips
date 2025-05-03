@@ -3,7 +3,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Dialog,
   DialogContent,
@@ -30,6 +30,7 @@ export default function AddPortfolioDialog({
   const [selectedCategory, setSelectedCategory] = useState<string>(
     category || "ALL"
   );
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State for dropdown toggle
 
   // Filter products based on category and already selected products
   const filteredProducts = portfolios.filter((item) => {
@@ -41,20 +42,30 @@ export default function AddPortfolioDialog({
     return item.category === selectedCategory;
   });
 
+  const dropdownVariants = {
+    hidden: { opacity: 0, height: 0, transition: { duration: 0.3 } },
+    visible: { opacity: 1, height: "auto", transition: { duration: 0.3 } },
+  };
+
+  const updateTab = (tab: string) => {
+    setSelectedCategory(tab);
+    setIsDropdownOpen(false);
+  };
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="!max-w-[1199px] max-h-[80vh] !rounded-none mt-3 overflow-y-auto scrollbar-hide">
+      <DialogContent className="md:!max-w-[1199px] max-w-[343px] max-h-[80vh] !rounded-none mt-3 overflow-y-auto scrollbar-hide !px-2 md:!px-5 ">
         <DialogHeader className="hidden">
           <DialogTitle>Select Additional Portfolio Items</DialogTitle>
         </DialogHeader>
 
-        {/* Category Filters */}
-        <div className="flex flex-wrap gap-2 mb-4">
+        {/* Category Filters  */}
+        <div className="hidden md:flex md:flex-wrap gap-2 mb-4">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-4 py-2 rounded-full text-base cursor-pointer ${
+              className={`px-4 py-2 rounded-full md:text-base text-sm cursor-pointer ${
                 selectedCategory === cat
                   ? "bg-white border border-[#1D1D1B] text-[#1D1D1B] font-semibold"
                   : "border-[0.5px] border-[#C9C9C9] text-[#787878] font-medium"
@@ -65,8 +76,63 @@ export default function AddPortfolioDialog({
           ))}
         </div>
 
+        {/* Category Dropdown - Mobile Only */}
+        <div className="md:hidden relative mb-4">
+          <motion.button
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            className="px-3 h-[34px] rounded-full border border-[#1D1D1B] text-[#1D1D1B] font-semibold flex items-center gap-2"
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            {selectedCategory}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className={`h-5 w-5 transition-transform duration-300 ${
+                isDropdownOpen ? "rotate-180" : ""
+              }`}
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </motion.button>
+
+          {/* Dropdown Menu */}
+          <AnimatePresence>
+            {isDropdownOpen && (
+              <motion.div
+                variants={dropdownVariants}
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
+                className="absolute top-full left-0 mt-2 w-[150px] bg-white border border-[#C9C9C9] rounded-lg shadow-lg z-10"
+              >
+                <div className="flex flex-col">
+                  {categories.map((cat) => (
+                    <button
+                      key={cat}
+                      onClick={() => updateTab(cat)}
+                      className={`px-4 py-2 text-left text-[#787878] hover:bg-gray-100 ${
+                        selectedCategory === cat
+                          ? "font-semibold text-[#1D1D1B]"
+                          : ""
+                      }`}
+                    >
+                      {cat}
+                    </button>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+
         {/* Portfolio Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 md:gap-4 gap-2">
           {filteredProducts.map((product) => (
             <motion.div
               key={product.id}

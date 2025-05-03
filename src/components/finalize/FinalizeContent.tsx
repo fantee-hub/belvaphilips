@@ -87,10 +87,10 @@ export default function FinalizeContent() {
   }
 
   return (
-    <div className="pt-[100px] bg-white">
+    <div className="md:pt-[100px] pt-16 bg-white">
       <div className="container mx-auto px-4 py-8">
         {/* Breadcrumb Navigation */}
-        <div className="mb-6 text-sm text-[#AAAAAA] font-medium flex items-center">
+        <div className="md:mb-6 mb-4 text-sm text-[#AAAAAA] font-medium flex items-center">
           <Link href="/portfolio" className="hover:text-black">
             PORTFOLIO
           </Link>
@@ -105,7 +105,7 @@ export default function FinalizeContent() {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="text-[46px] font-bold mb-2 leading-[110%]"
+          className="md:text-[46px] text-[38px] font-bold mb-2 leading-[110%]"
         >
           FINALIZE YOUR PROJECT
         </motion.h1>
@@ -114,7 +114,7 @@ export default function FinalizeContent() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.4, delay: 0.1 }}
-          className="text-[#444444] mb-10"
+          className="text-[#444444] mb-10 text-sm md:text-base"
         >
           Review and customize your shoot details before checkout.
         </motion.p>
@@ -130,7 +130,7 @@ export default function FinalizeContent() {
             <ProjectDescriptionSection />
 
             <div className="mb-10">
-              <button className="w-[573px] h-[47px] bg-black text-white flex items-center justify-center rounded-full cursor-pointer hover:bg-gray-900 transition-colors font-medium">
+              <button className="md:w-[573px] w-full h-[47px] bg-black text-white flex items-center justify-center rounded-full cursor-pointer hover:bg-gray-900 transition-colors font-medium">
                 CONTINUE TO CHECKOUT
               </button>
             </div>

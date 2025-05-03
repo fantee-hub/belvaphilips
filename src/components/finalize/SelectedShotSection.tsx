@@ -20,9 +20,11 @@ export default function SelectedShotsSection({
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="mb-7">
-      <h2 className="text-[28px] font-semibold mb-2">YOUR SELECTED SHOT</h2>
-      <p className="text-[#444444] mb-6">
+    <div className="md:mb-7 mb-6">
+      <h2 className="md:text-[28px] text-[26px] font-semibold md:mb-2 mb-0">
+        YOUR SELECTED SHOT
+      </h2>
+      <p className="text-[#444444] mb-6 md:text-base text-sm">
         Review your selected shot to ensure it aligns with your vision.
       </p>
 
