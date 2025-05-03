@@ -71,7 +71,7 @@ export default function FixedPricingSection() {
 
   return (
     <motion.div variants={itemVariants} className="space-y-6">
-      <div className="max-w-[630px]">
+      <div className="max-w-[630px] md:block hidden">
         <h2 className="text-[28px] leading-[145%] font-medium mb-2 text-[#1D1D1B]">
           PER-IMAGE FIXED PRICING
         </h2>
@@ -82,7 +82,7 @@ export default function FixedPricingSection() {
       </div>
 
       <div className="mb-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:gap-6 gap-[6px]">
           {pricingOptions.map((option, index) => (
             <PricingCard
               key={index}
@@ -98,7 +98,7 @@ export default function FixedPricingSection() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mdgap-6">
         <div className="col-span-1">
           <PricingCard
             title={premiumOption.title}
@@ -109,7 +109,7 @@ export default function FixedPricingSection() {
             type={premiumOption.type}
           />
         </div>
-        <div className="col-span-3 flex items-center justify-center ">
+        <div className="col-span-3 md:flex items-center justify-center hidden">
           <div className="relative w-full h-24">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full text-center">

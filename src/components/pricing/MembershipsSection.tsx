@@ -19,18 +19,21 @@ export default function MembershipsSection() {
   };
 
   return (
-    <motion.div variants={itemVariants} className="space-y-6 pb-10">
+    <motion.div
+      variants={itemVariants}
+      className="md:space-y-6 space-y-5 pb-10"
+    >
       <div className="max-w-[575px]">
-        <h2 className="text-[82.83px] font-semibold leading-[115%] tracking-[-3px] mb-2 text-[#1D1D1B]">
+        <h2 className="md:text-[82.83px] text-[38px] md:font-semibold font-bold leading-[115%] md:tracking-[-3px] tracking-[-0.5px] mb-2 text-[#1D1D1B]">
           MEMBERSHIPS
         </h2>
-        <p className="text-[#444444] text-lg">
+        <p className="text-[#444444] md:text-lg texr-sm">
           Enjoy flexible options tailored to your needs. Save more with higher
           volume and get exclusive perks with our membership plans.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 ">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:gap-6 gap-5 ">
         <MembershipCard
           title="PAY AS YOU GO"
           description="No commitment. Best suited for small or one-time orders."

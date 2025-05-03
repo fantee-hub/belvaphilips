@@ -53,7 +53,7 @@ export default function MembershipCard({
 
         <button
           onClick={onGetStarted}
-          className="w-full bg-black cursor-pointer text-white h-[46px] rounded-full flex items-center justify-center font-medium hover:bg-gray-900 transition-colors"
+          className="w-full bg-black cursor-pointer text-white h-[46px] rounded-full flex items-center justify-center font-medium hover:bg-gray-900 transition-colors md:text-base text-sm"
         >
           GET STARTED
         </button>

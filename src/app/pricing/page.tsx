@@ -37,7 +37,7 @@ export default function PricingPage() {
   return (
     <>
       <Header />
-      <div className="pt-[100px] bg-white" ref={ref}>
+      <div className="md:pt-[100px] pt-9 bg-white" ref={ref}>
         <div className="container mx-auto px-4 py-16">
           <motion.div
             initial="hidden"

@@ -16,7 +16,7 @@ export default function PricingHeader() {
 
   return (
     <motion.div variants={itemVariants} className="mb-10">
-      <h1 className="text-[82.83px] font-semibold leading-[115%] tracking-[-3px]">
+      <h1 className="md:text-[82.83px] text-[38px] font-semibold leading-[115%] md:tracking-[-3px] tracking-[-0.5px]">
         PRICING
       </h1>
     </motion.div>

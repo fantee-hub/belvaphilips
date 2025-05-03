@@ -30,7 +30,7 @@ export default function PricingCard({
       <div className="relative aspect-square">
         <Image src={image} alt={title} fill className="object-cover" />
       </div>
-      <div className="p-5 border-t-[0.5px] border-[#C9C9C9] relative">
+      <div className="md:p-5 p-3 border-t-[0.5px] border-[#C9C9C9] relative">
         {(badge === "premium" || badge === "Clothing") && (
           <div
             className="absolute top-6 right-3 text-white text-xs py-[2px] px-[7px] flex items-center justify-center rounded-full capitalize"
@@ -48,15 +48,19 @@ export default function PricingCard({
           </div>
         )}
         <div className="max-w-[222px]">
-          <h3 className="font-semibold mb-1 text-[#1D1D1B]">{title}</h3>
-          <p className="text-[#444444] text-sm mb-4">{description}</p>
-          <div className="flex items-center text-base text-[#1D1D1B] mb-8">
+          <h3 className="font-semibold mb-1 text-[#1D1D1B] text-sm md:text-base">
+            {title}
+          </h3>
+          <p className="text-[#444444] md:text-sm mb-4 text-xs">
+            {description}
+          </p>
+          <div className="flex flex-wrap items-center md:text-base text-xs text-[#1D1D1B] mb-8">
             <span className="font-medium mr-1 text-[#787878]">Timeline:</span>{" "}
             {timeline}
           </div>
         </div>
 
-        <div className="font-bold text-[#1D1D1B] absolute bottom-3">
+        <div className="font-bold text-[#1D1D1B] absolute bottom-3 md:text-base text-sm">
           {price}
         </div>
       </div>

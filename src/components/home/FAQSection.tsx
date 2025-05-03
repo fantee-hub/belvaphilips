@@ -203,12 +203,12 @@ const FAQSection = () => {
 
   return (
     <section className="w-full pb-[108px] bg-white " ref={ref}>
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto md:px-4">
         <motion.div
           initial="hidden"
           animate={controls}
           variants={containerVariants}
-          className="space-y-12 max-w-[1050px]"
+          className="space-y-12 md:max-w-[1050px]"
         >
           {/* Section Header */}
           <div>

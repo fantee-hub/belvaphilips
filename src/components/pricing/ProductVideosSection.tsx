@@ -66,12 +66,12 @@ export default function ProductVideosSection() {
   };
 
   return (
-    <motion.div variants={itemVariants} className="pt-[40px] space-y-6">
+    <motion.div variants={itemVariants} className="md:pt-[40px] pt-0 space-y-6">
       <div className="max-w-[795px]">
-        <h2 className="text-[28px] text-[#1D1D1B] font-medium mb-2 leading-[145%]">
+        <h2 className="md:text-[28px] text-[26px] text-[#1D1D1B] md:font-medium font-semibold mb-2 leading-[145%]">
           PRODUCT VIDEOS
         </h2>
-        <p className="text-[#444444] font-medium">
+        <p className="text-[#444444] md:font-medium md:text-base text-sm">
           Bring your products to life through eye-catching videography and
           stop-motion. Using props and colorful backgrounds, we create dynamic
           visuals perfect for your product content across all platforms.
