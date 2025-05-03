@@ -70,7 +70,9 @@ const MembershipPlans = () => {
         >
           <div className="p-5">
             <div className="flex justify-between items-start">
-              <h3 className="font-semibold">{plan.title}</h3>
+              <h3 className="font-semibold md:text-base text-lg">
+                {plan.title}
+              </h3>
               {plan.savings && (
                 <span
                   className="text-white text-xs px-2 py-[2px] rounded-full"
@@ -88,7 +90,9 @@ const MembershipPlans = () => {
             </p>
 
             <div className="flex flex-col flex-col-reverse">
-              <span className="font-semibold">{plan.price}</span>
+              <span className="font-semibold md:text-base text-lg">
+                {plan.price}
+              </span>
               <button
                 onClick={() => toggleExpand(plan.id)}
                 className="text-[#C49524] flex items-center text-sm mb-[10px] font-semibold cursor-pointer"

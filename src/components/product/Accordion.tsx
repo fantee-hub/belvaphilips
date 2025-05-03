@@ -40,7 +40,7 @@ const Accordion = ({ title, content }: AccordionProps) => {
           className="flex justify-between items-center w-full py-4 px-5 text-left cursor-pointer"
           onClick={() => setIsOpen(!isOpen)}
         >
-          <span className="font-semibold text-[20px] leading-[115%]">
+          <span className="font-semibold md:text-[20px] text-sm leading-[115%]">
             {title}
           </span>
           <motion.div>
@@ -62,7 +62,7 @@ const Accordion = ({ title, content }: AccordionProps) => {
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.3 }}
             >
-              <div className="px-5 pb-4 text-[#1D1D1B] max-w-[447px] leading-[115%]">
+              <div className="px-5 pb-4 text-[#1D1D1B] max-w-[447px] leading-[115%] md:text-base text-sm">
                 {typeof content === "string" ? <p>{content}</p> : content}
               </div>
             </motion.div>

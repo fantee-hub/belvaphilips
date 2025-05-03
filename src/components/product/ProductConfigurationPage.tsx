@@ -88,7 +88,7 @@ const ProductConfigurationPage = ({
   return (
     <div className="pt-[60px]">
       {/* Breadcrumb */}
-      <div className="container mx-auto px-4 py-16">
+      <div className="container mx-auto px-4 py-8 md:py-16">
         <div className="mb-6">
           <motion.div
             className="flex items-center text-sm gap-1"
@@ -104,23 +104,23 @@ const ProductConfigurationPage = ({
           </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-10">
           {/* Left column - Product Image */}
           <div>
             {/* Thumbnail Gallery */}
-            <div className="grid grid-cols-4 gap-[14px] mb-4">
+            <div className="flex flex-row md:grid md:grid-cols-4 gap-3 md:gap-[14px] mb-4 overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-hide">
               {productImages.length > 0
                 ? productImages.map((img, index) => (
                     <div
                       key={index}
-                      className={`border  cursor-pointer transition-all duration-200 hover:border-gray-500 overflow-hidden ${
+                      className={`border flex-shrink-0 cursor-pointer transition-all duration-200 hover:border-gray-500 overflow-hidden snap-start ${
                         index === selectedImageIndex
                           ? "border-gray-800"
                           : "border-gray-200"
                       }`}
                       onClick={() => setSelectedImageIndex(index)}
                     >
-                      <div className="w-[141px] h-[197px] relative bg-white flex items-center justify-center">
+                      <div className="w-[110px] h-[154px] md:w-[141px] md:h-[197px] relative bg-white flex items-center justify-center">
                         <Image
                           src={img}
                           alt={`Product thumbnail ${index + 1}`}
@@ -134,8 +134,11 @@ const ProductConfigurationPage = ({
                 : Array(4)
                     .fill(0)
                     .map((_, index) => (
-                      <div key={index} className="border p-1 border-gray-200">
-                        <div className="aspect-square bg-gray-200"></div>
+                      <div
+                        key={index}
+                        className="border flex-shrink-0 p-1 border-gray-200 snap-start"
+                      >
+                        <div className="w-[110px] h-[154px] md:w-[141px] md:h-[197px] bg-gray-200"></div>
                       </div>
                     ))}
             </div>
@@ -180,22 +183,22 @@ const ProductConfigurationPage = ({
               </div>
 
               {/* Category Title */}
-              <h1 className="text-[52px] leading-[110%] font-bold mb-2">
+              <h1 className="text-[38px] md:text-[52px] leading-[110%] font-bold mb-2">
                 {category} <br /> PHOTOGRAPHY
               </h1>
 
               {/* Description */}
-              <p className="text-[#444444] mb-6 leading-[155%]">
+              <p className="text-[#444444] mb-6 leading-[155%] text-sm md:text-lg">
                 Flat lay photography captures clothing from a top-down view,
                 laid flat on a surface.
               </p>
 
               {/* Finish Selection */}
-              <div className="mb-7 border-t border-b border-[#D1D1D1] pt-7 pb-8">
-                <h2 className="font-semibold mb-2 leading-[155%] text-lg">
+              <div className="mb-7 border-t border-b border-[#D1D1D1] pt-5 md:pt-7 pb-6 md:pb-8">
+                <h2 className="font-semibold mb-2 leading-[155%] text-[26px] md:text-lg">
                   CHOOSE YOUR PREFERRED FINISH
                 </h2>
-                <p className="text-gray-600 mb-5">
+                <p className="text-gray-600 mb-5 text-sm md:text-base">
                   Select the quality and style that best suits your brand's
                   needs.
                 </p>
@@ -209,10 +212,10 @@ const ProductConfigurationPage = ({
 
               {/* Shoot Type */}
               <div className="mb-7">
-                <h2 className="font-semibold mb-2 text-lg leading-[155%]">
+                <h2 className="font-semibold mb-2 text-[26px] md:text-lg leading-[155%]">
                   SHOOT TYPE
                 </h2>
-                <p className="text-[#444444] mb-4">
+                <p className="text-[#444444] mb-4 text-sm md:text-base">
                   Select the best way to showcase your product to match your
                   brand's needs.
                 </p>
@@ -225,10 +228,10 @@ const ProductConfigurationPage = ({
 
               {/* Image Quantity */}
               <div className="mb-7">
-                <h2 className="font-semibold mb-2 text-lg leading-[155%]">
+                <h2 className="font-semibold mb-2 text-[26px] md:text-lg leading-[155%]">
                   IMAGE QUANTITY
                 </h2>
-                <p className="text-[#444444] mb-4">
+                <p className="text-[#444444] mb-4 text-sm md:text-base">
                   Input the number of shots you would like
                 </p>
                 <ImageQuantitySelector
@@ -239,10 +242,10 @@ const ProductConfigurationPage = ({
 
               {/* Membership Plans */}
               <div className="mb-8">
-                <h2 className="font-semibold mb-2 text-lg leading-[155%]">
+                <h2 className="font-semibold mb-2 text-[26px] md:text-lg leading-[155%]">
                   MEMBERSHIP PLANS
                 </h2>
-                <p className="text-[#444444] mb-4">
+                <p className="text-[#444444] mb-4 text-sm md:text-base">
                   Enjoy flexible options tailored to your needs. Save more with
                   higher volume and get exclusive perks with our membership
                   plans.
@@ -288,9 +291,9 @@ const ProductConfigurationPage = ({
               </div>
 
               {/* Need Assistance */}
-              <div className="mt-5 flex justify-between items-center border-t border-gray-200 pt-4">
+              <div className="mt-5 flex flex-col md:flex-row justify-between md:items-center border-t border-gray-200 pt-4 gap-4">
                 <div>
-                  <h3 className="font-semibold leading-[155%]">
+                  <h3 className="font-semibold leading-[155%] text-[26px] md:text-lg">
                     CONFUSED OR NEED ASSISTANCE?
                   </h3>
                   <p className="text-sm text-[#444444]">
@@ -306,12 +309,12 @@ const ProductConfigurationPage = ({
         </div>
 
         {/* Related Categories */}
-        <div className="mt-[176px] mb-[100px]">
-          <div className="flex">
-            <h2 className="text-[64px] font-semibold mb-8 leading-[115%] tracking-[-3px] w-full">
-              YOU MIGHT PREFER <br /> THESE
+        <div className="mt-[128px] md:mt-[176px] mb-[61px] md:mb-[100px]">
+          <div className="flex flex-col md:flex-row md:items-start">
+            <h2 className="text-[38px] md:text-[64px] max-w-[290px] md:max-w-[614px] font-semibold mb-8 leading-[115%] tracking-tight md:tracking-[-3px] w-full">
+              YOU MIGHT PREFER THESE
             </h2>
-            <div className="flex justify-end w-full mt-4">
+            <div className="hidden md:flex md:justify-end w-full mt-4">
               <motion.div
                 whileHover={{ x: 5 }}
                 className="inline-flex items-center text-gray-800 hover:text-black cursor-pointer"
@@ -339,6 +342,32 @@ const ProductConfigurationPage = ({
           </div>
 
           <RelatedCategories />
+
+          <div className="flex md:hidden  mt-6">
+            <motion.div
+              whileHover={{ x: 5 }}
+              className="inline-flex items-center text-gray-800 hover:text-black cursor-pointer"
+            >
+              <Link
+                href="/portfolio"
+                className="flex items-center border-[0.5px] w-[287px] h-[55px] justify-center border-[#C9C9C9] gap-4"
+              >
+                <span className="font-medium">VIEW ALL OUR SERVICES</span>
+                <svg
+                  width="18"
+                  height="15"
+                  viewBox="0 0 18 15"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M11.0306 0.219445L17.7806 6.96945C17.8504 7.0391 17.9057 7.12182 17.9434 7.21287C17.9812 7.30391 18.0006 7.40151 18.0006 7.50007C18.0006 7.59863 17.9812 7.69623 17.9434 7.78728C17.9057 7.87832 17.8504 7.96104 17.7806 8.0307L11.0306 14.7807C10.8899 14.9214 10.699 15.0005 10.5 15.0005C10.301 15.0005 10.1101 14.9214 9.96937 14.7807C9.82864 14.64 9.74958 14.4491 9.74958 14.2501C9.74958 14.051 9.82864 13.8602 9.96937 13.7194L15.4397 8.25007L0.75 8.25007C0.551087 8.25007 0.360322 8.17105 0.21967 8.0304C0.0790175 7.88975 -3.19159e-07 7.69898 -3.27854e-07 7.50007C-3.36548e-07 7.30116 0.0790174 7.11039 0.21967 6.96974C0.360322 6.82909 0.551087 6.75007 0.75 6.75007L15.4397 6.75007L9.96937 1.2807C9.82864 1.13996 9.74958 0.949093 9.74958 0.75007C9.74958 0.551047 9.82864 0.360176 9.96937 0.219445C10.1101 0.0787139 10.301 -0.000347588 10.5 -0.000347596C10.699 -0.000347605 10.8899 0.0787139 11.0306 0.219445Z"
+                    fill="#1D1D1B"
+                  />
+                </svg>
+              </Link>
+            </motion.div>
+          </div>
         </div>
 
         {/* FAQ Section */}

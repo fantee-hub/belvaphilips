@@ -47,13 +47,12 @@ const FinishSelector = ({
   // Filter finishes based on category and shoot type
   const availableFinishes = finishes.filter((finish) => {
     if (finish.title === "BASIC END FINISH") {
-      // BASIC END FINISH is only available for FLATLAY in CLOTHING and not for MODEL in any category
       return (
         (category === "CLOTHING" && shootType === "FLATLAY") ||
         (category !== "CLOTHING" && shootType !== "MODEL")
       );
     }
-    // All other finishes are available, but MODEL must not include BASIC
+
     return true;
   });
 
@@ -74,7 +73,9 @@ const FinishSelector = ({
           <div className="flex flex-col h-full">
             <div className="flex-1">
               <div className="flex justify-between items-start mb-1">
-                <h3 className="font-semibold text-base">{finish.title}</h3>
+                <h3 className="font-semibold md:text-base text-lg">
+                  {finish.title}
+                </h3>
                 {selectedFinish === finish.title && (
                   <span className="text-sm text-[#1D1D1B]">SELECTED</span>
                 )}
@@ -83,7 +84,9 @@ const FinishSelector = ({
                 {finish.description}
               </p>
             </div>
-            <div className="font-semibold">{finish.price}</div>
+            <div className="font-semibold md:text-base text-lg">
+              {finish.price}
+            </div>
           </div>
         </motion.div>
       ))}
