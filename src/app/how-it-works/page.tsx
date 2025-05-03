@@ -136,10 +136,10 @@ const HowItWorksPage = () => {
   return (
     <>
       <Header />
-      <div className="pt-[100px] bg-white" ref={ref}>
+      <div className="md:pt-[100px] bg-white pt-9" ref={ref}>
         <div className="container mx-auto px-4 pt-16 pb-20">
           <motion.h1
-            className="text-[82.83px] leading-[115%] tracking-[-3px] font-semibold mb-10"
+            className="md:text-[82.83px] text-[38px] leading-[115%] md:tracking-[-3px] tracking-[-1px] font-semibold mb-10"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -158,16 +158,16 @@ const HowItWorksPage = () => {
               <motion.div
                 key={index}
                 variants={itemVariants}
-                className="border-[0.5px] border-[#C9C9C9] p-6 relative flex flex-col"
+                className="border-[0.5px] border-[#C9C9C9] md:p-6 p-4 relative flex flex-col"
               >
-                <h2 className="text-[46.74px] text-[#A0A0A0] leading-[115%] font-semibold mb-1">
+                <h2 className="md:text-[46.74px] text-[36px] text-[#A0A0A0] leading-[115%] font-semibold mb-1">
                   {step.number}
                 </h2>
-                <h3 className="text-[26px] font-semibold mb-4 max-w-[144px] leading-[115%]">
+                <h3 className="md:text-[26px] text-[18px] font-semibold md:mb-4 mb-3 md:max-w-[144px] leading-[115%]">
                   {step.title}
                 </h3>
                 <p
-                  className={`text-gray-700 mb-5 flex-grow whitespace-pre-line text-lg`}
+                  className={`text-gray-700 mb-5 flex-grow whitespace-pre-line md:text-lg text-sm`}
                 >
                   {step.description}
                 </p>
@@ -186,10 +186,12 @@ const HowItWorksPage = () => {
             {/* Membership Card */}
             <motion.div
               variants={itemVariants}
-              className="w-full  border border-gray-200 p-7"
+              className="w-full  border border-gray-200 md:p-7 p-5"
             >
-              <h3 className="text-[28px] font-medium mb-3">MEMBERSHIP</h3>
-              <p className="text-[#787878] mb-6">
+              <h3 className="md:text-[28px] text-lg font-medium mb-3">
+                MEMBERSHIP
+              </h3>
+              <p className="text-[#787878] mb-6 text-sm md:text-base">
                 For businesses and professionals needing frequent edits, we also
                 provide membership plans.
               </p>
@@ -198,17 +200,18 @@ const HowItWorksPage = () => {
                 <div className="absolute top-0 inset-0 bg-gradient-to-br from-[#FEC845]  to-black"></div>
 
                 <div className="absolute  flex flex-col justify-end py-0 px-6 pt-[11px] right-0 top-0 text-white">
-                  <h4 className="text-[22.66px] leading-[145%] font-black text-right">
-                    Up to <span className="text-[26px]">25%</span>
+                  <h4 className="md:text-[22.66px] text-[19.52px] leading-[145%] font-black text-right">
+                    Up to{" "}
+                    <span className="md:text-[26px] text-[22.47px]">25%</span>
                   </h4>
-                  <p className="text-[22.66px] font-black mb-4 text-right">
+                  <p className="md:text-[22.66px] text-[19.52px] font-black mb-4 text-right">
                     per image savings!
                   </p>
                 </div>
-                <div className="flex justify-end absolute left-5 bottom-[23.5px]">
+                <div className="flex justify-end absolute left-5 md:bottom-[23.5px] bottom-3">
                   <Link
                     href="/membership"
-                    className="inline-flex items-center text-white hover:underline"
+                    className="inline-flex items-center text-white hover:underline md:text-base text-xs"
                   >
                     Explore membership plans
                     <ArrowUpRight className="ml-2 h-5 w-5" />
