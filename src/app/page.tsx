@@ -1,3 +1,4 @@
+import BackToTopButton from "@/components/BackToTop";
 import BrandsStrip from "@/components/home/Brands";
 import CTASection from "@/components/home/CTASection";
 import FAQSection from "@/components/home/FAQSection";
@@ -27,6 +28,7 @@ export default function Home() {
         <FAQSection />
       </div>
       <Footer />
+      <BackToTopButton />
     </>
   );
 }

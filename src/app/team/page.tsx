@@ -1,4 +1,5 @@
 "use client";
+import BackToTopButton from "@/components/BackToTop";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 import TeamMember from "@/components/team/TeamMember";
@@ -217,7 +218,9 @@ export default function TeamSection() {
           </div>
         </div>
       </section>
+
       <Footer />
+      <BackToTopButton />
     </>
   );
 }
