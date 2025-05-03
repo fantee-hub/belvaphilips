@@ -9,17 +9,20 @@ import FAQSection from "@/components/home/FAQSection";
 import MembershipsSection from "@/components/pricing/MembershipsSection";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-// import GetStartedCTA from "@/components/pricing/GetStartedCTA";
-// import FAQSection from "@/components/pricing/FAQSection";
 
 export default function PricingPage() {
   const controls = useAnimation();
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.1 });
+  const isInView = useInView(ref, { once: true, amount: 0.05 });
 
   useEffect(() => {
     if (isInView) {
       controls.start("visible");
+    } else {
+      const timer = setTimeout(() => {
+        controls.start("visible");
+      }, 1000);
+      return () => clearTimeout(timer);
     }
   }, [controls, isInView]);
 
@@ -50,11 +53,6 @@ export default function PricingPage() {
             <ProductVideosSection />
             <MembershipsSection />
             <FAQSection />
-            {/* 
-          <GetStartedCTA />
-          
-        
-           */}
           </motion.div>
         </div>
       </div>
