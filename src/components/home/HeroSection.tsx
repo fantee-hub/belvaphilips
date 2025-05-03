@@ -81,18 +81,18 @@ const HeroSection = () => {
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="space-y-6"
+            className="md:space-y-6 space-y-2"
           >
             <motion.h1
               variants={itemVariants}
-              className="sm:text-[42px] text-[24px] md:text-[76.83px] text-center md:font-semibold font-bold leading-[115%] md:tracking-[-3px] tracking-[-1px] text-[#000000] text-[32px] lg:text-left"
+              className="sm:text-[42px] text-[38px] md:text-[76.83px] text-center md:font-semibold font-bold leading-[115%] md:tracking-[-3px] tracking-[-1px] text-[#000000] text-[32px] lg:text-left md:max-w-full max-w-[343px] mx-auto"
             >
               STUDIO QUALITY PHOTOGRAPHY MADE SIMPLE
             </motion.h1>
 
             <motion.p
               variants={itemVariants}
-              className="md:text-[20px] text-sm text-[#444444] font-medium md:font-normal leading-[155%] text-center lg:text-left"
+              className="md:text-[20px] text-sm text-[#444444] font-medium md:font-normal leading-[155%] text-center lg:text-left md:max-w-full max-w-[343px] mx-auto"
             >
               We provide high-quality images that make your products look their
               best. From clean catalog images to creative angles, Belvaphilips
