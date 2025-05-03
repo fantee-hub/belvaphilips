@@ -191,10 +191,10 @@ export default function TeamSection() {
   return (
     <>
       <Header />
-      <section className="pt-[100px]">
+      <section className="md:pt-[100px] pt-9">
         <div className="container mx-auto px-4 py-16">
           <motion.h2
-            className="text-[82.83px] font-semibold mb-16 leading-[115%] text-[#1D1D1B] tracking-[-3px]"
+            className="md:text-[82.83px] text-[38px] md:font-semibold font-bold mb-16 leading-[115%] text-[#1D1D1B] md:tracking-[-3px] tracking-[-0.5px]"
             initial={{ opacity: 0, y: -20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
