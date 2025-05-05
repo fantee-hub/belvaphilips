@@ -4,11 +4,13 @@ import React from "react";
 interface ActionButtonsProps {
   onSaveDraft: () => void;
   onPost: () => void;
+  isCreatingPost: boolean;
 }
 
 const ActionButtons: React.FC<ActionButtonsProps> = ({
   onSaveDraft,
   onPost,
+  isCreatingPost,
 }) => {
   return (
     <div className="flex items-center space-x-2">
@@ -20,9 +22,10 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
       </button>
       <button
         onClick={onPost}
-        className="w-[76px] h-[32px] flex items-center justify-center bg-[#1D1D1B] uppercase text-sm font-semibold text-white rounded-full hover:bg-gray-800 cursor-pointer"
+        disabled={isCreatingPost}
+        className="px-[18.5px] h-[32px] flex items-center justify-center bg-[#1D1D1B] uppercase text-sm font-semibold text-white rounded-full hover:bg-gray-800 cursor-pointer"
       >
-        POST
+        {isCreatingPost ? "Posting..." : "Post"}
       </button>
     </div>
   );

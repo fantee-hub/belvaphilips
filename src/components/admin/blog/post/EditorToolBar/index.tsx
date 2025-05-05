@@ -15,12 +15,14 @@ interface EditorToolbarProps {
   handleFormat: (format: string, param?: string) => void;
   onSaveDraft: () => void;
   onPost: () => void;
+  isCreatingPost: boolean;
 }
 
 const EditorToolbar: React.FC<EditorToolbarProps> = ({
   handleFormat,
   onSaveDraft,
   onPost,
+  isCreatingPost,
 }) => {
   const [fontSize, setFontSize] = useState<string>("Medium");
   const [showFontSizes, setShowFontSizes] = useState<boolean>(false);
@@ -127,7 +129,11 @@ const EditorToolbar: React.FC<EditorToolbarProps> = ({
           U
         </button>
       </div>
-      <ActionButtons onSaveDraft={onSaveDraft} onPost={onPost} />
+      <ActionButtons
+        onSaveDraft={onSaveDraft}
+        onPost={onPost}
+        isCreatingPost={isCreatingPost}
+      />
     </div>
   );
 };

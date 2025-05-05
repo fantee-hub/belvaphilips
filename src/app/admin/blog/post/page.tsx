@@ -3,12 +3,18 @@ import ActionButtons from "@/components/admin/blog/post/ActionButtons";
 import BlogEditor from "@/components/admin/blog/post/BlogEditor";
 import CoverImageUpload from "@/components/admin/blog/post/CoverImageUpload";
 import React, { useState } from "react";
+import { createPost } from "@/lib/api";
+import Cookies from "universal-cookie";
+import setAuthToken from "@/lib/api/setAuthToken";
+import toast from "react-hot-toast";
 
 const BlogPostPage: React.FC = () => {
   const [title, setTitle] = useState<string>("");
   const [slug, setSlug] = useState<string>("");
   const [content, setContent] = useState<string>("");
-  const [coverImage, setCoverImage] = useState<string | null>(null);
+  const [coverImage, setCoverImage] = useState<File | null>(null);
+  const [isCreatingPost, setIsCreatingPost] = useState<boolean>(false);
+  const cookies = new Cookies();
 
   const handleGenerateSlug = (): void => {
     const generatedSlug = title
@@ -22,8 +28,63 @@ const BlogPostPage: React.FC = () => {
     console.log("Saving to drafts:", { title, slug, content, coverImage });
   };
 
-  const handlePost = (): void => {
+  const handlePost = async () => {
     console.log("Posting blog:", { title, slug, content, coverImage });
+    setIsCreatingPost(true);
+    const token = cookies.get("admin_token");
+
+    if (token) {
+      setAuthToken(token);
+    }
+    try {
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("slug", slug);
+      formData.append("content", content);
+      formData.append("status", "published");
+      if (coverImage) {
+        formData.append("cover_image", coverImage);
+      }
+
+      const { data } = await createPost(formData);
+      if (data) {
+        toast.success("Post created successfully", {
+          style: {
+            border: "1px solid #1D1D1B",
+            padding: "16px",
+            color: "#1D1D1B",
+            borderRadius: "6px",
+          },
+          iconTheme: {
+            primary: "#008000",
+            secondary: "#FFFAEE",
+          },
+        });
+        console.log("Post created successfully:", data);
+      }
+    } catch (error: any) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      toast.error(message, {
+        style: {
+          border: "0.5px solid #1D1D1B",
+          padding: "16px",
+          color: "#1D1D1B",
+          borderRadius: "6px",
+        },
+        iconTheme: {
+          primary: "#FF0000",
+          secondary: "#FFFAEE",
+        },
+      });
+    } finally {
+      setIsCreatingPost(false);
+    }
   };
 
   return (
@@ -47,6 +108,7 @@ const BlogPostPage: React.FC = () => {
               setContent={setContent}
               onSaveDraft={handleSaveDraft}
               onPost={handlePost}
+              isCreatingPost={isCreatingPost}
             />
           </div>
         </div>

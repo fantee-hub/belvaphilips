@@ -3,8 +3,8 @@ import Image from "next/image";
 import React from "react";
 
 interface CoverImageUploadProps {
-  coverImage: string | null;
-  setCoverImage: React.Dispatch<React.SetStateAction<string | null>>;
+  coverImage: File | null;
+  setCoverImage: React.Dispatch<React.SetStateAction<File | null>>;
 }
 
 const CoverImageUpload: React.FC<CoverImageUploadProps> = ({
@@ -14,7 +14,7 @@ const CoverImageUpload: React.FC<CoverImageUploadProps> = ({
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const file = e.target.files?.[0];
     if (file && (file.type === "image/png" || file.type === "image/jpeg")) {
-      setCoverImage(URL.createObjectURL(file));
+      setCoverImage(file);
     } else {
       alert("Please upload a PNG or JPG image.");
     }
@@ -24,7 +24,7 @@ const CoverImageUpload: React.FC<CoverImageUploadProps> = ({
     <div className="w-[373px] h-[571px] border-1 border-dashed border-[#C9C9C9] rounded-[16px] flex flex-col items-center justify-center relative">
       {coverImage ? (
         <img
-          src={coverImage}
+          src={URL.createObjectURL(coverImage)}
           alt="Cover"
           className="w-full h-full object-cover rounded-lg"
         />

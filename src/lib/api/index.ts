@@ -5,7 +5,7 @@ const contactusUrl = "/contact";
 /** ADMIN */
 const adminLoginUrl = "/admin/login";
 const getAdminUserUrl = "/admin/get_users";
-const createPostUrl = "/admin/posts";
+const createPostUrl = "/posts";
 
 /** General url */
 const getAllPostsUrl = "/posts";
