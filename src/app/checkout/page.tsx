@@ -59,7 +59,6 @@ const CheckoutPage = () => {
   }, []);
 
   const handleStartProject = () => {
-    // Store the finalized checkout
     const checkoutData = {
       ...orderDetails,
       deliveryType: selectedDeliveryType,
@@ -120,7 +119,7 @@ const CheckoutPage = () => {
           </div>
 
           {/* Page Title */}
-          <h1 className="text-5xl leading-[110%] font-bold mb-10">
+          <h1 className="md:text-5xl text-[38px] leading-[110%] font-bold mb-10">
             FINALIZE YOUR PROJECT
           </h1>
 
@@ -129,10 +128,10 @@ const CheckoutPage = () => {
             <div className="lg:col-span-1">
               {/* Delivery Speed */}
               <div className="mb-5">
-                <h2 className="text-[28px] font-semibold mb-2">
+                <h2 className="md:text-[28px] text-[26px] font-semibold mb-2">
                   IMAGE DELIVERY SPEED
                 </h2>
-                <p className="text-[#444444] mb-6">
+                <p className="text-[#444444] mb-6 md:text-base text-sm">
                   Choose the delivery speed that best fits your timeline.
                 </p>
 
@@ -154,15 +153,15 @@ const CheckoutPage = () => {
 
               {/* Delivery Format */}
               <div className="mb-9">
-                <h2 className="text-[28px] font-semibold mb-2">
+                <h2 className="md:text-[28px] text-[26px] font-semibold mb-2">
                   IMAGE DELIVERY FORMAT
                 </h2>
-                <p className="text-[#1D1D1B] mb-4">
+                <p className="text-[#1D1D1B] mb-4 md:text-base text-sm">
                   Standard product photos are delivered as high-resolution 300
                   DPI JPEGs, using the maximum quality setting at 3000×3000
                   pixels.
                 </p>
-                <p className="text-[#1D1D1B]">
+                <p className="text-[#1D1D1B] md:text-base text-sm">
                   Depending on the product shape, excess white space may be
                   cropped, leaving the longest dimension at least 3000 pixels,
                   while the other dimension is adjusted to fit the product's

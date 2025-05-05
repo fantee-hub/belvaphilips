@@ -70,7 +70,7 @@ const Header = () => {
   };
 
   return (
-    <header className="w-full bg-white fixed left-0 right-0 z-[10] lg:py-[30.63px] py-6 lg:border-b lg:border-[#E0E0E0] max-w-[1800px] mx-auto">
+    <header className="w-full bg-white fixed left-0 right-0 z-[20] lg:py-[30.63px] py-6 lg:border-b lg:border-[#E0E0E0] max-w-[1800px] mx-auto">
       <div className="container mx-auto px-4 flex justify-between items-center">
         {/* Logo */}
         <Link
@@ -86,7 +86,7 @@ const Header = () => {
           <span
             className={`font-logo text-[23.29px] flex items-center gap-[2.45px]`}
           >
-            <span className={`font-black  `}>BELVAPHILIPS</span>
+            <span className={`font-black`}>BELVAPHILIPS</span>
             <span className="font-light ">IMAGERY</span>
           </span>
         </Link>

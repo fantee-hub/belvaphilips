@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { GoArrowRight } from "react-icons/go";
 import Image from "next/image";
 import { Edit, PaperclipIcon, Pencil, Trash2, Upload } from "lucide-react";
@@ -24,6 +24,7 @@ const FinalizeProjectPage = () => {
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [selectedLighting, setSelectedLighting] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isSummaryExpanded, setIsSummaryExpanded] = useState(false);
   const shootTypes = ["Studio Shot", "Lifestyle Shot", "Dramatic Lighting"];
   const shotsTypes = [
     {
@@ -84,7 +85,8 @@ const FinalizeProjectPage = () => {
       setUploadedFiles([...uploadedFiles, ...newFiles]);
     }
   };
-  //Handle custom shot upload
+
+  // Handle custom shot upload
   const handleCustomShotUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files) return;
@@ -168,6 +170,10 @@ const FinalizeProjectPage = () => {
     console.log("Proceeding to checkout with:", finalizedOrder);
   };
 
+  // Calculate total price
+  const totalPrice =
+    (productConfig.basePrice || 0) * (productConfig.quantity || 1);
+
   if (isLoading) {
     return (
       <div className="min-h-screen flex justify-center items-center">
@@ -177,8 +183,8 @@ const FinalizeProjectPage = () => {
   }
 
   return (
-    <div className="pt-[60px] bg-[#F5F5F5]">
-      <div className="container mx-auto px-4 py-16">
+    <div className="md:pt-[60px] pt-20 bg-[#F5F5F5]">
+      <div className="container mx-auto px-4 py-8 md:py-16">
         {/* Breadcrumb */}
         <div className="mb-6">
           <motion.div
@@ -204,35 +210,35 @@ const FinalizeProjectPage = () => {
         </div>
 
         {/* Page Title */}
-        <h1 className="text-5xl leading-[110%] font-bold mb-4">
+        <h1 className="md:text-5xl text-[38px] leading-[110%] font-bold md:mb-4 mb-2">
           FINALIZE YOUR PROJECT
         </h1>
-        <p className="text-[#444444] mb-10">
+        <p className="text-[#444444] mb-10 md:text-base text-sm">
           Review and customize your shoot details before checkout.
         </p>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-10">
           {/* Left column - Project Details */}
           <div className="lg:col-span-1">
             {/* Project Description */}
             <div className="mb-7 border-b-[0.5px] pb-7 border-[#D1D1D1]">
-              <div className="flex items-center mb-2">
-                <h2 className="text-[28px] font-semibold">
+              <div className="flex items-center md:mb-2">
+                <h2 className="md:text-[28px] text-[26px] font-semibold">
                   PROJECT DESCRIPTION
                 </h2>
                 <span className="text-red-500 ml-2 text-2xl">*</span>
               </div>
-              <p className="text-[#444444] mb-4 max-w-[516px]">
+              <p className="text-[#444444] mb-4 max-w-[516px] md:text-base text-sm">
                 Share details, creative direction, and any reference images to
                 help us bring your project to life.
               </p>
               <div className="relative">
                 <textarea
-                  className="w-full border-[0.7px] border-[#C9C9C9] p-4 h-[204px] mb-2 focus:outline-none focus:ring-1 placeholder:text-[#B9B9B9] focus:ring-gray-200"
+                  className="w-full border-[0.7px] border-[#C9C9C9] p-4 md:h-[204px] h-[234px] mb-2 focus:outline-none focus:ring-1 placeholder:text-[#B9B9B9] focus:ring-gray-200"
                   placeholder="Example: Clean white background, soft shadows, lifestyle setting."
                 />
 
-                <div className="flex flex-wrap gap-3 mb-4 absolute bottom-6 left-5">
+                <div className="flex flex-wrap gap-3 mb-4 absolute md:bottom-6 bottom-[10px] left-5">
                   {shootTypes.map((type) => (
                     <button
                       key={type}
@@ -289,10 +295,10 @@ const FinalizeProjectPage = () => {
 
             {/* Shot Selection */}
             <div className="mb-10">
-              <h2 className="text-[28px] text-[#1D1D1B] font-semibold mb-3 max-w-[516px]">
+              <h2 className="md:text-[28px] text-[26px] text-[#1D1D1B] font-semibold md:mb-3 max-w-[516px]">
                 SELECT YOUR SHOTS
               </h2>
-              <p className="text-gray-600 mb-6">
+              <p className="text-[#444444] mb-6 md:text-base text-sm">
                 Choose the perfect angles to showcase your product with clarity
                 and style.
               </p>
@@ -411,103 +417,141 @@ const FinalizeProjectPage = () => {
 
           {/* Right column - Order Summary */}
           <div className="lg:col-span-1">
-            <div className="sticky top-20">
+            <div className="sticky top-[150px]">
               {/* Order Summary */}
-              <div className="border-[0.5px] border-[#1D1D1B] mb-4">
+              <div className="border-[0.5px] border-[#1D1D1B] mb-4 -mx-4 md:mx-0">
                 <div className="p-5 bg-[#F0F0F0]">
-                  <h2 className="text-[20px] font-bold mb-4">SUMMARY</h2>
+                  <div
+                    className="flex justify-between items-center mb-4"
+                    onClick={() => setIsSummaryExpanded(!isSummaryExpanded)}
+                  >
+                    <h2 className="text-[20px] font-bold">SUMMARY</h2>
+                    <button className="md:hidden flex items-center gap-2 text-[#444444] text-sm font-medium">
+                      <svg
+                        className={`h-5 w-5 transition-transform duration-300 ${
+                          isSummaryExpanded ? "rotate-180" : ""
+                        }`}
+                        width="18"
+                        height="18"
+                        viewBox="0 0 18 18"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M15.0233 10.8517L9.39828 5.22672C9.34604 5.17442 9.284 5.13293 9.21572 5.10462C9.14743 5.07631 9.07423 5.06175 9.00031 5.06175C8.92639 5.06175 8.8532 5.07631 8.78491 5.10462C8.71662 5.13293 8.65458 5.17442 8.60234 5.22672L2.97734 10.8517C2.8718 10.9573 2.8125 11.1004 2.8125 11.2497C2.8125 11.399 2.8718 11.5421 2.97734 11.6477C3.08289 11.7532 3.22605 11.8125 3.37531 11.8125C3.52458 11.8125 3.66773 11.7532 3.77328 11.6477L9.00031 6.41992L14.2273 11.6477C14.2796 11.6999 14.3417 11.7414 14.4099 11.7697C14.4782 11.7979 14.5514 11.8125 14.6253 11.8125C14.6992 11.8125 14.7724 11.7979 14.8407 11.7697C14.909 11.7414 14.971 11.6999 15.0233 11.6477C15.0755 11.5954 15.117 11.5334 15.1453 11.4651C15.1736 11.3968 15.1881 11.3236 15.1881 11.2497C15.1881 11.1758 15.1736 11.1026 15.1453 11.0343C15.117 10.966 15.0755 10.904 15.0233 10.8517Z"
+                          fill="#444444"
+                        />
+                      </svg>
+                    </button>
+                  </div>
 
-                  <div className="space-y-[10px]">
-                    <div className="flex justify-between font-semibold">
-                      <span className="text-[#1D1D1B]">Product</span>
-                      <span className="text-[#1D1D1B] capitalize">
-                        {productConfig.category?.toLowerCase() || "Clothing"}
-                      </span>
-                    </div>
-
-                    <div className="flex justify-between">
-                      <span className="text-[#787878]">Shoot type</span>
-                      <span className="font-medium capitalize text-[#444444]">
-                        {productConfig.shootType?.toLowerCase() || "Flatlay"}
-                      </span>
-                    </div>
-
-                    <div className="flex justify-between">
-                      <span className="text-[#787878]">Finish Type</span>
-                      <span className="font-medium capitalize text-[#444444]">
-                        {productConfig.finish?.toLowerCase() ||
-                          "Basic End Finish"}
-                      </span>
-                    </div>
-
-                    <div className="flex justify-between">
-                      <span className="text-[#787878]">Image Quantity</span>
-                      <span className="font-medium text-[#444444]">
-                        x{productConfig.quantity || 1}
-                      </span>
-                    </div>
-
-                    <div className="pt-4 border-t border-gray-200">
-                      <h3 className="font-semibold mb-2 text-[#1D1D1B]">
-                        Scene:
-                      </h3>
-                      <div className="space-y-2">
-                        <div className="flex justify-between">
-                          <span className="text-[#444444]">Backdrop</span>
-                          <span className="font-medium text-[#444444]">
-                            White
-                          </span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-[#444444]">Items in frame</span>
-                          <span className="font-medium text-[#444444]">
-                            Single
-                          </span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-[#444444]">Shadow</span>
-                          <span className="font-medium text-[#444444]">
-                            No Shadow
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="pt-4 border-t border-gray-200 flex justify-between">
-                      <h3 className="font-semibold text-[#1D1D1B] mb-2">
-                        Shots:
-                      </h3>
-                      <div className="flex flex-col gap-1 text-right">
-                        {selectedShots.map((shot, index) => (
-                          <div key={index}>
-                            <span className="text-[#444444]"></span>
-                            <span className="font-medium capitalize">
-                              {shot.toLowerCase()} Shot
+                  {/* Collapsible Content on Mobile */}
+                  <AnimatePresence>
+                    {(isSummaryExpanded || window.innerWidth >= 768) && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="space-y-[10px]">
+                          <div className="flex justify-between font-semibold">
+                            <span className="text-[#1D1D1B]">Product</span>
+                            <span className="text-[#1D1D1B] capitalize">
+                              {productConfig.category?.toLowerCase() ||
+                                "Clothing"}
                             </span>
                           </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
+
+                          <div className="flex justify-between">
+                            <span className="text-[#787878]">Shoot type</span>
+                            <span className="font-medium capitalize text-[#444444]">
+                              {productConfig.shootType?.toLowerCase() ||
+                                "Flatlay"}
+                            </span>
+                          </div>
+
+                          <div className="flex justify-between">
+                            <span className="text-[#787878]">Finish Type</span>
+                            <span className="font-medium capitalize text-[#444444]">
+                              {productConfig.finish?.toLowerCase() ||
+                                "Basic End Finish"}
+                            </span>
+                          </div>
+
+                          <div className="flex justify-between">
+                            <span className="text-[#787878]">
+                              Image Quantity
+                            </span>
+                            <span className="font-medium text-[#444444]">
+                              x{productConfig.quantity || 1}
+                            </span>
+                          </div>
+
+                          <div className="pt-4 border-t border-gray-200">
+                            <h3 className="font-semibold mb-2 text-[#1D1D1B]">
+                              Scene:
+                            </h3>
+                            <div className="space-y-2">
+                              <div className="flex justify-between">
+                                <span className="text-[#444444]">Backdrop</span>
+                                <span className="font-medium text-[#444444]">
+                                  White
+                                </span>
+                              </div>
+                              <div className="flex justify-between">
+                                <span className="text-[#444444]">
+                                  Items in frame
+                                </span>
+                                <span className="font-medium text-[#444444]">
+                                  Single
+                                </span>
+                              </div>
+                              <div className="flex justify-between">
+                                <span className="text-[#444444]">Shadow</span>
+                                <span className="font-medium text-[#444444]">
+                                  No Shadow
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="pt-4 border-t border-gray-200 flex justify-between">
+                            <h3 className="font-semibold text-[#1D1D1B] mb-2">
+                              Shots:
+                            </h3>
+                            <div className="flex flex-col gap-1 text-right">
+                              {selectedShots.map((shot, index) => (
+                                <div key={index}>
+                                  <span className="text-[#444444]"></span>
+                                  <span className="font-medium capitalize">
+                                    {shot.toLowerCase()} Shot
+                                  </span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               </div>
 
               {/* Membership Upgrade */}
               <div
-                className="py-[7px] border-[0.5px] border-[#1D1D1B] pl-3 pr-5"
+                className="py-[7px] border-[0.5px] border-[#1D1D1B] pl-3 md:pr-5 pr-3 -mx-4 md:mx-0"
                 style={{
                   background:
                     "linear-gradient(to right, #FFFFFF 30%, #E7E7E7 85%, #DEDEDE 100%)",
                 }}
               >
-                <div className="flex justify-between items-center w-full">
-                  <span className="font-semibold text-[#1D1D1B]">
+                <div className="flex justify-between items-center w-full gap-3 md:gap-0">
+                  <span className="font-semibold text-[#1D1D1B] text-sm md:text-base">
                     Upgrade your membership in order to save up to 25%!
                   </span>
-                  <button
-                    onClick={() => setIsModalOpen(true)}
-                    className="bg-black cursor-pointer text-white h-[38px] w-[106px] flex items-center justify-center text-sm font-semibold uppercase rounded-full"
-                  >
+                  <button className="bg-black text-white md:h-[38px] h-[32px] md:w-[106px] px-3 md:px-0 flex items-center justify-center text-sm font-semibold uppercase rounded-full">
                     Upgrade
                   </button>
                 </div>

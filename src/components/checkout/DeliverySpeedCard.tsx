@@ -23,7 +23,7 @@ export default function DeliverySpeedCard({
           SELECTED
         </div>
       )}
-      <h3 className="text-base font-semibold mb-2">{title}</h3>
+      <h3 className="md:text-base text-lg font-semibold mb-2">{title}</h3>
       <p className="text-[#444444] text-sm max-w-[185px]">{description}</p>
     </div>
   );

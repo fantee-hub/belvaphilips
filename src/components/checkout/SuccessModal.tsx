@@ -15,7 +15,7 @@ export default function SuccessModal({
 }: SuccessModalProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="!max-w-[563px] !pt-6 !pb-[46px] bg-white border-none !rounded-none">
+      <DialogContent className="md:!max-w-[563px] max-w-[343px] !pt-6 !pb-[46px] bg-white border-none !rounded-none">
         <DialogTitle className="hidden"></DialogTitle>
         <div className="flex flex-col items-center">
           <div className="mb-4">
@@ -32,26 +32,26 @@ export default function SuccessModal({
               />
             </svg>
           </div>
-          <h2 className="text-[26px] font-bold leading-[125%] text-center mb-4">
+          <h2 className="md:text-[26px] text-[22px] font-bold leading-[125%] text-center mb-4">
             PROJECT SUBMITTED <br /> SUCCESSFULLY!
           </h2>
-          <p className="text-[#444444] text-center mb-6 max-w-[446px] leading-[155%]">
+          <p className="text-[#444444] text-center mb-6 max-w-[446px] leading-[155%] md:text-base text-sm">
             Your project has been received! You will receive an email
             confirmation shortly with the details of your project. This will
             include the next steps to ensure a smooth process. You can also
             track the status of your project anytime through your account
             dashboard.
           </p>
-          <div className="flex justify-center gap-4">
+          <div className="flex justify-center gap-4 md:flex-row flex-col w-full">
             <button
               onClick={onTrackStatus}
-              className="bg-[#1D1D1B] cursor-pointer text-sm text-white h-[38px] w-[152px] flex items-center justify-center rounded-full font-semibold hover:bg-gray-800 transition-colors"
+              className="bg-[#1D1D1B] cursor-pointer text-sm text-white h-[38px] md:w-[152px] w-full flex items-center justify-center rounded-full font-semibold hover:bg-gray-800 transition-colors"
             >
               TRACK STATUS
             </button>
             <button
               onClick={onStartNewProject}
-              className="bg-white cursor-pointer text-black text-sm border border-[#1D1D1B] h-[38px] w-[188px] rounded-full font-semibold hover:bg-gray-100 transition-colors"
+              className="bg-white cursor-pointer text-black text-sm border border-[#1D1D1B] h-[38px] md:w-[188px] w-full rounded-full font-semibold hover:bg-gray-100 transition-colors"
             >
               START A NEW PROJECT
             </button>

@@ -57,61 +57,67 @@ export default function GetStartedModal({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="!max-w-[833px] !pt-6 !pb-[46px] bg-white border-none !rounded-none">
+      <DialogContent className="md:!max-w-[833px] max-w-[332.77px] !pt-6 !pb-[46px] bg-white border-none !rounded-none overflow-x-auto  scroll-smooth scrollbar-hide md:overflow-visible hide-close-mobile [&>button]:hidden md:[&>button]:block">
         <DialogTitle className="hidden"></DialogTitle>
         <div className="relative">
           <div className="">
-            <h2 className="text-[26px] font-semibold mb-8 leading-[125%] text-[#1D1D1B]">
+            <h2 className="md:text-[26px] text-[22px] font-semibold mb-8 leading-[125%] text-[#1D1D1B]">
               HOW WOULD YOU LIKE TO
               <br />
               START YOUR PROJECT?
             </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <OptionCard
-                title="FILL A BRIEF"
-                description="Skip the quote & go straight to filling out your brief."
-                buttonText="START BRIEF"
-                onClick={handleStartBrief}
-                showError={showError}
-              >
-                <BriefPreview />
-              </OptionCard>
-
-              <OptionCard
-                title="TALK TO US"
-                description="Discuss your project in detail over a call"
-                buttonText="BOOK A CALL"
-                buttonStyle="primary"
-                onClick={handleBookCall}
-              >
-                <div className="relative h-full w-full">
-                  <Image
-                    src="/assets/images/talk-to-us.png"
-                    alt="Customer service representative"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-              </OptionCard>
-
-              <OptionCard
-                title="GET A QUICK QUOTE"
-                description="Select your product type and shoot type for an instant estimate."
-                buttonText="GET QUOTE"
-                showError={showError}
-                onClick={handleGetQuote}
-              >
-                <QuoteOption
+            <div className="flex flex-row md:grid md:grid-cols-3 gap-6">
+              <div className="flex-shrink-0 w-[260px] md:w-auto snap-start">
+                <OptionCard
+                  title="FILL A BRIEF"
+                  description="Skip the quote & go straight to filling out your brief."
+                  buttonText="START BRIEF"
+                  onClick={handleStartBrief}
                   showError={showError}
-                  productError={productError}
-                  shootTypeError={shootTypeError}
-                  setProductError={setProductError}
-                  setShootTypeError={setShootTypeError}
-                  setSelectedProduct={setSelectedProduct}
-                  setSelectedShootType={setSelectedShootType}
-                />
-              </OptionCard>
+                >
+                  <BriefPreview />
+                </OptionCard>
+              </div>
+
+              <div className="flex-shrink-0 w-[260px] md:w-auto snap-start">
+                <OptionCard
+                  title="TALK TO US"
+                  description="Discuss your project in detail over a call"
+                  buttonText="BOOK A CALL"
+                  buttonStyle="primary"
+                  onClick={handleBookCall}
+                >
+                  <div className="relative h-full w-full">
+                    <Image
+                      src="/assets/images/talk-to-us.png"
+                      alt="Customer service representative"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                </OptionCard>
+              </div>
+
+              <div className="flex-shrink-0 w-[260px] md:w-auto snap-start">
+                <OptionCard
+                  title="GET A QUICK QUOTE"
+                  description="Select your product type and shoot type for an instant estimate."
+                  buttonText="GET QUOTE"
+                  showError={showError}
+                  onClick={handleGetQuote}
+                >
+                  <QuoteOption
+                    showError={showError}
+                    productError={productError}
+                    shootTypeError={shootTypeError}
+                    setProductError={setProductError}
+                    setShootTypeError={setShootTypeError}
+                    setSelectedProduct={setSelectedProduct}
+                    setSelectedShootType={setSelectedShootType}
+                  />
+                </OptionCard>
+              </div>
             </div>
           </div>
         </div>
