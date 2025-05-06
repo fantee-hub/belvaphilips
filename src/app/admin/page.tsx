@@ -56,13 +56,15 @@ export default function Admin() {
           <div className="items-end ">
             <div className="flex items-center space-x-2">
               <Link href={"/admin/blog/post"}>
-                <button className="w-[80px] h-[37px] flex items-center justify-center  bg-[#1D1D1B] text-[13px] font-semibold text-white rounded-full hover:bg-gray-800">
+                <button className="w-[80px] h-[37px] flex items-center justify-center  bg-[#1D1D1B] text-[13px] font-semibold text-white rounded-full hover:bg-gray-800 cursor-pointer">
                   POST
                 </button>
               </Link>
-              <button className="w-[89px] h-[37px] flex items-center justify-center text-[13px] font-semibold text-[#1D1D1B]  border border-[#1D1D1B] rounded-full  hover:bg-gray-100 cursor-pointer">
-                VIEW ALL
-              </button>
+              <Link href={"/admin/blog/all-posts"}>
+                <button className="w-[89px] h-[37px] flex items-center justify-center text-[13px] font-semibold text-[#1D1D1B]  border border-[#1D1D1B] rounded-full  hover:bg-gray-100 cursor-pointer">
+                  VIEW ALL
+                </button>
+              </Link>
             </div>
           </div>
         </div>
