@@ -11,6 +11,7 @@ const createPostUrl = "/posts";
 const getAllPostsUrl = "/posts";
 const getAllDraftsUrl = "/posts/drafts";
 const getPostByIdUrl = "/posts";
+const deletePostUrl = "/posts";
 
 export const contactUs = async (data: any) => {
   return httpService.post(contactusUrl, data);
@@ -31,6 +32,10 @@ export const getAdminUser = async (
 
 export const createPost = async (data: any) => {
   return httpService.post(createPostUrl, data);
+};
+
+export const deletePost = async (id: string | number) => {
+  return httpService.delete(`${deletePostUrl}/${id}`);
 };
 
 export const getAllPosts = async (
