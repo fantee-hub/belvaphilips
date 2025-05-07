@@ -149,11 +149,14 @@ const AllPostsPage: React.FC = () => {
           />
         ))}
       </div>
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={setCurrentPage}
-      />
+      <div className="pb-16">
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
+      </div>
+
       {postToDelete && (
         <DeleteModal
           isOpen={isDeleteModalOpen}
