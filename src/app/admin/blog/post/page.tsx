@@ -60,6 +60,10 @@ const BlogPostPage: React.FC = () => {
             secondary: "#FFFAEE",
           },
         });
+        setTitle("");
+        setSlug("");
+        setContent("");
+        setCoverImage(null);
         console.log("Post created successfully:", data);
       }
     } catch (error: any) {

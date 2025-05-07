@@ -1,6 +1,7 @@
 import { formatDate } from "@/lib/helperFunctions";
 import { Pencil, Trash2 } from "lucide-react";
 import { PiCalendarDots } from "react-icons/pi";
+import { motion } from "framer-motion";
 
 const PostCard: React.FC<{
   post: {
@@ -13,11 +14,22 @@ const PostCard: React.FC<{
     status: string;
     id: string;
   };
-  onEdit: (id: string) => void;
-  onDelete: (id: string, title: string, created_at: string) => void;
-}> = ({ post, onEdit, onDelete }) => {
+  index: number;
+  onEdit?: (id: string) => void;
+  onDelete?: (id: string, title: string, created_at: string) => void;
+}> = ({ post, onEdit, onDelete, index }) => {
   return (
-    <div className="w-[427px]  border overflow-hidden shadow-sm">
+    <motion.div
+      className="w-full  border overflow-hidden shadow-sm"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{
+        duration: 0.4,
+        delay: (index * 0.1) % 0.9,
+        ease: "easeOut",
+      }}
+    >
       <img
         src={
           post.cover_image
@@ -33,24 +45,10 @@ const PostCard: React.FC<{
             <PiCalendarDots className="text-lg" />
             {formatDate(post.created_at)}
           </span>
-          <div className=" pb-[2px] gap-1  flex items-center space-x-1 bg-white ">
-            <button className="bg-white rounded-full p-1 cursor-pointer flex items-center gap-1 uppercase font-semibold text-[#787878]">
-              <Pencil className="h-4 w-4" />
-              <span>Edit</span>
-            </button>
-            <div className="w-[0.5px] h-[15px] bg-[#CFCFCF]"></div>
-            <button
-              onClick={() => onDelete(post.id, post.title, post.created_at)}
-              className="bg-white rounded-full p-1 cursor-pointer flex items-center gap-1 uppercase font-semibold text-[#787878]"
-            >
-              <Trash2 className="h-4 w-4 text-[#E72E2E]" />
-              <span>Delete</span>
-            </button>
-          </div>
         </div>
         <h2 className="text-[24px] font-semibold uppercase">{post.title}</h2>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
