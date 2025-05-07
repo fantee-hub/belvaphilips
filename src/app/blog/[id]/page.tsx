@@ -7,13 +7,15 @@ import Footer from "@/components/layout/Footer";
 import PostDetails from "@/components/blog/PostDetails";
 import { getPostById, getAllPosts } from "@/lib/api";
 
-interface PostPageProps {
-  params: { id: string };
+interface PageProps {
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
-export default async function PostPage({ params }: PostPageProps) {
+export default async function PostPage({ params, searchParams }: PageProps) {
+  const { id } = await params;
   const [postResponse, latestPostsResponse] = await Promise.all([
-    getPostById(params.id),
+    getPostById(id),
     getAllPosts(1, 4),
   ]);
 
@@ -36,7 +38,7 @@ export default async function PostPage({ params }: PostPageProps) {
           <PostDetails
             post={post}
             latestPosts={latestPosts}
-            currentPostId={params.id}
+            currentPostId={id}
           />
         </Suspense>
       </main>
