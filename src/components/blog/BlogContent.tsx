@@ -5,6 +5,7 @@ import { getAllPosts } from "@/lib/api";
 import { useEffect, useState } from "react";
 import Spinner from "../ui/Spinner";
 import PostCard from "./PostCard";
+import Pagination from "../admin/blog/allPosts/Pagination";
 
 interface Post {
   created_at: string;
@@ -90,6 +91,11 @@ export default function BlogContent() {
             ))}
           </AnimatePresence>
         </motion.div>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
       </div>
     </div>
   );

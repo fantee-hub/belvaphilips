@@ -139,7 +139,7 @@ const AllPostsPage: React.FC = () => {
   return (
     <div className="container mx-auto pt-[140px]">
       <TabsComponent activeTab={activeTab} setActiveTab={handleTabChange} />
-      <div className="grid grid-cols-3 gap-6">
+      <div className="grid grid-cols-3 gap-5">
         {paginatedPosts.map((post) => (
           <PostCard
             key={post.id}

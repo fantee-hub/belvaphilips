@@ -17,7 +17,7 @@ const PostCard: React.FC<{
   onDelete: (id: string, title: string, created_at: string) => void;
 }> = ({ post, onEdit, onDelete }) => {
   return (
-    <div className="w-[427px]  border overflow-hidden shadow-sm">
+    <div className="w-full  border overflow-hidden shadow-sm">
       <img
         src={
           post.cover_image
