@@ -5,20 +5,23 @@ interface ActionButtonsProps {
   onSaveDraft: () => void;
   onPost: () => void;
   isCreatingPost: boolean;
+  isDrafting: boolean;
 }
 
 const ActionButtons: React.FC<ActionButtonsProps> = ({
   onSaveDraft,
   onPost,
   isCreatingPost,
+  isDrafting,
 }) => {
   return (
     <div className="flex items-center space-x-2">
       <button
         onClick={onSaveDraft}
+        disabled={isDrafting}
         className="w-[145px] h-[32px] font-semibold uppercase text-sm flex items-center justify-center border border-[#1D1D1B] rounded-full hover:bg-gray-100 cursor-pointer"
       >
-        SAVE TO DRAFTS
+        {isDrafting ? "Saving..." : "Save to Drafts"}
       </button>
       <button
         onClick={onPost}

@@ -12,6 +12,7 @@ interface BlogEditorProps {
   onSaveDraft: () => void;
   onPost: () => void;
   isCreatingPost: boolean;
+  isDrafting: boolean;
 }
 
 const BlogEditor: React.FC<BlogEditorProps> = ({
@@ -24,6 +25,7 @@ const BlogEditor: React.FC<BlogEditorProps> = ({
   onSaveDraft,
   onPost,
   isCreatingPost,
+  isDrafting,
 }) => {
   const [fontSizeClass, setFontSizeClass] = useState<string>("text-base");
 
@@ -183,6 +185,7 @@ const BlogEditor: React.FC<BlogEditorProps> = ({
           onSaveDraft={onSaveDraft}
           onPost={onPost}
           isCreatingPost={isCreatingPost}
+          isDrafting={isDrafting}
         />
       </div>
     </div>

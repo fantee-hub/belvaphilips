@@ -16,6 +16,7 @@ interface EditorToolbarProps {
   onSaveDraft: () => void;
   onPost: () => void;
   isCreatingPost: boolean;
+  isDrafting: boolean;
 }
 
 const EditorToolbar: React.FC<EditorToolbarProps> = ({
@@ -23,6 +24,7 @@ const EditorToolbar: React.FC<EditorToolbarProps> = ({
   onSaveDraft,
   onPost,
   isCreatingPost,
+  isDrafting,
 }) => {
   const [fontSize, setFontSize] = useState<string>("Medium");
   const [showFontSizes, setShowFontSizes] = useState<boolean>(false);
@@ -133,6 +135,7 @@ const EditorToolbar: React.FC<EditorToolbarProps> = ({
         onSaveDraft={onSaveDraft}
         onPost={onPost}
         isCreatingPost={isCreatingPost}
+        isDrafting={isDrafting}
       />
     </div>
   );

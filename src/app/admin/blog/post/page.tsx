@@ -14,6 +14,7 @@ const BlogPostPage: React.FC = () => {
   const [content, setContent] = useState<string>("");
   const [coverImage, setCoverImage] = useState<File | null>(null);
   const [isCreatingPost, setIsCreatingPost] = useState<boolean>(false);
+  const [isDrafting, setIsDrafting] = useState<boolean>(false);
   const cookies = new Cookies();
 
   const handleGenerateSlug = (): void => {
@@ -24,8 +25,66 @@ const BlogPostPage: React.FC = () => {
     setSlug(generatedSlug);
   };
 
-  const handleSaveDraft = (): void => {
+  const handleSaveDraft = async () => {
     console.log("Saving to drafts:", { title, slug, content, coverImage });
+    setIsDrafting(true);
+    const token = cookies.get("admin_token");
+
+    if (token) {
+      setAuthToken(token);
+    }
+    try {
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("slug", slug);
+      formData.append("content", content);
+      formData.append("status", "draft");
+      if (coverImage) {
+        formData.append("cover_image", coverImage);
+      }
+
+      const { data } = await createPost(formData);
+      if (data) {
+        toast.success("Saved to draft", {
+          style: {
+            border: "1px solid #1D1D1B",
+            padding: "16px",
+            color: "#1D1D1B",
+            borderRadius: "6px",
+          },
+          iconTheme: {
+            primary: "#008000",
+            secondary: "#FFFAEE",
+          },
+        });
+        setTitle("");
+        setSlug("");
+        setContent("");
+        setCoverImage(null);
+      }
+    } catch (error: any) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      toast.error(message, {
+        style: {
+          border: "0.5px solid #1D1D1B",
+          padding: "16px",
+          color: "#1D1D1B",
+          borderRadius: "6px",
+        },
+        iconTheme: {
+          primary: "#FF0000",
+          secondary: "#FFFAEE",
+        },
+      });
+    } finally {
+      setIsDrafting(false);
+    }
   };
 
   const handlePost = async () => {
@@ -113,6 +172,7 @@ const BlogPostPage: React.FC = () => {
               onSaveDraft={handleSaveDraft}
               onPost={handlePost}
               isCreatingPost={isCreatingPost}
+              isDrafting={isDrafting}
             />
           </div>
         </div>
