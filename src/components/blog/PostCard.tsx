@@ -2,6 +2,7 @@ import { formatDate } from "@/lib/helperFunctions";
 import { Pencil, Trash2 } from "lucide-react";
 import { PiCalendarDots } from "react-icons/pi";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const PostCard: React.FC<{
   post: {
@@ -30,24 +31,26 @@ const PostCard: React.FC<{
         ease: "easeOut",
       }}
     >
-      <img
-        src={
-          post.cover_image
-            ? post.cover_image
-            : "/assets/images/blog-placeholder.png"
-        }
-        alt={post.title}
-        className="w-full h-[300px] object-cover"
-      />
-      <div className="p-4">
-        <div className="flex items-center text-gray-500 text-sm mb-2 justify-between">
-          <span className="mr-2 flex items-center gap-1">
-            <PiCalendarDots className="text-lg" />
-            {formatDate(post.created_at)}
-          </span>
+      <Link href={`/blog/${post.id}`} className="block">
+        <img
+          src={
+            post.cover_image
+              ? post.cover_image
+              : "/assets/images/blog-placeholder.png"
+          }
+          alt={post.title}
+          className="w-full h-[300px] object-cover"
+        />
+        <div className="p-4">
+          <div className="flex items-center text-gray-500 text-sm mb-2 justify-between">
+            <span className="mr-2 flex items-center gap-1">
+              <PiCalendarDots className="text-lg" />
+              {formatDate(post.created_at)}
+            </span>
+          </div>
+          <h2 className="text-[24px] font-semibold uppercase">{post.title}</h2>
         </div>
-        <h2 className="text-[24px] font-semibold uppercase">{post.title}</h2>
-      </div>
+      </Link>
     </motion.div>
   );
 };
