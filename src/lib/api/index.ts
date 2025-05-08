@@ -13,6 +13,10 @@ const getAllDraftsUrl = "/posts/drafts";
 const getPostByIdUrl = "/posts";
 const deletePostUrl = "/posts";
 
+/** ORDERS */
+const getOrdersUrl = "/orders";
+const getOrdersByUserUrl = "/orders/user";
+
 export const contactUs = async (data: any) => {
   return httpService.post(contactusUrl, data);
 };
@@ -54,4 +58,38 @@ export const getAllDrafts = async (
 
 export const getPostById = async (id: string | number) => {
   return httpService.get(`${getPostByIdUrl}/${id}`);
+};
+
+/** ORDERS */
+export const getOrders = async (
+  page: string | number,
+  limit: string | number
+) => {
+  return httpService.get(getOrdersUrl, { params: { page, limit } });
+};
+
+export const getOrdersByStatus = async (
+  page: string | number,
+  limit: string | number,
+  status: string
+) => {
+  return httpService.get(getOrdersUrl, {
+    params: { page, limit, status },
+  });
+};
+
+export const createOrder = async (data: any) => {
+  return httpService.post(getOrdersUrl, data);
+};
+
+export const getOrdersByUser = async (userId: string | number) => {
+  return httpService.get(`${getOrdersByUserUrl}/${userId}`);
+};
+
+export const getOrdersById = async (id: string | number) => {
+  return httpService.get(`${getOrdersUrl}/${id}`);
+};
+
+export const upDateStatusOfOrder = async (id: string | number, data: any) => {
+  return httpService.put(`${getOrdersUrl}/${id}/status`, data);
 };
