@@ -76,9 +76,11 @@ export default function Admin() {
             <p className="text-[44px] font-bold">
               {ordersCount?.active_orders}
             </p>
-            <button className="mt-2 w-[80px] h-[37px] flex items-center justify-center border border-[#1D1D1B] rounded-full text-sm hover:bg-gray-100">
-              VIEW
-            </button>
+            <Link href={"/admin/orders?status=active"}>
+              <button className="mt-2 w-[80px] h-[37px] flex items-center justify-center border border-[#1D1D1B] rounded-full text-sm hover:bg-gray-100">
+                VIEW
+              </button>
+            </Link>
           </div>
         </div>
 
@@ -90,9 +92,11 @@ export default function Admin() {
             <p className="text-[44px] font-bold">
               {ordersCount?.completed_orders}
             </p>
-            <button className="mt-2 w-[80px] h-[37px] flex items-center justify-center border border-[#1D1D1B] rounded-full text-sm hover:bg-gray-100">
-              VIEW
-            </button>
+            <Link href={"/admin/orders?status=completed"}>
+              <button className="mt-2 w-[80px] h-[37px] flex items-center justify-center border border-[#1D1D1B] rounded-full text-sm hover:bg-gray-100">
+                VIEW
+              </button>
+            </Link>
           </div>
         </div>
 
