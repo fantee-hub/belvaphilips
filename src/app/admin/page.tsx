@@ -3,12 +3,51 @@
 import Cookies from "universal-cookie";
 import { useRouter } from "next/navigation";
 import { useAdminAuth } from "@/hooks/useAuth";
+import { useEffect, useState } from "react";
+import { getOrders } from "@/lib/api";
 import Link from "next/link";
+import setAuthToken from "@/lib/api/setAuthToken";
+import Spinner from "@/components/ui/Spinner";
+
+interface OrdersCount {
+  active_orders: number;
+  completed_orders: number;
+  pending_orders: number;
+}
 
 export default function Admin() {
-  const { isAuthenticated, isLoading } = useAdminAuth();
+  const [ordersCount, setOrdersCount] = useState<OrdersCount | null>(null);
+  const [isFetchingOrders, setIsFetchingOrders] = useState<boolean>(false);
   const cookies = new Cookies();
-  const router = useRouter();
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      setIsFetchingOrders(true);
+      const token = cookies.get("admin_token");
+
+      if (token) {
+        setAuthToken(token);
+      }
+      try {
+        const { data } = await getOrders(1, 10);
+        setOrdersCount(data.data.orders_count as OrdersCount);
+        console.log("Orders:", data.data.orders_count);
+      } catch (error) {
+        console.error("Error fetching orders:", error);
+      } finally {
+        setIsFetchingOrders(false);
+      }
+    };
+    fetchOrders();
+  }, []);
+
+  if (isFetchingOrders) {
+    return (
+      <div className="container mx-auto h-screen flex items-center justify-center">
+        <Spinner size="lg" />
+      </div>
+    );
+  }
 
   return (
     <div className="pt-[100px]">
@@ -18,7 +57,9 @@ export default function Admin() {
             Pending Requests
           </p>
           <div className="flex justify-between items-center">
-            <p className="text-[44px] font-semibold text-[#C49524]">1</p>
+            <p className="text-[44px] font-semibold text-[#C49524]">
+              {ordersCount?.pending_orders}
+            </p>
             <button className="mt-2 w-[80px] h-[37px] flex items-center justify-center border border-[#1D1D1B] rounded-full text-sm hover:bg-gray-100">
               VIEW
             </button>
@@ -30,7 +71,9 @@ export default function Admin() {
             Active Projects
           </p>
           <div className="flex justify-between items-center">
-            <p className="text-[44px] font-bold">0</p>
+            <p className="text-[44px] font-bold">
+              {ordersCount?.active_orders}
+            </p>
             <button className="mt-2 w-[80px] h-[37px] flex items-center justify-center border border-[#1D1D1B] rounded-full text-sm hover:bg-gray-100">
               VIEW
             </button>
@@ -42,7 +85,9 @@ export default function Admin() {
             Completed Projects
           </p>
           <div className="flex justify-between items-center">
-            <p className="text-[44px] font-bold">5</p>
+            <p className="text-[44px] font-bold">
+              {ordersCount?.completed_orders}
+            </p>
             <button className="mt-2 w-[80px] h-[37px] flex items-center justify-center border border-[#1D1D1B] rounded-full text-sm hover:bg-gray-100">
               VIEW
             </button>
