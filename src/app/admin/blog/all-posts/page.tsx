@@ -6,7 +6,7 @@ import TabsComponent from "@/components/admin/blog/allPosts/TabsComponent";
 import PostCard from "@/components/admin/blog/allPosts/PostCard";
 import DeleteModal from "@/components/admin/blog/allPosts/DeleteModal";
 import Pagination from "@/components/admin/blog/allPosts/Pagination";
-import { getAllPosts, getAllDrafts } from "@/lib/api";
+import { getAllPosts, getAllDrafts, deletePost } from "@/lib/api";
 import Spinner from "@/components/ui/Spinner";
 import Cookies from "universal-cookie";
 import setAuthToken from "@/lib/api/setAuthToken";
@@ -44,7 +44,7 @@ const AllPostsPage: React.FC = () => {
     try {
       const { data } = await getAllPosts(1, postsPerPage);
       if (data) {
-        setPublishedPosts(data.data);
+        setPublishedPosts(data.data.posts);
       }
     } catch (e) {
       console.log("Error fetching published posts:", e);
@@ -63,7 +63,7 @@ const AllPostsPage: React.FC = () => {
     try {
       const { data } = await getAllDrafts(1, postsPerPage);
       if (data) {
-        setDraftPosts(data.data);
+        setDraftPosts(data.data.posts);
       }
     } catch (e) {
       console.log("Error fetching drafts:", e);
@@ -107,23 +107,33 @@ const AllPostsPage: React.FC = () => {
     router.push(`/admin/blog/post/${id}`);
   };
 
-  const handleDelete = (id: string, title: string, created_at: string) => {
+  const handleDelete = async (
+    id: string,
+    title: string,
+    created_at: string
+  ) => {
     setPostToDelete({ id, title, created_at });
     setIsDeleteModalOpen(true);
   };
 
-  const confirmDelete = () => {
+  const confirmDelete = async () => {
     if (postToDelete) {
       if (activeTab === "posts") {
+        await deletePost(postToDelete.id);
         setPublishedPosts((prev) =>
           prev.filter((post) => post.id !== postToDelete.id)
         );
+
+        fetchPublishedPosts();
       } else {
+        await deletePost(postToDelete.id);
         setDraftPosts((prev) =>
           prev.filter((post) => post.id !== postToDelete.id)
         );
+        setIsDeleteModalOpen(false);
+        fetchDrafts();
       }
-      setIsDeleteModalOpen(false);
+
       setPostToDelete(null);
     }
   };
@@ -139,23 +149,32 @@ const AllPostsPage: React.FC = () => {
   return (
     <div className="container mx-auto pt-[140px]">
       <TabsComponent activeTab={activeTab} setActiveTab={handleTabChange} />
-      <div className="grid grid-cols-3 gap-5">
-        {paginatedPosts.map((post) => (
-          <PostCard
-            key={post.id}
-            post={post}
-            onEdit={handleEdit}
-            onDelete={handleDelete}
-          />
-        ))}
-      </div>
-      <div className="pb-16">
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={setCurrentPage}
-        />
-      </div>
+
+      {currentPosts.length === 0 ? (
+        <div className="text-center text-gray-500 text-lg py-20">
+          There are no {activeTab === "posts" ? "posts" : "drafts"} available.
+        </div>
+      ) : (
+        <>
+          <div className="grid grid-cols-3 gap-5">
+            {paginatedPosts.map((post) => (
+              <PostCard
+                key={post.id}
+                post={post}
+                onEdit={handleEdit}
+                onDelete={handleDelete}
+              />
+            ))}
+          </div>
+          <div className="pb-16">
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
+            />
+          </div>
+        </>
+      )}
 
       {postToDelete && (
         <DeleteModal
@@ -164,6 +183,10 @@ const AllPostsPage: React.FC = () => {
           onConfirm={confirmDelete}
           title={postToDelete.title}
           date={postToDelete.created_at}
+          postId={postToDelete.id}
+          postType={activeTab === "posts" ? "published" : "draft"}
+          publishedPosts={fetchPublishedPosts}
+          draftPosts={fetchDrafts}
         />
       )}
     </div>

@@ -15,7 +15,20 @@ const DeleteModal: React.FC<{
   onConfirm: () => void;
   title: string;
   date: string;
-}> = ({ isOpen, onClose, onConfirm, title, date }) => {
+  postId: string;
+  postType: string;
+  publishedPosts: () => Promise<void>;
+  draftPosts: () => Promise<void>;
+}> = ({
+  isOpen,
+  onClose,
+  onConfirm,
+  title,
+  date,
+  postId,
+  postType,
+  publishedPosts,
+}) => {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="!max-w-[599px] !rounded-none">

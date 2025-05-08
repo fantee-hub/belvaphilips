@@ -20,7 +20,7 @@ export default async function PostPage({ params, searchParams }: PageProps) {
   ]);
 
   const post = postResponse.data.data;
-  const latestPosts = latestPostsResponse.data.data;
+  const latestPosts = latestPostsResponse.data.data.posts;
 
   return (
     <>

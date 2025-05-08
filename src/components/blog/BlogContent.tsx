@@ -45,7 +45,7 @@ export default function BlogContent() {
       try {
         const { data } = await getAllPosts(1, postsPerPage);
         if (data) {
-          setPublishedPosts(data.data);
+          setPublishedPosts(data.data.posts);
         }
       } catch (e) {
         console.log("Error fetching published posts:", e);
