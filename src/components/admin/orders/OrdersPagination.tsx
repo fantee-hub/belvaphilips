@@ -17,7 +17,6 @@ const OrdersPagination: React.FC<OrdersPaginationProps> = ({
   const renderPageNumbers = () => {
     const pageNumbers = [];
 
-    // Always show the first page
     pageNumbers.push(
       <PageButton
         key={1}
@@ -27,7 +26,6 @@ const OrdersPagination: React.FC<OrdersPaginationProps> = ({
       />
     );
 
-    // Add ellipsis if there are many pages before the current page
     if (currentPage > 3) {
       pageNumbers.push(
         <span key="ellipsis1" className="px-3 py-2 text-gray-500">
@@ -36,7 +34,6 @@ const OrdersPagination: React.FC<OrdersPaginationProps> = ({
       );
     }
 
-    // Show one page before current if it exists and isn't the first page
     if (currentPage > 2) {
       pageNumbers.push(
         <PageButton
@@ -48,7 +45,6 @@ const OrdersPagination: React.FC<OrdersPaginationProps> = ({
       );
     }
 
-    // Show current page if it's not the first or last
     if (currentPage !== 1 && currentPage !== totalPages) {
       pageNumbers.push(
         <PageButton
@@ -60,7 +56,6 @@ const OrdersPagination: React.FC<OrdersPaginationProps> = ({
       );
     }
 
-    // Show one page after current if it exists and isn't the last page
     if (currentPage < totalPages - 1) {
       pageNumbers.push(
         <PageButton
@@ -72,7 +67,6 @@ const OrdersPagination: React.FC<OrdersPaginationProps> = ({
       );
     }
 
-    // Add ellipsis if there are many pages after the current page
     if (currentPage < totalPages - 2) {
       pageNumbers.push(
         <span key="ellipsis2" className="px-3 py-2 text-gray-500">
@@ -81,7 +75,6 @@ const OrdersPagination: React.FC<OrdersPaginationProps> = ({
       );
     }
 
-    // Always show the last page if we have more than one page
     if (totalPages > 1) {
       pageNumbers.push(
         <PageButton
@@ -127,10 +120,10 @@ const PageButton: React.FC<PageButtonProps> = ({ page, isActive, status }) => {
   return (
     <Link
       href={`/admin/orders?status=${status}&page=${page}`}
-      className={`px-3 py-1 mx-1 rounded-md ${
+      className={`w-[46px] h-[38px] mx-1 flex items-center justify-center text-sm   ${
         isActive
-          ? "bg-amber-100 text-amber-800 border border-amber-300"
-          : "text-gray-700 hover:bg-gray-100"
+          ? " text-[#FEC845] border border-[#FEC845] font-semibold"
+          : "text-[#5C5C5C] hover:bg-gray-100"
       }`}
     >
       {page}
