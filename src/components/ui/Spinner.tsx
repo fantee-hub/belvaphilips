@@ -11,7 +11,7 @@ export default function Spinner({
   }[size];
 
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex justify-center items-center ">
       <div
         className={`${sizeClass} rounded-full border-4 border-[#EAEAEA] border-t-[#1D1D1B]`}
         style={{

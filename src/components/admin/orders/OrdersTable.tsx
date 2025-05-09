@@ -1,13 +1,14 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import StatusUpdateDropdown from "./StatusUpdateDropdown";
+import { PiCalendarDots } from "react-icons/pi";
+import OrderDetailsModal from "./OrderDetailsModal";
 
 interface Order {
   id: string;
   created_at: string;
   status: string;
-  // Add other order properties as needed
 }
 
 interface OrdersTableProps {
@@ -26,21 +27,22 @@ const OrdersTable: React.FC<OrdersTableProps> = ({ orders, status }) => {
     return date.toLocaleDateString("en-US", options).toUpperCase();
   };
 
+  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   return (
     <div className="overflow-x-auto">
-      <table className="min-w-full divide-y divide-gray-200">
+      <table className="min-w-[891px] divide-y divide-gray-200">
         <thead>
           <tr>
-            <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
+            <th className="px-6 py-3 text-left text-base font-medium text-[#787878] uppercase tracking-wider">
               REQUEST ID
             </th>
-            <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
+            <th className="px-6 py-3 text-left text-base font-medium text-[#787878] uppercase tracking-wider">
               DATE CREATED
             </th>
-            <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
+            <th className="px-6 py-3 text-left text-base font-medium text-[#787878] uppercase tracking-wider">
               ACTION
             </th>
-            <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
+            <th className="px-6 py-3 text-left text-base font-medium text-[#787878] uppercase tracking-wider">
               STATUS
             </th>
           </tr>
@@ -49,18 +51,20 @@ const OrdersTable: React.FC<OrdersTableProps> = ({ orders, status }) => {
           {orders.length > 0 ? (
             orders.map((order) => (
               <tr key={order.id}>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                <td className="px-6 py-4 whitespace-nowrap text-base font-semibold text-[#1D1D1B]">
                   {order.id}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {formatDate(order.created_at)}
+                <td className="px-6 py-4 whitespace-nowrap text-base text-[#1D1D1B] font-semibold ">
+                  <span className="flex items-center gap-1">
+                    {" "}
+                    <PiCalendarDots className="text-lg" />
+                    {formatDate(order.created_at)}
+                  </span>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <td className="px-6 py-4 whitespace-nowrap text-base text-gray-500">
                   <button
-                    className="bg-black text-white px-4 py-2 rounded-full text-sm font-medium"
-                    onClick={() =>
-                      window.open(`/admin/orders/details/${order.id}`, "_blank")
-                    }
+                    className="bg-black text-white px-4 py-2 rounded-full text-sm font-semibold uppercase cursor-pointer"
+                    onClick={() => setSelectedOrder(order)}
                   >
                     VIEW DETAILS
                   </button>
@@ -85,6 +89,11 @@ const OrdersTable: React.FC<OrdersTableProps> = ({ orders, status }) => {
           )}
         </tbody>
       </table>
+      <OrderDetailsModal
+        order={selectedOrder}
+        isOpen={!!selectedOrder}
+        onClose={() => setSelectedOrder(null)}
+      />
     </div>
   );
 };

@@ -57,11 +57,17 @@ export default function Admin() {
             Pending Requests
           </p>
           <div className="flex justify-between items-center">
-            <p className="text-[44px] font-semibold text-[#C49524]">
+            <p
+              className={`text-[44px] ${
+                ordersCount?.pending_orders && ordersCount.pending_orders > 0
+                  ? "font-semibold text-[#C49524]"
+                  : "text-[44px] font-bold"
+              } `}
+            >
               {ordersCount?.pending_orders}
             </p>
             <Link href={"/admin/orders?status=pending"}>
-              <button className="mt-2 w-[80px] h-[37px] flex items-center justify-center border border-[#1D1D1B] rounded-full text-sm hover:bg-gray-100">
+              <button className="cursor-pointer mt-2 w-[80px] h-[37px] flex items-center justify-center border border-[#1D1D1B] rounded-full text-sm hover:bg-gray-100">
                 VIEW
               </button>
             </Link>
@@ -73,11 +79,17 @@ export default function Admin() {
             Active Projects
           </p>
           <div className="flex justify-between items-center">
-            <p className="text-[44px] font-bold">
+            <p
+              className={`text-[44px] ${
+                ordersCount?.active_orders && ordersCount.active_orders > 0
+                  ? "font-semibold text-[#C49524]"
+                  : "text-[44px] font-bold"
+              } `}
+            >
               {ordersCount?.active_orders}
             </p>
             <Link href={"/admin/orders?status=active"}>
-              <button className="mt-2 w-[80px] h-[37px] flex items-center justify-center border border-[#1D1D1B] rounded-full text-sm hover:bg-gray-100">
+              <button className="cursor-pointer mt-2 w-[80px] h-[37px] flex items-center justify-center border border-[#1D1D1B] rounded-full text-sm hover:bg-gray-100">
                 VIEW
               </button>
             </Link>
@@ -89,11 +101,18 @@ export default function Admin() {
             Completed Projects
           </p>
           <div className="flex justify-between items-center">
-            <p className="text-[44px] font-bold">
+            <p
+              className={`text-[44px] ${
+                ordersCount?.completed_orders &&
+                ordersCount.completed_orders > 0
+                  ? "font-semibold text-[#C49524]"
+                  : "text-[44px] font-bold"
+              } `}
+            >
               {ordersCount?.completed_orders}
             </p>
             <Link href={"/admin/orders?status=completed"}>
-              <button className="mt-2 w-[80px] h-[37px] flex items-center justify-center border border-[#1D1D1B] rounded-full text-sm hover:bg-gray-100">
+              <button className="cursor-pointer mt-2 w-[80px] h-[37px] flex items-center justify-center border border-[#1D1D1B] rounded-full text-sm hover:bg-gray-100">
                 VIEW
               </button>
             </Link>

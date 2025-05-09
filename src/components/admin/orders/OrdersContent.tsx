@@ -14,7 +14,6 @@ interface Order {
   id: string;
   created_at: string;
   status: string;
-  // Add other order properties as needed
 }
 
 interface OrdersResponse {
@@ -79,20 +78,22 @@ const OrdersContent = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center py-10">
+      <div className="flex justify-center py-40 max-w-[891px]">
         <Spinner size="lg" />
       </div>
     );
   }
 
   return (
-    <div>
+    <div className="overflow-auto">
       <OrdersTable orders={orders} status={status} />
-      <OrdersPagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        status={status}
-      />
+      <div className="max-w-[891px] ">
+        <OrdersPagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          status={status}
+        />
+      </div>
     </div>
   );
 };
