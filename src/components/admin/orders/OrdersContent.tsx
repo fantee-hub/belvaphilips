@@ -13,7 +13,8 @@ import OrdersTable from "./OrdersTable";
 interface Order {
   id: string;
   created_at: string;
-  status: string;
+  updated_at: string;
+  status?: string;
   product_name: string;
   shoot_type: string;
   finish_type: string;
