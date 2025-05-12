@@ -38,7 +38,7 @@ const Header = () => {
       data: { user },
       error,
     } = await supabase.auth.getUser();
-    console.log("Supabase getUser response:", { data, error });
+
     setIsUserAuthenticated(!!user);
     setUserEmail(user?.email || null);
   };
@@ -48,7 +48,6 @@ const Header = () => {
 
     // Listen for Supabase auth changes
     const { data: authListener } = supabase.auth.onAuthStateChange(() => {
-      console.log("Auth state changed");
       checkAuth();
     });
 

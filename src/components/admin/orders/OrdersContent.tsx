@@ -14,6 +14,16 @@ interface Order {
   id: string;
   created_at: string;
   status: string;
+  product_name: string;
+  shoot_type: string;
+  finish_type: string;
+  quantity: number;
+  shots: string[];
+  details: {
+    shots?: string[];
+    [key: string]: any;
+  };
+  user_email: string;
 }
 
 interface OrdersResponse {

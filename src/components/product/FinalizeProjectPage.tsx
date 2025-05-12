@@ -14,6 +14,11 @@ interface ProductConfig {
   quantity?: number;
   basePrice?: number;
   total?: number;
+  details?: {
+    "Video Type"?: string;
+    "Animation Package"?: string;
+    "Video Style"?: string;
+  };
 }
 
 const FinalizeProjectPage = () => {
@@ -53,7 +58,6 @@ const FinalizeProjectPage = () => {
   >([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Retrieve product config from localStorage on component mount
   useEffect(() => {
     try {
       const storedConfig = localStorage.getItem("productConfig");
@@ -69,7 +73,6 @@ const FinalizeProjectPage = () => {
     setIsLoading(false);
   }, [router]);
 
-  // Handle shot selection
   const toggleShot = (shot: string) => {
     if (selectedShots.includes(shot)) {
       setSelectedShots(selectedShots.filter((s) => s !== shot));
@@ -78,7 +81,6 @@ const FinalizeProjectPage = () => {
     }
   };
 
-  // Handle file upload
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const newFiles = Array.from(e.target.files);
@@ -86,7 +88,6 @@ const FinalizeProjectPage = () => {
     }
   };
 
-  // Handle custom shot upload
   const handleCustomShotUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files) return;
@@ -106,19 +107,16 @@ const FinalizeProjectPage = () => {
     });
   };
 
-  // Handle lighting selection
   const handleLightingSelect = (lighting: string) => {
     setSelectedLighting(lighting);
   };
 
-  // Handle removing uploaded file
   const removeFile = (index: number) => {
     const newFiles = [...uploadedFiles];
     newFiles.splice(index, 1);
     setUploadedFiles(newFiles);
   };
 
-  // Handle removing custom shot
   const handleRemoveProduct = (productId: number) => {
     const newCustomShots = customShots.filter(
       (_, index) => index !== productId
@@ -126,7 +124,6 @@ const FinalizeProjectPage = () => {
     setCustomShots(newCustomShots);
   };
 
-  // Handle editing custom shot
   const handleEditShot = (index: number) => {
     const input = document.createElement("input");
     input.type = "file";
@@ -151,26 +148,29 @@ const FinalizeProjectPage = () => {
     input.click();
   };
 
-  // Handle checkout process
   const handleCheckout = () => {
     const finalizedOrder = {
       ...productConfig,
       projectDescription,
       selectedShots,
       selectedLighting,
-      uploadedFiles: uploadedFiles.map((file) => file.name), // Store file names only
+      uploadedFiles: uploadedFiles.map((file) => file.name),
+      ...(productConfig.shootType === "VIDEO" && {
+        details: {
+          "Video Type": productConfig.details?.["Video Type"] || "Standard",
+          "Animation Package":
+            productConfig.details?.["Animation Package"] || "30 secs",
+          "Video Style": productConfig.details?.["Video Style"] || "Normal",
+        },
+      }),
     };
 
-    // Store the finalized order data
     localStorage.setItem("finalizedOrder", JSON.stringify(finalizedOrder));
-
-    // Navigate to checkout page
     router.push("/checkout");
 
     console.log("Proceeding to checkout with:", finalizedOrder);
   };
 
-  // Calculate total price
   const totalPrice =
     (productConfig.basePrice || 0) * (productConfig.quantity || 1);
 
@@ -185,7 +185,6 @@ const FinalizeProjectPage = () => {
   return (
     <div className="md:pt-[60px] pt-20 bg-[#F5F5F5]">
       <div className="container mx-auto px-4 py-8 md:py-16">
-        {/* Breadcrumb */}
         <div className="mb-6">
           <motion.div
             className="flex items-center text-sm gap-1"
@@ -209,7 +208,6 @@ const FinalizeProjectPage = () => {
           </motion.div>
         </div>
 
-        {/* Page Title */}
         <h1 className="md:text-5xl text-[38px] leading-[110%] font-bold md:mb-4 mb-2">
           FINALIZE YOUR PROJECT
         </h1>
@@ -218,10 +216,8 @@ const FinalizeProjectPage = () => {
         </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-10">
-          {/* Left column - Project Details */}
           <div className="lg:col-span-1">
-            {/* Project Description */}
-            <div className="mb-7 border-b-[0.5px] pb-7 border-[#D1D1D1]">
+            <div className="mb-7 border-b-[0.5px] pb-5 border-[#D1D1D1]">
               <div className="flex items-center md:mb-2">
                 <h2 className="md:text-[28px] text-[26px] font-semibold">
                   PROJECT DESCRIPTION
@@ -234,6 +230,8 @@ const FinalizeProjectPage = () => {
               </p>
               <div className="relative">
                 <textarea
+                  value={projectDescription}
+                  onChange={(e) => setProjectDescription(e.target.value)}
                   className="w-full border-[0.7px] border-[#C9C9C9] p-4 md:h-[204px] h-[234px] mb-2 focus:outline-none focus:ring-1 placeholder:text-[#B9B9B9] focus:ring-gray-200"
                   placeholder="Example: Clean white background, soft shadows, lifestyle setting."
                 />
@@ -254,7 +252,7 @@ const FinalizeProjectPage = () => {
                   ))}
                 </div>
               </div>
-              <div className="mt-0">
+              {/* <div className="mt-0">
                 <label
                   htmlFor="file-upload"
                   className="border border-[#1D1D1B] font-semibold rounded-full w-[196px] h-[37px] text-sm flex items-center justify-center cursor-pointer hover:bg-gray-50"
@@ -271,7 +269,6 @@ const FinalizeProjectPage = () => {
                   accept=".png,.jpg,.jpeg"
                 />
 
-                {/* Display uploaded files */}
                 {uploadedFiles.length > 0 && (
                   <div className="mt-4 space-y-2">
                     {uploadedFiles.map((file, index) => (
@@ -290,10 +287,9 @@ const FinalizeProjectPage = () => {
                     ))}
                   </div>
                 )}
-              </div>
+              </div> */}
             </div>
 
-            {/* Shot Selection */}
             <div className="mb-10">
               <h2 className="md:text-[28px] text-[26px] text-[#1D1D1B] font-semibold md:mb-3 max-w-[516px]">
                 SELECT YOUR SHOTS
@@ -328,7 +324,6 @@ const FinalizeProjectPage = () => {
                     </div>
                   </div>
                 ))}
-                {/* Render uploaded custom shots */}
                 {customShots.map((shot, index) => (
                   <div
                     key={shot.name}
@@ -371,9 +366,8 @@ const FinalizeProjectPage = () => {
                     </div>
                   </div>
                 ))}
-                {/* Custom shot upload */}
-                <div className=" cursor-pointer relative border-[0.5px] border-[#C9C9C9] ">
-                  <div className=" text-center font-medium text-sm absolute top-3 left-1/2 -translate-x-1/2 w-full">
+                <div className="cursor-pointer relative border-[0.5px] border-[#C9C9C9]">
+                  <div className="text-center font-medium text-sm absolute top-3 left-1/2 -translate-x-1/2 w-full">
                     Custom Shots
                   </div>
                   <label
@@ -387,7 +381,6 @@ const FinalizeProjectPage = () => {
                         <span className="text-[#C49524]">Click to Upload</span>
                       </p>
                     </div>
-
                     <div className="text-[10px] text-[#787878] text-center absolute bottom-3 left-1/2 -translate-x-1/2 w-full">
                       PNG & JPG supported
                     </div>
@@ -404,7 +397,6 @@ const FinalizeProjectPage = () => {
               </div>
             </div>
 
-            {/* Checkout Button */}
             <motion.button
               className="w-full bg-black text-white font-bold h-[47px] font-semibold mb-10 flex items-center justify-center hover:bg-gray-800 transition-colors cursor-pointer rounded-full"
               whileHover={{ scale: 1.02 }}
@@ -415,10 +407,8 @@ const FinalizeProjectPage = () => {
             </motion.button>
           </div>
 
-          {/* Right column - Order Summary */}
           <div className="lg:col-span-1">
             <div className="sticky top-[150px]">
-              {/* Order Summary */}
               <div className="border-[0.5px] border-[#1D1D1B] mb-4 -mx-4 md:mx-0">
                 <div className="p-5 bg-[#F0F0F0]">
                   <div
@@ -445,7 +435,6 @@ const FinalizeProjectPage = () => {
                     </button>
                   </div>
 
-                  {/* Collapsible Content on Mobile */}
                   <AnimatePresence>
                     {(isSummaryExpanded || window.innerWidth >= 768) && (
                       <motion.div
@@ -482,12 +471,54 @@ const FinalizeProjectPage = () => {
 
                           <div className="flex justify-between">
                             <span className="text-[#787878]">
-                              Image Quantity
+                              {productConfig.shootType === "VIDEO"
+                                ? "Video"
+                                : "Image"}{" "}
+                              Quantity
                             </span>
                             <span className="font-medium text-[#444444]">
                               x{productConfig.quantity || 1}
                             </span>
                           </div>
+
+                          {productConfig.shootType === "VIDEO" &&
+                            productConfig.details && (
+                              <div className="pt-4 border-t border-gray-200">
+                                <h3 className="font-semibold mb-2 text-[#1D1D1B]">
+                                  Video Details:
+                                </h3>
+                                <div className="space-y-2">
+                                  <div className="flex justify-between">
+                                    <span className="text-[#444444]">
+                                      Video Type
+                                    </span>
+                                    <span className="font-medium text-[#444444]">
+                                      {productConfig.details["Video Type"]}
+                                    </span>
+                                  </div>
+                                  <div className="flex justify-between">
+                                    <span className="text-[#444444]">
+                                      Animation Package
+                                    </span>
+                                    <span className="font-medium text-[#444444]">
+                                      {
+                                        productConfig.details[
+                                          "Animation Package"
+                                        ]
+                                      }
+                                    </span>
+                                  </div>
+                                  <div className="flex justify-between">
+                                    <span className="text-[#444444]">
+                                      Video Style
+                                    </span>
+                                    <span className="font-medium text-[#444444]">
+                                      {productConfig.details["Video Style"]}
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            )}
 
                           <div className="pt-4 border-t border-gray-200">
                             <h3 className="font-semibold mb-2 text-[#1D1D1B]">
@@ -539,7 +570,6 @@ const FinalizeProjectPage = () => {
                 </div>
               </div>
 
-              {/* Membership Upgrade */}
               <div
                 className="py-[7px] border-[0.5px] border-[#1D1D1B] pl-3 md:pr-5 pr-3 -mx-4 md:mx-0"
                 style={{

@@ -22,6 +22,14 @@ interface ProductConfigProps {
   shootType?: string;
 }
 
+// Define the possible animation package keys
+type AnimationPackageKey =
+  | "30 SECS"
+  | "1 MIN"
+  | "15 SECS"
+  | "30 SECS (Premium)"
+  | "1 MIN (Premium)";
+
 const ProductConfigurationPage = ({
   category = "CLOTHING",
   shootType = "FLATLAY",
@@ -31,6 +39,20 @@ const ProductConfigurationPage = ({
   const [quantity, setQuantity] = useState(1);
   const [basePrice, setBasePrice] = useState(25000);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [selectedMembershipPlan, setSelectedMembershipPlan] = useState<
+    string | null
+  >(null);
+  const [videoConfig, setVideoConfig] = useState<{
+    videoType: string;
+    animationPackage: AnimationPackageKey; // Use the defined type
+    videoStyle: string;
+    videoQuantity: number;
+  }>({
+    videoType: "STANDARD",
+    animationPackage: "30 SECS",
+    videoStyle: "NORMAL",
+    videoQuantity: 1,
+  });
 
   useEffect(() => {
     if (selectedShootType === "MODEL") {
@@ -46,29 +68,39 @@ const ProductConfigurationPage = ({
   }, [category, selectedShootType]);
 
   useEffect(() => {
-    switch (selectedFinish) {
-      case "BASIC END FINISH":
-        setBasePrice(25000);
-        break;
-      case "MEDIUM END FINISH":
-        setBasePrice(45000);
-        break;
-      case "HIGH END FINISH":
-        setBasePrice(65000);
-        break;
-      case "PREMIUM END FINISH":
-        setBasePrice(150000);
-        break;
-      default:
-        setBasePrice(25000);
+    if (selectedShootType === "VIDEO") {
+      const priceMap: Record<AnimationPackageKey, number> = {
+        "30 SECS": 250000,
+        "1 MIN": 350000,
+        "15 SECS": 350000,
+        "30 SECS (Premium)": 450000,
+        "1 MIN (Premium)": 650000,
+      };
+      setBasePrice(priceMap[videoConfig.animationPackage] || 250000);
+    } else {
+      switch (selectedFinish) {
+        case "BASIC END FINISH":
+          setBasePrice(25000);
+          break;
+        case "MEDIUM END FINISH":
+          setBasePrice(45000);
+          break;
+        case "HIGH END FINISH":
+          setBasePrice(65000);
+          break;
+        case "PREMIUM END FINISH":
+          setBasePrice(150000);
+          break;
+        default:
+          setBasePrice(25000);
+      }
     }
-  }, [selectedFinish]);
+  }, [selectedFinish, selectedShootType, videoConfig.animationPackage]);
 
   useEffect(() => {
     setSelectedImageIndex(0);
   }, [selectedShootType, selectedFinish]);
 
-  // Filter products based on the selected category, shoot type, and finish
   const filteredProducts = useMemo(() => {
     return getProductsByTypeAndShootAndFinish(
       category,
@@ -77,7 +109,6 @@ const ProductConfigurationPage = ({
     );
   }, [category, selectedShootType, selectedFinish]);
 
-  // Get product images for the current category, shoot type, and finish
   const productImages = useMemo(() => {
     if (filteredProducts.length === 0) {
       return [];
@@ -87,7 +118,6 @@ const ProductConfigurationPage = ({
 
   return (
     <div className="pt-[60px]">
-      {/* Breadcrumb */}
       <div className="container mx-auto px-4 py-8 md:py-16">
         <div className="mb-6">
           <motion.div
@@ -105,9 +135,7 @@ const ProductConfigurationPage = ({
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-10">
-          {/* Left column - Product Image */}
           <div>
-            {/* Thumbnail Gallery */}
             <div className="flex flex-row md:grid md:grid-cols-4 gap-3 md:gap-[14px] mb-4 overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-hide">
               {productImages.length > 0
                 ? productImages.map((img, index) => (
@@ -143,7 +171,6 @@ const ProductConfigurationPage = ({
                     ))}
             </div>
 
-            {/* Main Product Image */}
             <motion.div
               className="aspect-square bg-white relative"
               key={selectedImageIndex}
@@ -168,54 +195,53 @@ const ProductConfigurationPage = ({
             </motion.div>
           </div>
 
-          {/* Right column - Configuration Options */}
           <div>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              {/* Category Tag */}
               <div className="mb-4">
                 <span className="flex items-center justify-center w-[137px] h-[35px] py-[14px] px-[11px] rounded-full border border-[#1D1D1B] text-lg font-medium">
-                  {shootType}
+                  {selectedShootType}
                 </span>
               </div>
 
-              {/* Category Title */}
               <h1 className="text-[38px] md:text-[52px] leading-[110%] font-bold mb-2">
                 {category} <br /> PHOTOGRAPHY
               </h1>
 
-              {/* Description */}
               <p className="text-[#444444] mb-6 leading-[155%] text-sm md:text-lg">
-                Flat lay photography captures clothing from a top-down view,
-                laid flat on a surface.
+                {selectedShootType === "FLATLAY"
+                  ? "Flat lay photography captures clothing from a top-down view, laid flat on a surface."
+                  : selectedShootType === "VIDEO"
+                  ? "Bring your clothing to life with professional models that add personality and relatability to your brand's visuals."
+                  : "Showcase your clothing with professional photography."}
               </p>
 
-              {/* Finish Selection */}
-              <div className="mb-7 border-t border-b border-[#D1D1D1] pt-5 md:pt-7 pb-6 md:pb-8">
-                <h2 className="font-semibold mb-2 leading-[155%] text-[26px] md:text-lg">
-                  CHOOSE YOUR PREFERRED FINISH
-                </h2>
-                <p className="text-gray-600 mb-5 text-sm md:text-base">
-                  Select the quality and style that best suits your brand's
-                  needs.
-                </p>
-                <FinishSelector
-                  selectedFinish={selectedFinish}
-                  onSelectFinish={setSelectedFinish}
-                  category={category}
-                  shootType={selectedShootType}
-                />
-              </div>
+              {selectedShootType !== "VIDEO" && (
+                <div className="mb-7 border-t border-b border-[#D1D1D1] pt-5 md:pt-7 pb-6 md:pb-8">
+                  <h2 className="font-semibold mb-2 leading-[155%] text-[26px] md:text-lg">
+                    CHOOSE YOUR PREFERRED FINISH
+                  </h2>
+                  <p className="text-gray-600 mb-5 text-sm md:text-base">
+                    Select the quality and style that best suits your brand's
+                    needs.
+                  </p>
+                  <FinishSelector
+                    selectedFinish={selectedFinish}
+                    onSelectFinish={setSelectedFinish}
+                    category={category}
+                    shootType={selectedShootType}
+                  />
+                </div>
+              )}
 
-              {/* Shoot Type */}
-              <div className="mb-7">
+              <div className="mb-7 ">
                 <h2 className="font-semibold mb-2 text-[26px] md:text-lg leading-[155%]">
                   SHOOT TYPE
                 </h2>
-                <p className="text-[#444444] mb-4 text-sm md:text-base">
+                <p className="text-[#444444] mb-4 text-sm md:text-base ">
                   Select the best way to showcase your product to match your
                   brand's needs.
                 </p>
@@ -223,24 +249,25 @@ const ProductConfigurationPage = ({
                   category={category}
                   selectedType={selectedShootType}
                   onSelectType={setSelectedShootType}
+                  onVideoConfigChange={setVideoConfig}
                 />
               </div>
 
-              {/* Image Quantity */}
-              <div className="mb-7">
-                <h2 className="font-semibold mb-2 text-[26px] md:text-lg leading-[155%]">
-                  IMAGE QUANTITY
-                </h2>
-                <p className="text-[#444444] mb-4 text-sm md:text-base">
-                  Input the number of shots you would like
-                </p>
-                <ImageQuantitySelector
-                  quantity={quantity}
-                  setQuantity={setQuantity}
-                />
-              </div>
+              {selectedShootType !== "VIDEO" ? (
+                <div className="mb-7">
+                  <h2 className="font-semibold mb-2 text-[26px] md:text-lg leading-[155%]">
+                    IMAGE QUANTITY
+                  </h2>
+                  <p className="text-[#444444] mb-4 text-sm md:text-base">
+                    Input the number of shots you would like
+                  </p>
+                  <ImageQuantitySelector
+                    quantity={quantity}
+                    setQuantity={setQuantity}
+                  />
+                </div>
+              ) : null}
 
-              {/* Membership Plans */}
               <div className="mb-8">
                 <h2 className="font-semibold mb-2 text-[26px] md:text-lg leading-[155%]">
                   MEMBERSHIP PLANS
@@ -250,29 +277,39 @@ const ProductConfigurationPage = ({
                   higher volume and get exclusive perks with our membership
                   plans.
                 </p>
-                <MembershipPlans />
+                <MembershipPlans
+                  selectedMembershipPlan={selectedMembershipPlan}
+                  setSelectedMembershipPlan={setSelectedMembershipPlan}
+                />
               </div>
 
-              {/* Order Summary */}
               <OrderSummary
                 basePrice={basePrice}
-                quantity={quantity}
+                quantity={
+                  selectedShootType === "VIDEO"
+                    ? videoConfig.videoQuantity
+                    : quantity
+                }
                 selectedFinish={selectedFinish}
                 selectedShootType={selectedShootType}
                 category={category}
+                selectedMembershipPlan={selectedMembershipPlan}
+                videoConfig={videoConfig}
               />
 
-              {/* What's Included */}
               <div className="mt-8">
                 <Accordion
                   title="WHAT'S INCLUDED IN THIS SERVICE?"
                   content={
                     <>
-                      Standard product photos delivered as high-resolution JPG
-                      files (300 DPI).
+                      {selectedShootType === "VIDEO"
+                        ? "High-quality video delivered in your chosen format and style."
+                        : "Standard product photos delivered as high-resolution JPG files (300 DPI)."}
                       <br />
                       <br />
-                      Standard retouching included for every image.
+                      {selectedShootType === "VIDEO"
+                        ? "Custom animation based on selected package."
+                        : "Standard retouching included for every image."}
                       <br />
                       <br />
                       One round of revisions based on Belvaphilips’ feedback
@@ -290,7 +327,6 @@ const ProductConfigurationPage = ({
                 />
               </div>
 
-              {/* Need Assistance */}
               <div className="mt-5 flex flex-col md:flex-row justify-between md:items-center border-t border-gray-200 pt-4 gap-4">
                 <div>
                   <h3 className="font-semibold leading-[155%] text-[26px] md:text-lg">
@@ -308,7 +344,6 @@ const ProductConfigurationPage = ({
           </div>
         </div>
 
-        {/* Related Categories */}
         <div className="mt-[128px] md:mt-[176px] mb-[61px] md:mb-[100px]">
           <div className="flex flex-col md:flex-row md:items-start">
             <h2 className="text-[38px] md:text-[64px] max-w-[290px] md:max-w-[614px] font-semibold mb-8 leading-[115%] tracking-tight md:tracking-[-3px] w-full">
@@ -343,7 +378,7 @@ const ProductConfigurationPage = ({
 
           <RelatedCategories />
 
-          <div className="flex md:hidden  mt-6">
+          <div className="flex md:hidden mt-6">
             <motion.div
               whileHover={{ x: 5 }}
               className="inline-flex items-center text-gray-800 hover:text-black cursor-pointer"
@@ -370,7 +405,6 @@ const ProductConfigurationPage = ({
           </div>
         </div>
 
-        {/* FAQ Section */}
         <FAQSection />
       </div>
     </div>

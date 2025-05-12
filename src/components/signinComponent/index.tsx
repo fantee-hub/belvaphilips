@@ -1,4 +1,6 @@
 "use client";
+import { useAppDispatch } from "@/lib/redux/hooks";
+import { clearUser } from "@/lib/redux/slices/userSlice";
 import { createClient } from "@/lib/supabase/client";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -12,8 +14,19 @@ export default function SigninComponent() {
   const [isSigningIn, setIsSigningIn] = useState(false);
   const cookies = new Cookies();
   const next = searchParams.get("next");
+  const dispatch = useAppDispatch();
 
   const supabase = createClient();
+
+  async function getUserId() {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+    const userId = session?.user?.id;
+    console.log("User ID:", userId);
+    return userId;
+  }
+  getUserId();
 
   const requestOtp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -49,12 +62,24 @@ export default function SigninComponent() {
       });
 
       if (error) throw error;
-
-      // The session will be automatically handled by Supabase
-      // You can access the session using supabase.auth.getSession()
     } catch (error) {
       // TODO: catch this error
       console.error("Error signing in with Google:", error);
+    }
+  };
+
+  const logout = async () => {
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        console.error("Error logging out:", error.message);
+        return;
+      }
+      console.log("User logged out successfully");
+      dispatch(clearUser());
+      cookies.remove("user_token", { path: "/" });
+    } catch (err) {
+      console.error("Unexpected error during logout:", err);
     }
   };
 
@@ -85,6 +110,7 @@ export default function SigninComponent() {
             <span className="font-light">IMAGERY</span>
           </span>
         </div>
+        <button onClick={logout}>LOGIUT</button>
         <div className="max-w-[300px] mx-auto text-center">
           <h1 className="text-[24px] font-semibold leading-[125%]">
             WELCOME TO <br /> BELVAPHILIPS IMAGERY

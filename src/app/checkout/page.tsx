@@ -8,6 +8,11 @@ import { GoArrowRight } from "react-icons/go";
 import MembershipModal from "@/components/product/MembershipModal";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { useAppSelector } from "@/lib/redux/hooks";
+import { createOrder } from "@/lib/api";
+import { toast } from "react-hot-toast";
+import Cookies from "universal-cookie";
+import setAuthToken from "@/lib/api/setAuthToken";
 
 const ArrowRight = () => (
   <svg
@@ -42,6 +47,9 @@ const CheckoutPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const { userId, email } = useAppSelector((state) => state.user);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const cookies = new Cookies();
 
   useEffect(() => {
     try {
@@ -58,15 +66,78 @@ const CheckoutPage = () => {
     setIsLoading(false);
   }, []);
 
-  const handleStartProject = () => {
+  const handleStartProject = async () => {
+    setIsSubmitting(true);
     const checkoutData = {
       ...orderDetails,
       deliveryType: selectedDeliveryType,
       checkoutDate: new Date().toISOString(),
     };
+
     localStorage.setItem("submittedProject", JSON.stringify(checkoutData));
 
-    setShowSuccessModal(true);
+    const summaryObject = {
+      delivery_speed: selectedDeliveryType,
+      details: orderDetails.details,
+      finish_type: orderDetails.finish,
+      membership_type: orderDetails.membershipPlan,
+      product_description: orderDetails.projectDescription,
+      product_name: orderDetails.category,
+      quantity: orderDetails.quantity,
+      shoot_type: orderDetails.shootType,
+      shots: orderDetails.selectedShots,
+      status: "pending",
+      user_id: userId,
+    };
+    const token = cookies.get("user_token");
+
+    try {
+      if (token) {
+        setAuthToken(token);
+      }
+      const { data } = await createOrder(summaryObject);
+
+      if (data) {
+        toast.success("Successfully saved order", {
+          style: {
+            border: "1px solid #1D1D1B",
+            padding: "16px",
+            color: "#1D1D1B",
+            borderRadius: "6px",
+          },
+          iconTheme: {
+            primary: "#008000",
+            secondary: "#FFFAEE",
+          },
+        });
+      }
+      setIsSubmitting(false);
+      setShowSuccessModal(true);
+    } catch (error: any) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      toast.error(message, {
+        style: {
+          border: "0.5px solid #1D1D1B",
+          padding: "16px",
+          color: "#1D1D1B",
+          borderRadius: "6px",
+        },
+        iconTheme: {
+          primary: "#FF0000",
+          secondary: "#FFFAEE",
+        },
+      });
+      setIsSubmitting(false);
+      console.log("Error message:", message);
+    }
+
+    console.log(summaryObject);
   };
 
   const handleTrackStatus = () => {
@@ -76,6 +147,8 @@ const CheckoutPage = () => {
   const handleStartNewProject = () => {
     window.location.href = "/configure";
   };
+
+  console.log(orderDetails);
 
   if (isLoading) {
     return (
@@ -171,10 +244,11 @@ const CheckoutPage = () => {
 
               {/* Start Project Button */}
               <button
+                disabled={isSubmitting}
                 className="w-full bg-[#1D1D1B] text-white font-bold h-[47px] font-semibold mb-10 flex items-center justify-center hover:bg-gray-800 transition-colors cursor-pointer rounded-full"
                 onClick={handleStartProject}
               >
-                START PROJECT
+                {isSubmitting ? "Submitting Order..." : "START PROJECT"}
               </button>
             </div>
 

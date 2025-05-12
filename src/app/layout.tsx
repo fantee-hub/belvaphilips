@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import localFont from "next/font/local";
+import RootLayoutClient from "./RootLayoutClient";
 import "./globals.css";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
-import ScrollTop from "@/components/ScrollToTop";
-import { Toaster } from "react-hot-toast";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -31,7 +28,7 @@ export const metadata: Metadata = {
   description: "Studio quality photography made simple",
 };
 
-export default function RootLayout({
+export default function RootLayoutServer({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -39,12 +36,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={` ${inter.className} antialiased ${gilroy.variable}`}
+        className={`${inter.className} antialiased ${gilroy.variable}`}
         cz-shortcut-listen="true"
       >
-        <Toaster />
-        <ScrollTop />
-        <main>{children}</main>
+        <RootLayoutClient>{children}</RootLayoutClient>
       </body>
     </html>
   );

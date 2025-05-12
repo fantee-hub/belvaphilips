@@ -4,15 +4,18 @@ import React, { useState, useRef, useEffect } from "react";
 import Cookies from "universal-cookie";
 import setAuthToken from "@/lib/api/setAuthToken";
 import { PiCaretDownBold } from "react-icons/pi";
+import { upDateStatusOfOrder, getOrdersById } from "@/lib/api";
 
 interface StatusUpdateDropdownProps {
   orderId: string;
-  currentStatus: string;
+  currentStatus: string | undefined;
+  onStatusUpdated: (updatedOrder: any) => void;
 }
 
 const StatusUpdateDropdown: React.FC<StatusUpdateDropdownProps> = ({
   orderId,
   currentStatus,
+  onStatusUpdated,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
@@ -74,32 +77,33 @@ const StatusUpdateDropdown: React.FC<StatusUpdateDropdownProps> = ({
       },
     ];
 
-    // Map currentStatus to the workflow index
     const statusMap: { [key: string]: number } = {
       pending: 0,
-      awaiting_payment: 0, // In case your backend uses a different status name
-      active: 1, // After "MARK AS PAID"
-      received: 1, // After "MARK PRODUCT AS RECEIVED & START SHOOT"
-      sent_for_review: 2,
-      revisions_in_progress: 3,
-      approved: 4,
-      returned: 5,
-      completed: 6,
+      mark_as_paid: 0,
+      mark_received: 1,
+      send_for_review: 2,
+      mark_revisions: 3,
+      mark_approved: 4,
+      mark_returned: 5,
+      mark_completed: 6,
     };
 
-    const normalizedStatus = currentStatus.toLowerCase();
+    const normalizedStatus = (currentStatus || "pending").toLowerCase();
     const currentIndex = statusMap[normalizedStatus] ?? -1;
 
-    // If the status is not found or is completed, return no options
     if (currentIndex === -1 || currentIndex === statusWorkflow.length - 1) {
       return [];
     }
 
-    // Return all future statuses in the sequence
-    return statusWorkflow.slice(currentIndex).map((option, index) => ({
-      ...option,
-      isNextStep: index === 0, // Only the first option (next step) is enabled
-    }));
+    return normalizedStatus === "pending"
+      ? statusWorkflow.map((option, index) => ({
+          ...option,
+          isNextStep: index === 0,
+        }))
+      : statusWorkflow.slice(currentIndex + 1).map((option, index) => ({
+          ...option,
+          isNextStep: index === 0,
+        }));
   };
 
   const handleStatusUpdate = async (statusId: string) => {
@@ -112,13 +116,16 @@ const StatusUpdateDropdown: React.FC<StatusUpdateDropdownProps> = ({
     }
 
     try {
-      // Replace with your actual update status API function
-      // await updateOrderStatus(orderId, statusId);
+      // Update status
+      await upDateStatusOfOrder(orderId, { status: statusId } as any);
       console.log(`Updated order ${orderId} status to ${statusId}`);
 
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+      const response = await getOrdersById(orderId);
+      if (response.data) {
+        onStatusUpdated(response.data.data);
+      }
+
+      window.location.reload();
     } catch (error) {
       console.error("Error updating order status:", error);
     } finally {
@@ -140,7 +147,7 @@ const StatusUpdateDropdown: React.FC<StatusUpdateDropdownProps> = ({
         ref={buttonRef}
         onClick={() => setIsOpen(!isOpen)}
         disabled={isUpdating}
-        className="inline-flex justify-between items-center  px-4 py-2 border border-[#1D1D1B] shadow-sm text-sm font-medium rounded-full cursor-pointer text-[#6E6E6E] bg-white hover:bg-gray-50 focus:outline-none"
+        className="inline-flex justify-between items-center px-4 py-2 border border-[#1D1D1B] shadow-sm text-sm font-medium rounded-full cursor-pointer text-[#6E6E6E] bg-white hover:bg-gray-50 focus:outline-none"
       >
         {isUpdating ? "Updating..." : "SELECT A STATUS UPDATE"}
         <PiCaretDownBold

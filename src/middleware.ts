@@ -13,24 +13,36 @@ const EXCLUDED_PATHS = [
   "/assets/",
 ];
 // Routes to exclude from authentication checks
-const AUTH_EXCLUDED_PATHS = ["/admin/login", "/signin"];
+const AUTH_EXCLUDED_PATHS = ["/admin/login", "/signin", "/auth"];
+
+// Add root route and other protected routes to check for Supabase auth
+const SUPABASE_PROTECTED_ROUTES = ["/checkout", "/dashboard"];
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   console.log(`Middleware: Checking path ${pathname}`);
 
-  // Skip middleware for excluded paths (static assets and all)
+  // Skip middleware for excluded paths (static assets, etc.)
   if (EXCLUDED_PATHS.some((path) => pathname.startsWith(path))) {
     console.log(`Middleware: Skipping excluded path ${pathname}`);
     return NextResponse.next();
   }
 
-  const isProtectedRoute = matchesRoute(pathname, ["/checkout", "/dashboard"]);
-  if (isProtectedRoute) {
+  // Skip authentication checks for auth-excluded paths
+  if (AUTH_EXCLUDED_PATHS.includes(pathname)) {
+    console.log(`Middleware: Skipping auth check for ${pathname}`);
+    return NextResponse.next();
+  }
+
+  // Check Supabase-protected routes (including root route)
+  if (matchesRoute(pathname, SUPABASE_PROTECTED_ROUTES)) {
     console.log(`Middleware: Running Supabase auth check for ${pathname}`);
     const supabaseResponse = await updateSession(request);
-    if (supabaseResponse.status !== 302) {
+
+    console.log(supabaseResponse);
+    // If Supabase redirects (e.g., to /signin), return the redirect response
+    if (supabaseResponse.status === 307) {
       console.log(
         `Middleware: Supabase redirected to ${supabaseResponse.headers.get(
           "location"
@@ -39,12 +51,6 @@ export async function middleware(request: NextRequest) {
       return supabaseResponse;
     }
     console.log(`Middleware: Supabase auth passed for ${pathname}`);
-  }
-
-  // Skip authentication checks for login page
-  if (AUTH_EXCLUDED_PATHS.includes(pathname)) {
-    console.log(`Middleware: Skipping auth check for ${pathname}`);
-    return NextResponse.next();
   }
 
   // Check for admin protected routes
@@ -66,24 +72,26 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  // Check for user protected routes
-  // if (matchesRoute(pathname, USER_PROTECTED_ROUTES)) {
-  //   const userToken = request.cookies.get("user_token")?.value;
-  //   console.log(
-  //     `Middleware: User token ${
-  //       userToken ? "found" : "not found"
-  //     } for ${pathname}`
-  //   );
+  // Check for user protected routes (uncomment if needed)
+  /*
+  if (matchesRoute(pathname, USER_PROTECTED_ROUTES)) {
+    const userToken = request.cookies.get("user_token")?.value;
+    console.log(
+      `Middleware: User token ${
+        userToken ? "found" : "not found"
+      } for ${pathname}`
+    );
 
-  //   if (!userToken) {
-  //     const loginUrl = new URL("/signin", request.url);
-  //     if (pathname !== "/signin") {
-  //       loginUrl.searchParams.set("redirect", pathname);
-  //     }
-  //     console.log(`Middleware: Redirecting to ${loginUrl.toString()}`);
-  //     return NextResponse.redirect(loginUrl);
-  //   }
-  // }
+    if (!userToken) {
+      const loginUrl = new URL("/signin", request.url);
+      if (pathname !== "/signin") {
+        loginUrl.searchParams.set("redirect", pathname);
+      }
+      console.log(`Middleware: Redirecting to ${loginUrl.toString()}`);
+      return NextResponse.redirect(loginUrl);
+    }
+  }
+  */
 
   console.log(`Middleware: Allowing access to ${pathname}`);
   return NextResponse.next();
@@ -101,9 +109,9 @@ const matchesRoute = (path: string, routes: string[]) => {
 
 export const config = {
   matcher: [
+    "/checkout",
     "/admin",
     "/admin/:path*",
-    "/checkout",
     "/protected/:path*",
     "/dashboard",
   ],

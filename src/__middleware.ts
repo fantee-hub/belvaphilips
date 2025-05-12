@@ -1,13 +1,13 @@
-import { type NextRequest } from 'next/server'
-import { updateSession } from '@/lib/supabase/middleware'
+import { type NextRequest } from "next/server";
+import { updateSession } from "@/lib/supabase/middleware";
 
 export async function middleware(request: NextRequest) {
-  return await updateSession(request)
+  return await updateSession(request);
 }
 
 export const config = {
-  matcher: ['/protected/:path*'],
-}; 
+  matcher: ["/protected/:path*"],
+};
 
 // TODO: to get session data for use in other places. also how you can implement signing out
 // const { data: { session } } = await supabase.auth.getSession();

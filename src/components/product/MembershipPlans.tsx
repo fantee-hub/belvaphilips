@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 
@@ -34,11 +34,14 @@ const plans = [
   },
 ];
 
-const MembershipPlans = () => {
+const MembershipPlans = ({
+  selectedMembershipPlan,
+  setSelectedMembershipPlan,
+}: {
+  selectedMembershipPlan: string | null;
+  setSelectedMembershipPlan: Dispatch<SetStateAction<string | null>>;
+}) => {
   const [expandedPlan, setExpandedPlan] = useState<string | null>(null);
-  const [selectedMembershipPlan, setSelectedMembershipPlan] = useState<
-    string | null
-  >(null);
 
   const toggleExpand = (planId: string) => {
     if (expandedPlan === planId) {
@@ -58,14 +61,14 @@ const MembershipPlans = () => {
         <motion.div
           key={plan.id}
           className={`border border-gray-200 overflow-hidden  cursor-pointer ${
-            selectedMembershipPlan === plan.id ? "border-gray-800" : ""
+            selectedMembershipPlan === plan.title ? "border-gray-800" : ""
           } `}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.3 }}
           onClick={() => {
             toggleExpand(plan.id);
-            handleMembershipPlanToggleSelect(plan.id);
+            handleMembershipPlanToggleSelect(plan.title);
           }}
         >
           <div className="p-5">

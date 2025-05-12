@@ -11,6 +11,13 @@ interface OrderSummaryProps {
     name: string;
     price: number;
   }>;
+  selectedMembershipPlan: string | null;
+  videoConfig?: {
+    videoType: string;
+    animationPackage: string;
+    videoStyle: string;
+    videoQuantity: number;
+  };
 }
 
 const formatCurrency = (amount: number): string => {
@@ -24,31 +31,39 @@ const OrderSummary = ({
   selectedShootType,
   category,
   addOns = [],
+  selectedMembershipPlan,
+  videoConfig,
 }: OrderSummaryProps) => {
   const router = useRouter();
-  const subtotal = basePrice * quantity;
+  const subtotal =
+    selectedShootType === "VIDEO"
+      ? basePrice * (videoConfig?.videoQuantity || 1)
+      : basePrice * quantity;
 
-  const addOnsTotal = addOns.reduce((total, addon) => {
-    return total + addon.price;
-  }, 0);
-
+  const addOnsTotal = addOns.reduce((total, addon) => total + addon.price, 0);
   const total = subtotal + addOnsTotal;
 
   const handleFinalizeClick = () => {
-    // Store the configuration in local storage or state management
     const config = {
       finish: selectedFinish,
       shootType: selectedShootType,
-      quantity: quantity,
-      basePrice: basePrice,
-      category: category,
-      total: total,
+      quantity:
+        selectedShootType === "VIDEO" ? videoConfig?.videoQuantity : quantity,
+      basePrice,
+      category,
+      total,
+      membershipPlan: selectedMembershipPlan,
+      ...(selectedShootType === "VIDEO" &&
+        videoConfig && {
+          details: {
+            "Video Type": videoConfig.videoType,
+            "Animation Package": videoConfig.animationPackage,
+            "Video Style": videoConfig.videoStyle,
+          },
+        }),
     };
 
-    // Store in localStorage for persistence
     localStorage.setItem("productConfig", JSON.stringify(config));
-
-    // Navigate to finalize page
     router.push("/finalize");
   };
 
@@ -57,12 +72,16 @@ const OrderSummary = ({
       <div className="bg-[#F0F0F0] border-[0.5px] border-[#1D1D1B]">
         <div className="p-5 space-y-3 pb-12">
           <div className="flex justify-between font-semibold text-lg">
-            <span className="">Price Per Image</span>
+            <span className="">
+              Price Per {selectedShootType === "VIDEO" ? "Video" : "Image"}
+            </span>
             <span>{formatCurrency(basePrice)}</span>
           </div>
 
           <div className="flex justify-between font-medium text-[#444444]">
-            <span>Images Subtotal:</span>
+            <span>
+              {selectedShootType === "VIDEO" ? "Videos" : "Images"} Subtotal:
+            </span>
             <span>{formatCurrency(subtotal)}</span>
           </div>
 
