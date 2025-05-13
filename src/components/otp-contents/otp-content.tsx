@@ -7,7 +7,8 @@ import { createClient } from "@/lib/supabase/client";
 import Cookies from "universal-cookie";
 import { createUsers } from "@/lib/api";
 import { toast } from "react-hot-toast";
-
+import setAuthToken from "@/lib/api/setAuthToken";
+import { useAppSelector } from "@/lib/redux/hooks";
 
 const formatEmail = (email: string) => {
   if (!email) return "";
@@ -33,6 +34,7 @@ export function OtpContent() {
   const [countryCode, setCountryCode] = useState("+234");
   const cookies = new Cookies();
   const supabase = createClient();
+  const { userId } = useAppSelector((state) => state.user);
 
   // TODO: so check why this isn't working
   async function getUserId() {
@@ -67,57 +69,64 @@ export function OtpContent() {
   };
 
   const handleFinishSignIn = async () => {
-    setIsSigningIn(true);
-    const fullName = `${formData.firstName} ${formData.lastName}`;
-    const bodyData = {
-      company_name: formData.companyName,
-      email: email,
-      // TODO: here too
-      id: getUserId(),
-      name: fullName,
-      phone_number: `${countryCode}${formData.phoneNumber}`,
-    };
+    if (userId) {
+      setIsSigningIn(true);
+      const token = cookies.get("user_token");
+      const fullName = `${formData.firstName} ${formData.lastName}`;
+      const bodyData = {
+        company_name: formData.companyName,
+        email: email,
+        // TODO: here too
+        id: userId,
+        name: fullName,
+        phone_number: `${countryCode}${formData.phoneNumber}`,
+      };
+      if (token) {
+        setAuthToken(token);
+      }
 
-    try {
-      const { data } = await createUsers(bodyData);
-      if (data) {
-        toast.success("Signin successful", {
+      try {
+        const { data } = await createUsers(bodyData);
+
+        if (data) {
+          toast.success("Signin successful", {
+            style: {
+              border: "1px solid #1D1D1B",
+              padding: "16px",
+              color: "#1D1D1B",
+              borderRadius: "6px",
+            },
+            iconTheme: {
+              primary: "#008000",
+              secondary: "#FFFAEE",
+            },
+          });
+          router.push("/");
+        }
+      } catch (error: any) {
+        console.error("Error finishing sign-in:", error);
+        const message =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+
+        toast.error(message, {
           style: {
-            border: "1px solid #1D1D1B",
+            border: "0.5px solid #1D1D1B",
             padding: "16px",
             color: "#1D1D1B",
             borderRadius: "6px",
           },
           iconTheme: {
-            primary: "#008000",
+            primary: "#FF0000",
             secondary: "#FFFAEE",
           },
         });
-        router.push("/");
+      } finally {
+        setIsSigningIn(false);
       }
-    } catch (error: any) {
-      console.error("Error finishing sign-in:", error);
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
-
-      toast.error(message, {
-        style: {
-          border: "0.5px solid #1D1D1B",
-          padding: "16px",
-          color: "#1D1D1B",
-          borderRadius: "6px",
-        },
-        iconTheme: {
-          primary: "#FF0000",
-          secondary: "#FFFAEE",
-        },
-      });
-    } finally {
-      setIsSigningIn(false);
     }
   };
 
@@ -143,7 +152,7 @@ export function OtpContent() {
         </span>
       </div>
       {isOtpVerified ? (
-        <div className="max-w-[300px] mx-auto text-center">
+        <div className="max-w-[360px] mx-auto text-center">
           <h1 className="text-[24px] font-semibold leading-[125%]">
             WELCOME TO <br /> BELVAPHILIPS IMAGERY
           </h1>
@@ -154,7 +163,7 @@ export function OtpContent() {
               value={formData.firstName}
               onChange={handleInputChange}
               placeholder="First name"
-              className="w-full p-2 mb-2 border rounded-lg"
+              className="w-full px-5 h-[47px] mb-3 rounded-full bg-[#F4F4F4] outline-none"
             />
             <input
               type="text"
@@ -162,13 +171,13 @@ export function OtpContent() {
               value={formData.lastName}
               onChange={handleInputChange}
               placeholder="Last name"
-              className="w-full p-2 mb-2 border rounded-lg"
+              className="w-full px-5 h-[47px] mb-3 rounded-full bg-[#F4F4F4] outline-none"
             />
-            <div className="flex mb-2">
+            <div className="flex mb-3">
               <select
                 value={countryCode}
                 onChange={(e) => setCountryCode(e.target.value)}
-                className="p-2 border rounded-l-lg"
+                className=" px-5 h-[47px] bg-[#F4F4F4] outline-none rounded-l-full"
               >
                 {countryCodes.map((code) => (
                   <option key={code} value={code}>
@@ -182,7 +191,7 @@ export function OtpContent() {
                 value={formData.phoneNumber}
                 onChange={handleInputChange}
                 placeholder="Phone number"
-                className="w-full p-2 border rounded-r-lg"
+                className="w-full px-5 h-[47px] bg-[#F4F4F4] outline-none rounded-r-full"
               />
             </div>
             <input
@@ -191,12 +200,12 @@ export function OtpContent() {
               value={formData.companyName}
               onChange={handleInputChange}
               placeholder="Company name"
-              className="w-full p-2 mb-2 border rounded-lg"
+              className="w-full px-5 h-[47px] mb-3 rounded-full bg-[#F4F4F4] outline-none"
             />
             <button
               onClick={handleFinishSignIn}
               disabled={isSigningIn}
-              className="bg-[#1D1D1B] text-white uppercase rounded-full h-[47px] w-full flex items-center justify-center font-semibold text-base"
+              className="bg-[#1D1D1B] text-white uppercase rounded-full h-[47px] w-full flex items-center justify-center font-semibold text-base mt-2 cursor-pointer"
             >
               {isSigningIn ? "Signing in..." : "Finish Sign In"}
             </button>
