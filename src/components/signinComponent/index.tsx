@@ -110,7 +110,7 @@ export default function SigninComponent() {
             <span className="font-light">IMAGERY</span>
           </span>
         </div>
-        <button onClick={logout}>LOGIUT</button>
+        {/* <button onClick={logout}>LOGIUT</button> */}
         <div className="max-w-[300px] mx-auto text-center">
           <h1 className="text-[24px] font-semibold leading-[125%]">
             WELCOME TO <br /> BELVAPHILIPS IMAGERY
