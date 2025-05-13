@@ -1,11 +1,12 @@
 import { useSearchParams } from "next/navigation";
-
 import { useRouter } from "next/navigation";
 import { OTPInput } from "./otp-inputs";
 import Image from "next/image";
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import Cookies from "universal-cookie";
+import { createUsers } from "@/lib/api";
+import { toast } from "react-hot-toast";
 
 const formatEmail = (email: string) => {
   if (!email) return "";
@@ -20,11 +21,16 @@ export function OtpContent() {
   const formattedEmail = formatEmail(email);
   const router = useRouter();
   const [otp, setOtp] = useState("");
-  const cookies = new Cookies();
   const [isSigningIn, setIsSigningIn] = useState(false);
-
-  console.log(email);
-
+  const [isOtpVerified, setIsOtpVerified] = useState(false);
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    phoneNumber: "",
+    companyName: "",
+  });
+  const [countryCode, setCountryCode] = useState("+234");
+  const cookies = new Cookies();
   const supabase = createClient();
 
   const verifyOtp = async () => {
@@ -39,65 +45,179 @@ export function OtpContent() {
 
         if (error) throw error;
 
-        // Redirect to the next page or dashboard
-        const next = searchParams.get("next");
-        if (next) {
-          router.push(next);
-        } else {
-          router.push("/");
-        }
+        setIsOtpVerified(true);
         setIsSigningIn(false);
       } catch (error) {
         console.error("Error verifying OTP:", error);
         setIsSigningIn(false);
-        // TODO: Handle error appropriately
       }
     }
   };
+
+  const handleFinishSignIn = async () => {
+    setIsSigningIn(true);
+    const fullName = `${formData.firstName} ${formData.lastName}`;
+    const bodyData = {
+      company_name: formData.companyName,
+      email: email,
+      id: "some-unique-id",
+      name: fullName,
+      phone_number: `${countryCode}${formData.phoneNumber}`,
+    };
+
+    try {
+      const { data } = await createUsers(bodyData);
+      if (data) {
+        toast.success("Signin successful", {
+          style: {
+            border: "1px solid #1D1D1B",
+            padding: "16px",
+            color: "#1D1D1B",
+            borderRadius: "6px",
+          },
+          iconTheme: {
+            primary: "#008000",
+            secondary: "#FFFAEE",
+          },
+        });
+        router.push("/");
+      }
+    } catch (error: any) {
+      console.error("Error finishing sign-in:", error);
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      toast.error(message, {
+        style: {
+          border: "0.5px solid #1D1D1B",
+          padding: "16px",
+          color: "#1D1D1B",
+          borderRadius: "6px",
+        },
+        iconTheme: {
+          primary: "#FF0000",
+          secondary: "#FFFAEE",
+        },
+      });
+    } finally {
+      setIsSigningIn(false);
+    }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const countryCodes = ["+234", "+1", "+44", "+91"];
 
   return (
     <div className="text-center bg-white shadow max-w-[423px] w-full p-8 z-10">
       <div className="flex items-center gap-[3.68px] justify-center mb-[40.62px]">
         <Image
-          src={"/assets/images/belvaphilips.svg"}
+          src="/assets/images/belvaphilips.svg"
           width={20.28}
           height={20.12}
           alt="belvaphilips imagery"
         />
-        <span
-          className={`font-logo text-[15.24px] flex items-center gap-[2.45px]`}
-        >
-          <span className={`font-black`}>BELVAPHILIPS</span>
+        <span className="font-logo text-[15.24px] flex items-center gap-[2.45px]">
+          <span className="font-black">BELVAPHILIPS</span>
           <span className="font-light">IMAGERY</span>
         </span>
       </div>
-      <div className="max-w-[300px] mx-auto text-center">
-        <h1 className="text-[24px] font-semibold leading-[125%]">
-          WELCOME TO <br /> BELVAPHILIPS IMAGERY
-        </h1>
-        <p className="text-base  leading-[155%] mt-2 mb-1 text-[#444444]">
-          Enter the otp we sent to the <br /> provided email address
-        </p>
-        <button
-          onClick={() => router.back()}
-          className="text-[#C49524] hover:underline text-base outline-none mb-7 font-semibold cursor-pointer"
-        >
-          Change here
-        </button>
-      </div>
-      <div className="flex justify-center">
-        <OTPInput length={6} onChange={setOtp} />
-      </div>
-      <div className="mt-3">
-        <button
-          onClick={verifyOtp}
-          disabled={isSigningIn}
-          type="submit"
-          className="bg-[#1D1D1B] cursor-pointer text-white uppercase rounded-full h-[47px] w-full flex items-center justify-center  font-semibold text-base "
-        >
-          {isSigningIn ? "Signing in..." : "Sign in "}
-        </button>
-      </div>
+      {isOtpVerified ? (
+        <div className="max-w-[300px] mx-auto text-center">
+          <h1 className="text-[24px] font-semibold leading-[125%]">
+            WELCOME TO <br /> BELVAPHILIPS IMAGERY
+          </h1>
+          <div className="mt-4">
+            <input
+              type="text"
+              name="firstName"
+              value={formData.firstName}
+              onChange={handleInputChange}
+              placeholder="First name"
+              className="w-full p-2 mb-2 border rounded-lg"
+            />
+            <input
+              type="text"
+              name="lastName"
+              value={formData.lastName}
+              onChange={handleInputChange}
+              placeholder="Last name"
+              className="w-full p-2 mb-2 border rounded-lg"
+            />
+            <div className="flex mb-2">
+              <select
+                value={countryCode}
+                onChange={(e) => setCountryCode(e.target.value)}
+                className="p-2 border rounded-l-lg"
+              >
+                {countryCodes.map((code) => (
+                  <option key={code} value={code}>
+                    {code}
+                  </option>
+                ))}
+              </select>
+              <input
+                type="tel"
+                name="phoneNumber"
+                value={formData.phoneNumber}
+                onChange={handleInputChange}
+                placeholder="Phone number"
+                className="w-full p-2 border rounded-r-lg"
+              />
+            </div>
+            <input
+              type="text"
+              name="companyName"
+              value={formData.companyName}
+              onChange={handleInputChange}
+              placeholder="Company name"
+              className="w-full p-2 mb-2 border rounded-lg"
+            />
+            <button
+              onClick={handleFinishSignIn}
+              disabled={isSigningIn}
+              className="bg-[#1D1D1B] text-white uppercase rounded-full h-[47px] w-full flex items-center justify-center font-semibold text-base"
+            >
+              {isSigningIn ? "Signing in..." : "Finish Sign In"}
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div className="max-w-[300px] mx-auto text-center">
+          <h1 className="text-[24px] font-semibold leading-[125%]">
+            WELCOME TO <br /> BELVAPHILIPS IMAGERY
+          </h1>
+          <p className="text-base leading-[155%] mt-2 mb-1 text-[#444444]">
+            Enter the otp we sent to the <br /> provided email address
+          </p>
+          <button
+            onClick={() => router.back()}
+            className="text-[#C49524] hover:underline text-base outline-none mb-7 font-semibold cursor-pointer"
+          >
+            Change here
+          </button>
+          <div className="flex justify-center">
+            <OTPInput length={6} onChange={setOtp} />
+          </div>
+          <div className="mt-3">
+            <button
+              onClick={verifyOtp}
+              disabled={isSigningIn}
+              type="submit"
+              className="bg-[#1D1D1B] cursor-pointer text-white uppercase rounded-full h-[47px] w-full flex items-center justify-center font-semibold text-base"
+            >
+              {isSigningIn ? "Signing in..." : "Sign in"}
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

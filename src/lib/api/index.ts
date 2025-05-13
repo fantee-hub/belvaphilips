@@ -17,6 +17,9 @@ const deletePostUrl = "/posts";
 const getOrdersUrl = "/orders";
 const getOrdersByUserUrl = "/orders/user";
 
+/**USERS */
+const createUserUrl = "/users";
+
 export const contactUs = async (data: any) => {
   return httpService.post(contactusUrl, data);
 };
@@ -82,7 +85,7 @@ export const createOrder = async (data: any) => {
   return httpService.post(getOrdersUrl, data);
 };
 
-export const getOrdersByUser = async (userId: string | number) => {
+export const getOrdersByUser = async (userId: string | number | null) => {
   return httpService.get(`${getOrdersByUserUrl}/${userId}`);
 };
 
@@ -92,4 +95,9 @@ export const getOrdersById = async (id: string | number) => {
 
 export const upDateStatusOfOrder = async (id: string | number, data: any) => {
   return httpService.put(`${getOrdersUrl}/${id}/status`, data);
+};
+
+/** USERS */
+export const createUsers = async (data: any) => {
+  return httpService.post(createUserUrl, data);
 };

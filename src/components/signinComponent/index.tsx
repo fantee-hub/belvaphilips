@@ -18,15 +18,15 @@ export default function SigninComponent() {
 
   const supabase = createClient();
 
-  async function getUserId() {
-    const {
-      data: { session },
-    } = await supabase.auth.getSession();
-    const userId = session?.user?.id;
-    console.log("User ID:", userId);
-    return userId;
-  }
-  getUserId();
+  // async function getUserId() {
+  //   const {
+  //     data: { session },
+  //   } = await supabase.auth.getSession();
+  //   const userId = session?.user?.id;
+  //   console.log("User ID:", userId);
+  //   return userId;
+  // }
+  // getUserId();
 
   const requestOtp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -112,7 +112,7 @@ export default function SigninComponent() {
         </div>
         {/* <button onClick={logout}>LOGIUT</button> */}
         <div className="max-w-[300px] mx-auto text-center">
-          <h1 className="text-[24px] font-semibold leading-[125%]">
+          <h1 className="text-[24px] font-semibold leading-[125%] ">
             WELCOME TO <br /> BELVAPHILIPS IMAGERY
           </h1>
           <p className="text-base mb-7 leading-[155%] mt-4 text-[#444444]">
