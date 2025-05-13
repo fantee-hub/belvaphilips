@@ -38,6 +38,7 @@ export default function RootLayoutServer({
       <body
         className={`${inter.className} antialiased ${gilroy.variable}`}
         cz-shortcut-listen="true"
+        suppressHydrationWarning
       >
         <RootLayoutClient>{children}</RootLayoutClient>
       </body>

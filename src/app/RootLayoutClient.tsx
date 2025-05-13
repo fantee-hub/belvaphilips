@@ -19,9 +19,7 @@ export default function RootLayoutClient({
       <ScrollTop />
       <Provider store={store}>
         <AuthProvider>
-          <Header />
           <main>{children}</main>
-          <Footer />
         </AuthProvider>
       </Provider>
     </>

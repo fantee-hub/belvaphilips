@@ -39,6 +39,7 @@ export default function RootLayout({
       <body
         className={` ${inter.className} antialiased ${gilroy.variable}`}
         cz-shortcut-listen="true"
+        suppressHydrationWarning
       >
         <ScrollTop />
         <Header />
