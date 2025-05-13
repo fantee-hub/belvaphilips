@@ -17,26 +17,24 @@ export default function AuthProvider({
   useEffect(() => {
     const supabase = createClient();
 
-    // Initial session check
     const fetchAndStoreUser = async () => {
       const {
         data: { session },
       } = await supabase.auth.getSession();
       if (session?.user) {
-        // Store userId and email in Redux
         dispatch(
           setUser({
             userId: session.user.id,
             email: session.user.email || null,
           })
         );
-        // Store access_token in cookie
+
         if (session.access_token) {
           cookies.set("user_token", session.access_token, {
             path: "/",
-            secure: process.env.NODE_ENV === "production", // Secure in production
-            sameSite: "strict", // Prevent CSRF
-            maxAge: 60 * 60 * 24, // 1 day (adjust based on token expiration)
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "strict",
+            maxAge: 60 * 60 * 24,
           });
         }
       } else {

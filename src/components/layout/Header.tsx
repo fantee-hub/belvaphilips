@@ -3,9 +3,8 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-
+import Cookies from "universal-cookie";
 import { usePathname, useRouter } from "next/navigation";
-
 import GetStartedModal from "../getStartedModal";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import {
@@ -13,24 +12,25 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "../ui/hover-card";
-import { createClient } from "@supabase/supabase-js";
-import { data } from "framer-motion/client";
+
+import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
+import { clearUser } from "@/lib/redux/slices/userSlice";
+import { createClient } from "@/lib/supabase/client";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isUserAuthenticated, setIsUserAuthenticated] = useState(false);
   const [userEmail, setUserEmail] = useState<string | null>(null);
-
+  const { userId, email } = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
+  const cookies = new Cookies();
   const pathname = usePathname();
   const router = useRouter();
 
   const specialPaths = ["/team", "/blog", "/contact"];
 
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  );
+  const supabase = createClient();
 
   const checkAuth = async () => {
     // Check Supabase user session
@@ -66,6 +66,21 @@ const Header = () => {
     setIsUserAuthenticated(false);
     setUserEmail(null);
     router.push("/signin");
+  };
+
+  const logout = async () => {
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        console.error("Error logging out:", error.message);
+        return;
+      }
+      console.log("User logged out successfully");
+      dispatch(clearUser());
+      cookies.remove("user_token", { path: "/" });
+    } catch (err) {
+      console.error("Unexpected error during logout:", err);
+    }
   };
 
   return (
@@ -247,7 +262,75 @@ const Header = () => {
 
         {/* Auth Buttons */}
         <div className="hidden md:flex space-x-3 items-center">
-          {isUserAuthenticated ? (
+          {userId ? (
+            <HoverCard openDelay={0} closeDelay={200}>
+              <HoverCardTrigger asChild>
+                <Link href={"/dashboard"}>
+                  <button className="w-[38px] h-[38px] flex items-center justify-center rounded-full bg-[#EBEBEB] cursor-pointer">
+                    <Image
+                      src={"/assets/images/user-avatar.svg"}
+                      width={19.5}
+                      height={19.5}
+                      alt="Profile"
+                    />
+                  </button>
+                </Link>
+              </HoverCardTrigger>
+              <HoverCardContent
+                className="!max-w-[200px] space-y-2"
+                side="bottom"
+                align="center"
+              >
+                <div className="text-sm text-gray-600  flex items-center truncate">
+                  {email}
+                </div>
+                <button
+                  onClick={logout}
+                  className="flex items-center text-sm gap-1 cursor-pointer"
+                >
+                  Logout
+                  <span>
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M10 11.75C9.95093 12.9846 8.92207 14.0329 7.54373 13.9992C7.22307 13.9913 6.82673 13.8796 6.03408 13.656C4.12641 13.1179 2.47037 12.2135 2.07304 10.1877C2 9.81533 2 9.39627 2 8.5582V7.4418C2 6.60374 2 6.1847 2.07304 5.81231C2.47037 3.78643 4.12641 2.8821 6.03408 2.34402C6.82673 2.12042 7.22307 2.00863 7.54373 2.00079C8.92207 1.96707 9.95093 3.01538 10 4.25"
+                        stroke="#C23B3B"
+                        strokeLinecap="round"
+                      />
+                      <path
+                        d="M14 8.00016H6.66663M14 8.00016C14 7.53336 12.6704 6.66118 12.3333 6.3335M14 8.00016C14 8.46696 12.6704 9.33916 12.3333 9.66683"
+                        stroke="#C23B3B"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </HoverCardContent>
+            </HoverCard>
+          ) : (
+            <Link
+              href="/signin"
+              className="w-[84px] h-[38px] flex items-center justify-center rounded-full bg-[#EBEBEB] uppercase text-sm font-medium"
+            >
+              LOGIN
+            </Link>
+          )}
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="w-[144px] h-[38px] flex items-center cursor-pointer justify-center bg-[#1D1D1B] text-white rounded-full uppercase text-sm font-semibold"
+          >
+            GET STARTED
+          </button>
+        </div>
+
+        {/* <div className="hidden md:flex space-x-3 items-center">
+          {userId ? (
             <div className="flex items-center gap-1">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -264,7 +347,7 @@ const Header = () => {
                 />
               </svg>
               <span className="text-sm text-gray-600 truncate max-w-[120px]">
-                {userEmail}
+                {email}
               </span>
               <button
                 onClick={handleUserLogout}
@@ -282,13 +365,8 @@ const Header = () => {
             </Link>
           )}
 
-          <button
-            onClick={() => setIsModalOpen(true)}
-            className="w-[144px] h-[38px] flex items-center cursor-pointer justify-center bg-[#1D1D1B] text-white rounded-full uppercase text-sm font-semibold"
-          >
-            GET STARTED
-          </button>
-        </div>
+         
+        </div> */}
 
         {/* Mobile Menu Button */}
         <button

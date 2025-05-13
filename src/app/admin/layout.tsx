@@ -37,7 +37,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={` ${inter.className} antialiased ${gilroy.variable}`}
+        className={`${inter.className} antialiased ${gilroy.variable}`}
         cz-shortcut-listen="true"
         suppressHydrationWarning
       >
