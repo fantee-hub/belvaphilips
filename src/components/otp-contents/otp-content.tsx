@@ -8,6 +8,7 @@ import Cookies from "universal-cookie";
 import { createUsers } from "@/lib/api";
 import { toast } from "react-hot-toast";
 
+
 const formatEmail = (email: string) => {
   if (!email) return "";
   const [localPart, domain] = email.split("@");
@@ -32,6 +33,17 @@ export function OtpContent() {
   const [countryCode, setCountryCode] = useState("+234");
   const cookies = new Cookies();
   const supabase = createClient();
+
+  // TODO: so check why this isn't working
+  async function getUserId() {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+    const userId = session?.user?.id;
+    console.log("User ID:", userId);
+    return userId;
+  }
+  getUserId();
 
   const verifyOtp = async () => {
     setIsSigningIn(true);
@@ -60,7 +72,8 @@ export function OtpContent() {
     const bodyData = {
       company_name: formData.companyName,
       email: email,
-      id: "some-unique-id",
+      // TODO: here too
+      id: getUserId(),
       name: fullName,
       phone_number: `${countryCode}${formData.phoneNumber}`,
     };

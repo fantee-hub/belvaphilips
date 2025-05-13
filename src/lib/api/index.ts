@@ -19,6 +19,7 @@ const getOrdersByUserUrl = "/orders/user";
 
 /**USERS */
 const createUserUrl = "/users";
+const getUserByIdUrl = "/users";
 
 export const contactUs = async (data: any) => {
   return httpService.post(contactusUrl, data);
@@ -100,4 +101,8 @@ export const upDateStatusOfOrder = async (id: string | number, data: any) => {
 /** USERS */
 export const createUsers = async (data: any) => {
   return httpService.post(createUserUrl, data);
+};
+
+export const getUserById = async (id: string | number) => {
+  return httpService.get(`${getUserByIdUrl}/${id}`);
 };
