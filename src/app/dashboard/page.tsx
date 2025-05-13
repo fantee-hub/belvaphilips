@@ -50,22 +50,21 @@ interface Order {
 interface UserDashboardProps {
   orders: Order[];
 }
-const orders = [
-  {
-    id: "SEY1001",
-    created_at: "2025-05-04T12:00:00Z",
-    updated_at: "2025-05-04T12:00:00Z",
-    status: "quote_received",
-  },
-  {
-    id: "SEY1002",
-    created_at: "2025-05-03T10:00:00Z",
-    updated_at: "2025-05-03T10:00:00Z",
-    status: "awaiting_confirmation",
-  },
-  // Add more orders as needed
-];
-const UserDashboard: React.FC<UserDashboardProps> = () => {
+// const orders = [
+//   {
+//     id: "SEY1001",
+//     created_at: "2025-05-04T12:00:00Z",
+//     updated_at: "2025-05-04T12:00:00Z",
+//     status: "quote_received",
+//   },
+//   {
+//     id: "SEY1002",
+//     created_at: "2025-05-03T10:00:00Z",
+//     updated_at: "2025-05-03T10:00:00Z",
+//     status: "awaiting_confirmation",
+//   },
+// ];
+const UserDashboard: React.FC = () => {
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(false);
