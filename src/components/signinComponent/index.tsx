@@ -1,10 +1,9 @@
-"use client";
 import { useAppDispatch } from "@/lib/redux/hooks";
 import { clearUser } from "@/lib/redux/slices/userSlice";
 import { createClient } from "@/lib/supabase/client";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Cookies from "universal-cookie";
 
 export default function SigninComponent() {
@@ -17,16 +16,6 @@ export default function SigninComponent() {
   const dispatch = useAppDispatch();
 
   const supabase = createClient();
-
-  // async function getUserId() {
-  //   const {
-  //     data: { session },
-  //   } = await supabase.auth.getSession();
-  //   const userId = session?.user?.id;
-  //   console.log("User ID:", userId);
-  //   return userId;
-  // }
-  // getUserId();
 
   const requestOtp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -41,7 +30,7 @@ export default function SigninComponent() {
 
       if (error) throw error;
 
-      router.push(`/otp?email=${email}`);
+      router.push(`/otp?email=${encodeURIComponent(email)}`);
       setIsSigningIn(false);
     } catch (error) {
       console.error("Error requesting OTP:", error);
@@ -51,8 +40,9 @@ export default function SigninComponent() {
   };
 
   const handleGoogleSignIn = async () => {
+    setIsSigningIn(true);
     try {
-      const { error, data } = await supabase.auth.signInWithOAuth({
+      const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
           redirectTo: `${window.location.origin}/auth/callback${
@@ -61,10 +51,13 @@ export default function SigninComponent() {
         },
       });
 
-      if (error) throw error;
+      if (error) {
+        throw error;
+      }
+      // No need to set isSigningIn to false as we're redirecting away
     } catch (error) {
-      // TODO: catch this error
       console.error("Error signing in with Google:", error);
+      setIsSigningIn(false);
     }
   };
 
@@ -112,7 +105,7 @@ export default function SigninComponent() {
               <span className="font-light">IMAGERY</span>
             </span>
           </div>
-          {/* <button onClick={logout}>LOGIUT</button> */}
+          {/* <button onClick={logout}>LOGOUT</button> */}
           <div className="max-w-[300px] mx-auto text-center">
             <h1 className="text-[24px] font-semibold leading-[125%] ">
               WELCOME TO <br /> BELVAPHILIPS IMAGERY
@@ -148,7 +141,8 @@ export default function SigninComponent() {
           <div className="max-w-[323px] mx-auto">
             <button
               onClick={handleGoogleSignIn}
-              className="flex items-center cursor-pointer justify-center w-full h-[44px] border border-[#DADADA] rounded-full text-[#101010]  gap-2"
+              disabled={isSigningIn}
+              className="flex items-center cursor-pointer justify-center w-full h-[44px] border border-[#DADADA] rounded-full text-[#101010] gap-2"
             >
               <span>
                 <Image
@@ -158,7 +152,7 @@ export default function SigninComponent() {
                   height={24}
                 />
               </span>
-              Continue with Google
+              {isSigningIn ? "Signing in..." : "Continue with Google"}
             </button>
           </div>
         </div>
@@ -216,7 +210,8 @@ export default function SigninComponent() {
         <div className="max-w-[323px] mx-auto">
           <button
             onClick={handleGoogleSignIn}
-            className="flex items-center cursor-pointer justify-center w-full h-[44px] border border-[#DADADA] rounded-full text-[#101010]  gap-2"
+            disabled={isSigningIn}
+            className="flex items-center cursor-pointer justify-center w-full h-[44px] border border-[#DADADA] rounded-full text-[#101010] gap-2"
           >
             <span>
               <Image
@@ -226,11 +221,10 @@ export default function SigninComponent() {
                 height={24}
               />
             </span>
-            Continue with Google
+            {isSigningIn ? "Signing in..." : "Continue with Google"}
           </button>
         </div>
       </div>
-
       {/** MOBILE SIGNIN */}
     </>
   );
