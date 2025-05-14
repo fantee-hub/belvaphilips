@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import Cookies from "universal-cookie";
-import { createUsers } from "@/lib/api";
+import { createUsers, getUserById } from "@/lib/api";
 import { toast } from "react-hot-toast";
 import setAuthToken from "@/lib/api/setAuthToken";
 import { useAppSelector } from "@/lib/redux/hooks";
@@ -25,6 +25,7 @@ export function OtpContent() {
   const [otp, setOtp] = useState("");
   const [isSigningIn, setIsSigningIn] = useState(false);
   const [isOtpVerified, setIsOtpVerified] = useState(false);
+  const [isCheckingUser, setIsCheckingUser] = useState(false);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -36,16 +37,25 @@ export function OtpContent() {
   const supabase = createClient();
   const { userId } = useAppSelector((state) => state.user);
 
-  // TODO: so check why this isn't working
-  async function getUserId() {
-    const {
-      data: { session },
-    } = await supabase.auth.getSession();
-    const userId = session?.user?.id;
-    console.log("User ID:", userId);
-    return userId;
-  }
-  getUserId();
+  const checkIfUserExists = async (userId: string) => {
+    setIsCheckingUser(true);
+    const token = cookies.get("user_token");
+
+    if (token) {
+      setAuthToken(token);
+    }
+    if (userId) {
+      try {
+        const { data: userData } = await getUserById(userId);
+        setIsCheckingUser(false);
+        return userData.data ? true : false;
+      } catch (error) {
+        console.error("Error checking if user exists:", error);
+        setIsCheckingUser(false);
+        return false;
+      }
+    }
+  };
 
   const verifyOtp = async () => {
     setIsSigningIn(true);
@@ -59,25 +69,71 @@ export function OtpContent() {
 
         if (error) throw error;
 
-        setIsOtpVerified(true);
+        // Get the user ID from the session
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
+        const currentUserId = session?.user?.id;
+
+        if (currentUserId) {
+          // Check if the user already exists in your database
+          const userExists = await checkIfUserExists(currentUserId);
+
+          if (userExists) {
+            // If user exists, redirect to dashboard
+            toast.success("Sign in successful", {
+              style: {
+                border: "1px solid #1D1D1B",
+                padding: "16px",
+                color: "#1D1D1B",
+                borderRadius: "6px",
+              },
+              iconTheme: {
+                primary: "#008000",
+                secondary: "#FFFAEE",
+              },
+            });
+            router.push("/");
+          } else {
+            // If user doesn't exist, show the registration form
+            setIsOtpVerified(true);
+          }
+        }
+
         setIsSigningIn(false);
       } catch (error) {
         console.error("Error verifying OTP:", error);
+        toast.error("Invalid OTP. Please try again.", {
+          style: {
+            border: "0.5px solid #1D1D1B",
+            padding: "16px",
+            color: "#1D1D1B",
+            borderRadius: "6px",
+          },
+          iconTheme: {
+            primary: "#FF0000",
+            secondary: "#FFFAEE",
+          },
+        });
         setIsSigningIn(false);
       }
     }
   };
 
   const handleFinishSignIn = async () => {
-    if (userId) {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+    const currentUserId = session?.user?.id;
+
+    if (currentUserId) {
       setIsSigningIn(true);
       const token = cookies.get("user_token");
       const fullName = `${formData.firstName} ${formData.lastName}`;
       const bodyData = {
         company_name: formData.companyName,
         email: email,
-        // TODO: here too
-        id: userId,
+        id: currentUserId,
         name: fullName,
         phone_number: `${countryCode}${formData.phoneNumber}`,
       };
@@ -89,7 +145,7 @@ export function OtpContent() {
         const { data } = await createUsers(bodyData);
 
         if (data) {
-          toast.success("Signin successful", {
+          toast.success("Registration successful", {
             style: {
               border: "1px solid #1D1D1B",
               padding: "16px",
@@ -207,7 +263,7 @@ export function OtpContent() {
               disabled={isSigningIn}
               className="bg-[#1D1D1B] text-white uppercase rounded-full h-[47px] w-full flex items-center justify-center font-semibold text-base mt-2 cursor-pointer"
             >
-              {isSigningIn ? "Signing in..." : "Finish Sign In"}
+              {isSigningIn ? "Registering..." : "Complete Registration"}
             </button>
           </div>
         </div>
@@ -231,11 +287,15 @@ export function OtpContent() {
           <div className="mt-3">
             <button
               onClick={verifyOtp}
-              disabled={isSigningIn}
+              disabled={isSigningIn || isCheckingUser}
               type="submit"
               className="bg-[#1D1D1B] cursor-pointer text-white uppercase rounded-full h-[47px] w-full flex items-center justify-center font-semibold text-base"
             >
-              {isSigningIn ? "Signing in..." : "Sign in"}
+              {isSigningIn
+                ? "Verifying..."
+                : isCheckingUser
+                ? "Checking..."
+                : "Verify"}
             </button>
           </div>
         </div>
