@@ -1,3 +1,4 @@
+"use client";
 import { useAppDispatch } from "@/lib/redux/hooks";
 import { clearUser } from "@/lib/redux/slices/userSlice";
 import { createClient } from "@/lib/supabase/client";
@@ -5,6 +6,14 @@ import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Cookies from "universal-cookie";
+
+const getBaseUrl = () => {
+  if (process.env.NEXT_PUBLIC_SITE_URL) {
+    return process.env.NEXT_PUBLIC_SITE_URL;
+  }
+
+  return window.location.origin;
+};
 
 export default function SigninComponent() {
   const [email, setEmail] = useState("");
@@ -15,6 +24,7 @@ export default function SigninComponent() {
   const next = searchParams.get("next");
   const dispatch = useAppDispatch();
 
+  const baseUrl = getBaseUrl();
   const supabase = createClient();
 
   const requestOtp = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -24,7 +34,7 @@ export default function SigninComponent() {
       const { error } = await supabase.auth.signInWithOtp({
         email,
         options: {
-          emailRedirectTo: `${window.location.origin}/auth/callback`,
+          emailRedirectTo: `${baseUrl}/auth/callback`,
         },
       });
 
@@ -45,7 +55,7 @@ export default function SigninComponent() {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: `${window.location.origin}/auth/callback${
+          redirectTo: `${baseUrl}/auth/callback${
             next ? `?next=${encodeURIComponent(next)}` : ""
           }`,
         },
@@ -54,7 +64,6 @@ export default function SigninComponent() {
       if (error) {
         throw error;
       }
-      // No need to set isSigningIn to false as we're redirecting away
     } catch (error) {
       console.error("Error signing in with Google:", error);
       setIsSigningIn(false);
