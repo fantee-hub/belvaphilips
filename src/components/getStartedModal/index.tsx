@@ -6,6 +6,7 @@ import OptionCard from "./OptionCard";
 import BriefPreview from "./BriefPreview";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import QuoteOption from "./QuoteOption";
+import { useRouter } from "next/navigation";
 
 interface GetStartedModalProps {
   open: boolean;
@@ -24,6 +25,7 @@ export default function GetStartedModal({
   const [productError, setProductError] = useState(false);
   const [shootTypeError, setShootTypeError] = useState(false);
   const [showError, setShowError] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     if (open) {
@@ -42,6 +44,9 @@ export default function GetStartedModal({
 
     if (selectedProduct && selectedShootType) {
       console.log("Getting quote for:", { selectedProduct, selectedShootType });
+      router.push(
+        `/product/${selectedProduct.toLowerCase()}/${selectedShootType.toLowerCase()}`
+      );
     }
   };
 
