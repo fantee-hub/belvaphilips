@@ -44,7 +44,7 @@ const ProductConfigurationPage = ({
   >(null);
   const [videoConfig, setVideoConfig] = useState<{
     videoType: string;
-    animationPackage: AnimationPackageKey; // Use the defined type
+    animationPackage: AnimationPackageKey;
     videoStyle: string;
     videoQuantity: number;
   }>({
@@ -136,25 +136,25 @@ const ProductConfigurationPage = ({
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-10">
           <div>
-            <div className="flex flex-row md:grid md:grid-cols-4 gap-3 md:gap-[14px] mb-4 overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-hide">
+            <div className="flex flex-row md:grid md:grid-cols-4 gap-3 md:gap-[14px] mb-4 overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-hide items-center justify-center">
               {productImages.length > 0
                 ? productImages.map((img, index) => (
                     <div
                       key={index}
-                      className={`border flex-shrink-0 cursor-pointer transition-all duration-200 hover:border-gray-500 overflow-hidden snap-start ${
+                      className={`border flex-shrink-0 cursor-pointer transition-all duration-200 hover:border-gray-500 overflow-hidden snap-start  ${
                         index === selectedImageIndex
                           ? "border-gray-800"
                           : "border-gray-200"
                       }`}
                       onClick={() => setSelectedImageIndex(index)}
                     >
-                      <div className="w-[110px] h-[154px] md:w-[141px] md:h-[197px] relative bg-white flex items-center justify-center">
+                      <div className="w-[110px] h-[154px] mx-auto md:w-[141px] md:h-[197px] relative bg-white flex items-center justify-center">
                         <Image
                           src={img}
                           alt={`Product thumbnail ${index + 1}`}
                           width={141}
                           height={197}
-                          className="object-cover"
+                          className="object-cover object-center"
                         />
                       </div>
                     </div>

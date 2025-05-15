@@ -9,7 +9,7 @@ interface ShootTypeSelectorProps {
   onSelectType: (type: string) => void;
   onVideoConfigChange?: (config: {
     videoType: string;
-    animationPackage: AnimationPackageKey; // Use AnimationPackageKey instead of string
+    animationPackage: AnimationPackageKey;
     videoStyle: string;
     videoQuantity: number;
   }) => void;

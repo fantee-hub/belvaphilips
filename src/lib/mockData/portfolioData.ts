@@ -138,3 +138,26 @@ export const getShootTypeFirstImage = (category: string, shootType: string) => {
 export const getProductsByCategory = (category: string) => {
   return originalPortfolios.filter((item) => item.category === category);
 };
+
+export const getAvailableFinishes = (category: string, shootType: string) => {
+  if (category === "CLOTHING") {
+    if (shootType === "FLATLAY") {
+      return ["BASIC END FINISH", "MEDIUM END FINISH"];
+    } else {
+      return ["MEDIUM END FINISH"];
+    }
+  } else if (category === "JEWELRY") {
+    return ["HIGH END FINISH", "PREMIUM END FINISH"];
+  } else {
+    return [
+      "BASIC END FINISH",
+      "MEDIUM END FINISH",
+      "HIGH END FINISH",
+      "PREMIUM END FINISH",
+    ];
+  }
+};
+
+export const isVideoAvailable = (category: string) => {
+  return category === "SHOES" || category === "JEWELRY";
+};

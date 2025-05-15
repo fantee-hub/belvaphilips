@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { getAvailableFinishes } from "@/lib/mockData/portfolioData";
 
 interface FinishSelectorProps {
   selectedFinish: string;
@@ -44,17 +45,13 @@ const FinishSelector = ({
   category,
   shootType,
 }: FinishSelectorProps) => {
-  // Filter finishes based on category and shoot type
-  const availableFinishes = finishes.filter((finish) => {
-    if (finish.title === "BASIC END FINISH") {
-      return (
-        (category === "CLOTHING" && shootType === "FLATLAY") ||
-        (category !== "CLOTHING" && shootType !== "MODEL")
-      );
-    }
+  // Get available finishes based on category and shoot type
+  const availableFinishTitles = getAvailableFinishes(category, shootType);
 
-    return true;
-  });
+  // Filter finishes based on available options
+  const availableFinishes = finishes.filter((finish) =>
+    availableFinishTitles.includes(finish.title)
+  );
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
