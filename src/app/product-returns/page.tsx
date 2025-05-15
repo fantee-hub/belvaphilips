@@ -129,13 +129,13 @@ export default function Returns() {
   return (
     <>
       <Header />
-      <div className="bg-white pt-[100px]">
+      <div className="bg-white md:pt-[100px] pt-11">
         <div className="container mx-auto px-4 py-16">
           <motion.h1
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-[82.83px] font-semibold mb-[20px] leading-[115%] tracking-[-3px]"
+            className="md:text-[82.83px] text-[38px] md:font-semibold font-bold mb-[20px] leading-[115%] tracking-[-3px]"
           >
             PRODUCT RETURNS
           </motion.h1>
@@ -147,7 +147,7 @@ export default function Returns() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.2 }}
-                  className="text-[28px] font-semibold mb-4"
+                  className="md:text-[28px] text-[20px] font-semibold mb-4"
                 >
                   {section.title.toUpperCase()}
                 </motion.h2>
@@ -162,7 +162,7 @@ export default function Returns() {
                   <motion.div
                     key={`${sectionIndex}-${index}`}
                     variants={paragraphVariants}
-                    className="text-lg text-[#1D1D1B] leading-relaxed"
+                    className="md:text-lg text-sm text-[#1D1D1B] leading-relaxed"
                   >
                     {paragraph}
                   </motion.div>
