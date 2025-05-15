@@ -20,7 +20,7 @@ const pricingOptions = [
   {
     title: "High End Finish",
     description: "From ₦65,000/image",
-    image: "/assets/pricing/high.png",
+    image: "/assets/pricing/high-2.jpg",
   },
   {
     title: "Premium Finish",
