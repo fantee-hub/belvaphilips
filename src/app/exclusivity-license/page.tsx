@@ -106,13 +106,13 @@ export default function ExclusivityLicense() {
   return (
     <>
       <Header />
-      <div className="bg-white pt-[100px]">
+      <div className="bg-white md:pt-[100px] pt-11">
         <div className="container mx-auto px-4 py-16">
           <motion.h1
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-[82.83px] font-semibold mb-[30px] leading-[115%] tracking-[-3px]"
+            className="md:text-[82.83px] text-[38px] md:font-semibold font-bold mb-[30px] leading-[115%] tracking-[-3px]"
           >
             EXCLUSIVITY LICENSE
           </motion.h1>
@@ -124,7 +124,7 @@ export default function ExclusivityLicense() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.2 }}
-                  className="text-[24px] font-semibold mb-4 capitalize leading-[150%]"
+                  className="md:text-[24px] text-[20px] font-semibold mb-4 capitalize leading-[150%]"
                 >
                   {section.title}
                 </motion.h2>
@@ -139,7 +139,7 @@ export default function ExclusivityLicense() {
                   <motion.div
                     key={`${sectionIndex}-${index}`}
                     variants={paragraphVariants}
-                    className="text-lg text-[#444444] leading-relaxed"
+                    className="md:text-lg text-sm text-[#444444] leading-relaxed"
                   >
                     {paragraph}
                   </motion.div>
