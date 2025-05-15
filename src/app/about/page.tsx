@@ -121,13 +121,13 @@ export default function AboutUs() {
   return (
     <>
       <Header />
-      <div className="bg-white pt-[100px]">
+      <div className="bg-white md:pt-[100px] pt-11">
         <div className="container mx-auto px-4 py-16">
           <motion.h1
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-[82.83px] font-semibold  leading-[115%] tracking-[-3px]"
+            className="md:text-[82.83px] text-[38px] md:font-semibold font-bold  leading-[115%] tracking-[-3px]"
           >
             ABOUT US
           </motion.h1>
@@ -138,15 +138,23 @@ export default function AboutUs() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="flex items-center gap-2 mb-8"
           >
-            <span className="flex items-center gap-[3.68px] mt-[70px]">
+            <span className="flex items-center gap-[3.68px] md:mt-[70px] mt-10">
               <Image
                 src={"/assets/images/belvaphilips.svg"}
                 width={90.7}
                 height={69.39}
                 alt="belvaphilips imagery"
+                className="md:block hidden"
+              />
+              <Image
+                src={"/assets/images/belvaphilips.svg"}
+                width={48.65}
+                height={37.22}
+                alt="belvaphilips imagery"
+                className="md:hidden"
               />
               <span
-                className={`font-logo text-[52.57px] flex items-center gap-[2.45px]`}
+                className={`font-logo md:text-[52.57px] text-[28.2px] flex items-center gap-[2.45px]`}
               >
                 <span className={`font-black  `}>BELVAPHILIPS</span>
                 <span className="font-light ">IMAGERY</span>
@@ -164,7 +172,7 @@ export default function AboutUs() {
               <motion.p
                 key={index}
                 variants={paragraphVariants}
-                className="text-lg text-[#444444] leading-relaxed"
+                className="md:text-lg text-sm text-[#444444] leading-relaxed"
               >
                 {paragraph}
               </motion.p>
