@@ -448,13 +448,13 @@ export default function TermsAndConditions() {
   return (
     <>
       <Header />
-      <div className="bg-white pt-[100px]">
+      <div className="bg-white md:pt-[100px] pt-11">
         <div className="container mx-auto px-4 py-16">
           <motion.h1
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-[82.83px] font-semibold mb-[20px] leading-[115%] tracking-[-3px] uppercase"
+            className="md:text-[82.83px] text-[38px] md:font-semibold font-bold mb-[20px] leading-[115%] tracking-[-3px] uppercase"
           >
             Terms and Conditions
           </motion.h1>
@@ -464,8 +464,10 @@ export default function TermsAndConditions() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className=" flex flex-col gap-5 mb-8 max-w-[908px]"
           >
-            <p className="text-[#787878]">Last updated: March 29, 2025</p>
-            <p className="text-lg text-[#444444] leading-relaxed">
+            <p className="text-[#787878] text-base md:text-sm">
+              Last updated: March 29, 2025
+            </p>
+            <p className="md:text-lg text-sm text-[#444444] leading-relaxed">
               Please read these{" "}
               <span className="text-[#1D1D1B] font-semibold">
                 Terms and Conditions ("Terms", "Terms and Conditions")
@@ -487,7 +489,7 @@ export default function TermsAndConditions() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.2 }}
-                  className="text-[28px] font-semibold mb-4"
+                  className="md:text-[28px] text-[20px] font-semibold mb-4"
                 >
                   {section.title.toUpperCase()}
                 </motion.h2>
@@ -502,7 +504,7 @@ export default function TermsAndConditions() {
                   <motion.div
                     key={`${sectionIndex}-${index}`}
                     variants={paragraphVariants}
-                    className="text-lg text-[#444444] leading-relaxed"
+                    className="md:text-lg text-sm text-[#444444] leading-relaxed"
                   >
                     {paragraph}
                   </motion.div>
