@@ -22,7 +22,6 @@ interface ProductConfigProps {
   shootType?: string;
 }
 
-// Define the possible animation package keys
 type AnimationPackageKey =
   | "30 SECS"
   | "1 MIN"
@@ -109,12 +108,17 @@ const ProductConfigurationPage = ({
     );
   }, [category, selectedShootType, selectedFinish]);
 
-  const productImages = useMemo(() => {
+  const productMedia = useMemo(() => {
     if (filteredProducts.length === 0) {
       return [];
     }
-    return filteredProducts.slice(0, 4).map((product) => product.image);
-  }, [filteredProducts]);
+    return filteredProducts.slice(0, 4).map((product) => ({
+      url: product.image,
+      type: selectedShootType === "VIDEO" ? "video" : "image",
+    }));
+  }, [filteredProducts, selectedShootType]);
+
+  console.log(productMedia);
 
   return (
     <div className="pt-[60px]">
@@ -137,11 +141,11 @@ const ProductConfigurationPage = ({
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-10">
           <div>
             <div className="flex flex-row md:grid md:grid-cols-4 gap-3 md:gap-[14px] mb-4 overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-hide items-center justify-center">
-              {productImages.length > 0
-                ? productImages.map((img, index) => (
+              {productMedia.length > 0
+                ? productMedia.map((media, index) => (
                     <div
                       key={index}
-                      className={`border flex-shrink-0 cursor-pointer transition-all duration-200 hover:border-gray-500 overflow-hidden snap-start  ${
+                      className={`border flex-shrink-0 cursor-pointer transition-all duration-200 hover:border-gray-500 overflow-hidden snap-start ${
                         index === selectedImageIndex
                           ? "border-gray-800"
                           : "border-gray-200"
@@ -149,13 +153,24 @@ const ProductConfigurationPage = ({
                       onClick={() => setSelectedImageIndex(index)}
                     >
                       <div className="w-[110px] h-[154px] mx-auto md:w-[141px] md:h-[197px] relative bg-white flex items-center justify-center">
-                        <Image
-                          src={img}
-                          alt={`Product thumbnail ${index + 1}`}
-                          width={141}
-                          height={197}
-                          className="object-cover object-center"
-                        />
+                        {media.type === "image" ? (
+                          <Image
+                            src={media.url}
+                            alt={`Product thumbnail ${index + 1}`}
+                            width={141}
+                            height={197}
+                            className="object-cover object-center"
+                          />
+                        ) : (
+                          <video
+                            src={media.url}
+                            autoPlay
+                            muted
+                            loop
+                            playsInline
+                            className="w-full h-full object-cover object-center"
+                          />
+                        )}
                       </div>
                     </div>
                   ))
@@ -178,15 +193,26 @@ const ProductConfigurationPage = ({
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5 }}
             >
-              {productImages.length > 0 &&
-              selectedImageIndex < productImages.length ? (
-                <Image
-                  src={productImages[selectedImageIndex]}
-                  alt={`${category} ${shootType} photography`}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-contain"
-                />
+              {productMedia.length > 0 &&
+              selectedImageIndex < productMedia.length ? (
+                productMedia[selectedImageIndex].type === "image" ? (
+                  <Image
+                    src={productMedia[selectedImageIndex].url}
+                    alt={`${category} ${shootType} photography`}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-contain"
+                  />
+                ) : (
+                  <video
+                    src={productMedia[selectedImageIndex].url}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="w-full h-full object-contain"
+                  />
+                )
               ) : (
                 <div className="w-full h-full flex items-center justify-center text-gray-500">
                   No preview available
@@ -215,7 +241,7 @@ const ProductConfigurationPage = ({
                 {selectedShootType === "FLATLAY"
                   ? "Flat lay photography captures clothing from a top-down view, laid flat on a surface."
                   : selectedShootType === "VIDEO"
-                  ? "Bring your clothing to life with professional models that add personality and relatability to your brand's visuals."
+                  ? "Bring your clothing to life with professional videos that showcase movement and style."
                   : "Showcase your clothing with professional photography."}
               </p>
 
@@ -237,11 +263,11 @@ const ProductConfigurationPage = ({
                 </div>
               )}
 
-              <div className="mb-7 ">
+              <div className="mb-7">
                 <h2 className="font-semibold mb-2 text-[26px] md:text-lg leading-[155%]">
                   SHOOT TYPE
                 </h2>
-                <p className="text-[#444444] mb-4 text-sm md:text-base ">
+                <p className="text-[#444444] mb-4 text-sm md:text-base">
                   Select the best way to showcase your product to match your
                   brand's needs.
                 </p>

@@ -466,9 +466,10 @@ export const portfolios = [
     title: "flat shoe",
     category: "SHOES",
     shootType: "VIDEO",
-    image: "/assets/portfolio/shoes/13.jpg",
+    image:
+      "https://res.cloudinary.com/kingkunmi/video/upload/v1747421394/3_fjlosx.mov",
     details: "Product photography with soft shadows",
-    finish: "MEDIUM END FINISH",
+    finish: "",
   },
   {
     id: 50,
@@ -493,7 +494,8 @@ export const portfolios = [
     title: "flat shoe",
     category: "SHOES",
     shootType: "VIDEO",
-    image: "/assets/portfolio/shoes/16.jpg",
+    image:
+      "https://res.cloudinary.com/kingkunmi/video/upload/v1747421394/3_fjlosx.mov",
     details: "Product photography with soft shadows",
     finish: "BASIC END FINISH",
   },
@@ -1274,6 +1276,26 @@ export const portfolios = [
     shootType: "SWATCH",
     image: "/assets/portfolio/beauty/beauty4.jpg",
     details: "Hand model showcasing device features",
+    finish: "BASIC END FINISH",
+  },
+  {
+    id: 140,
+    title: "flat shoe",
+    category: "SHOES",
+    shootType: "VIDEO",
+    image:
+      "https://res.cloudinary.com/kingkunmi/video/upload/v1747420806/6_jh98km.mov",
+    details: "Product photography with soft shadows",
+    finish: "BASIC END FINISH",
+  },
+  {
+    id: 141,
+    title: "flat shoe",
+    category: "SHOES",
+    shootType: "VIDEO",
+    image:
+      "https://res.cloudinary.com/kingkunmi/video/upload/v1747420222/1_althou.mov",
+    details: "Product photography with soft shadows",
     finish: "BASIC END FINISH",
   },
 ];
