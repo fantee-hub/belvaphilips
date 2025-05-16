@@ -14,6 +14,7 @@ interface ProductConfig {
   quantity?: number;
   basePrice?: number;
   total?: number;
+  membershipPlan?: string;
   details?: {
     "Video Type"?: string;
     "Animation Package"?: string;
@@ -481,6 +482,15 @@ const FinalizeProjectPage = () => {
                             </span>
                           </div>
 
+                          <div className="flex justify-between">
+                            <span className="text-[#787878]">
+                              Memebership Plans
+                            </span>
+                            <span className="font-medium text-[#444444]">
+                              {productConfig.membershipPlan}
+                            </span>
+                          </div>
+
                           {productConfig.shootType === "VIDEO" &&
                             productConfig.details && (
                               <div className="pt-4 border-t border-gray-200">
@@ -581,7 +591,10 @@ const FinalizeProjectPage = () => {
                   <span className="font-semibold text-[#1D1D1B] text-sm md:text-base">
                     Upgrade your membership in order to save up to 25%!
                   </span>
-                  <button className="bg-black text-white md:h-[38px] h-[32px] md:w-[106px] px-3 md:px-0 flex items-center justify-center text-sm font-semibold uppercase rounded-full">
+                  <button
+                    onClick={() => setIsModalOpen(true)}
+                    className="bg-black text-white md:h-[38px] h-[32px] md:w-[106px] px-3 md:px-0 flex items-center justify-center text-sm font-semibold uppercase rounded-full cursor-pointer"
+                  >
                     Upgrade
                   </button>
                 </div>

@@ -148,8 +148,6 @@ const CheckoutPage = () => {
     window.location.href = "/configure";
   };
 
-  console.log(orderDetails);
-
   if (isLoading) {
     return (
       <>

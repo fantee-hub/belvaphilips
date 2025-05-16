@@ -10,15 +10,20 @@ import ProjectDescriptionSection from "@/components/finalize/ProjectDescriptionS
 import SummarySection from "@/components/finalize/SummarySection";
 import { GoArrowRight } from "react-icons/go";
 import Spinner from "@/components/ui/Spinner";
+import { useRouter } from "next/navigation";
 
 export default function FinalizeContent() {
   const searchParams = useSearchParams();
   const initialProductId = searchParams.get("id");
+  const router = useRouter();
 
   const [selectedProducts, setSelectedProducts] = useState<
     (typeof portfolios)[0][]
   >([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [projectDescription, setProjectDescription] = useState("");
+  const [selectedShootType, setSelectedShootType] =
+    useState<string>("Studio Shot");
 
   useEffect(() => {
     const loadInitialProduct = async () => {
@@ -57,6 +62,25 @@ export default function FinalizeContent() {
   const getProductType = () => {
     if (selectedProducts.length === 0) return "";
     return selectedProducts[0].category;
+  };
+
+  const handleCheckout = () => {
+    const finalizeOrder = {
+      finish: "",
+      shootType: selectedShootType,
+      quantity: 0,
+      basePrice: 0,
+      category: getProductType(),
+      total: 0,
+      membershipPlan: null,
+      projectDescription: projectDescription,
+      selectedShots: [],
+      selectedLighting: null,
+      uploadedFiles: [],
+    };
+
+    localStorage.setItem("finalizedOrder", JSON.stringify(finalizeOrder));
+    router.push("/checkout");
   };
 
   if (isLoading) {
@@ -127,10 +151,18 @@ export default function FinalizeContent() {
               onAddProduct={handleAddProduct}
             />
 
-            <ProjectDescriptionSection />
+            <ProjectDescriptionSection
+              selectedShootType={selectedShootType}
+              setSelectedShootType={setSelectedShootType}
+              projectDescription={projectDescription}
+              setProjectDescription={setProjectDescription}
+            />
 
             <div className="mb-10">
-              <button className="md:w-[573px] w-full h-[47px] bg-black text-white flex items-center justify-center rounded-full cursor-pointer hover:bg-gray-900 transition-colors font-medium">
+              <button
+                onClick={handleCheckout}
+                className="md:w-[573px] w-full h-[47px] bg-black text-white flex items-center justify-center rounded-full cursor-pointer hover:bg-gray-900 transition-colors font-medium"
+              >
                 CONTINUE TO CHECKOUT
               </button>
             </div>

@@ -1,4 +1,4 @@
-import { shootTypes } from "@/lib/mockData/portfolioData";
+import { shootTypes, isVideoAvailable } from "@/lib/mockData/portfolioData";
 import { motion } from "framer-motion";
 import { Minus, Plus } from "lucide-react";
 import { useState, useEffect } from "react";
@@ -44,6 +44,9 @@ const ShootTypeSelector = ({
   const [videoStyle, setVideoStyle] = useState("NORMAL");
   const [videoQuantity, setVideoQuantity] = useState(1);
 
+  // Check if video is available for this category
+  const videoEnabled = isVideoAvailable(category);
+
   const handleVideoConfigChange = () => {
     if (onVideoConfigChange && selectedType === "VIDEO") {
       onVideoConfigChange({
@@ -64,6 +67,8 @@ const ShootTypeSelector = ({
       {availableTypes.map((type) => {
         const isSelected = selectedType === type;
         const isPopular = type === "FLATLAY" && category === "CLOTHING";
+        const isVideoType = type === "VIDEO";
+        const isDisabled = isVideoType && !videoEnabled;
 
         if (type === "VIDEO" && isSelected) {
           return (
@@ -294,9 +299,16 @@ const ShootTypeSelector = ({
         return (
           <motion.div
             key={type}
-            onClick={() => onSelectType(type)}
+            onClick={() => {
+              if (!isDisabled) {
+                onSelectType(type);
+              }
+            }}
             className={`
-              cursor-pointer rounded-full px-[10px] py-1 text-sm flex items-center gap-1 font-medium
+              ${
+                !isDisabled ? "cursor-pointer" : "cursor-not-allowed opacity-50"
+              } 
+              rounded-full px-[10px] py-1 text-sm flex items-center gap-1 font-medium
               ${
                 isSelected
                   ? "bg-[#D3D3D3] border border-[#1D1D1B]"
@@ -305,11 +317,12 @@ const ShootTypeSelector = ({
               ${isPopular ? "relative" : ""}
              
             `}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={!isDisabled ? { scale: 1.05 } : {}}
+            whileTap={!isDisabled ? { scale: 0.95 } : {}}
           >
             <div className="flex items-center space-x-1">
               <span>{type}</span>
+
               {isPopular && (
                 <span className="ml-0 font-medium text-sm text-[#D63131] px-2 py-0.5 rounded-full">
                   POPULAR!

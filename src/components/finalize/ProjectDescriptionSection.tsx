@@ -1,11 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { SetStateAction, useState, Dispatch } from "react";
 import { PaperclipIcon } from "lucide-react";
 
-export default function ProjectDescriptionSection() {
-  const [selectedShootType, setSelectedShootType] =
-    useState<string>("Studio Shot");
+export default function ProjectDescriptionSection({
+  projectDescription,
+  setProjectDescription,
+  setSelectedShootType,
+  selectedShootType,
+}: {
+  projectDescription: string;
+  selectedShootType: string;
+  setProjectDescription: Dispatch<SetStateAction<string>>;
+  setSelectedShootType: Dispatch<SetStateAction<string>>;
+}) {
   const shootTypes = ["Studio Shot", "Lifestyle Shot", "Dramatic Lighting"];
 
   return (
@@ -20,6 +28,8 @@ export default function ProjectDescriptionSection() {
 
       <div className="relative">
         <textarea
+          value={projectDescription}
+          onChange={(e) => setProjectDescription(e.target.value)}
           className="w-full border-[0.7px] border-[#C9C9C9] p-4 h-[204px] mb-4 focus:outline-none focus:ring-1 placeholder:text-[#B9B9B9] focus:ring-gray-200 text-sm md:text-base"
           placeholder="Example: Clean white background, soft shadows, lifestyle setting."
         />
@@ -41,10 +51,10 @@ export default function ProjectDescriptionSection() {
         </div>
       </div>
 
-      <button className="border border-[#1D1D1B] font-semibold rounded-full w-[196px] h-[37px] text-sm flex items-center justify-center cursor-pointer">
+      {/* <button className="border border-[#1D1D1B] font-semibold rounded-full w-[196px] h-[37px] text-sm flex items-center justify-center cursor-pointer">
         ATTACH FILE/IMAGE
         <PaperclipIcon className="h-4 w-4 ml-2" />
-      </button>
+      </button> */}
     </div>
   );
 }

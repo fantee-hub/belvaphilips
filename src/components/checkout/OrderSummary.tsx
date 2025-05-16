@@ -86,6 +86,12 @@ export default function OrderSummary({
                       x{orderDetails.quantity || 1}
                     </span>
                   </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Membership Plans</span>
+                    <span className="font-medium">
+                      {orderDetails.membershipPlan}
+                    </span>
+                  </div>
 
                   <div className="pt-4 border-t border-gray-200">
                     <h3 className="font-semibold mb-2">Scene:</h3>
@@ -147,7 +153,7 @@ export default function OrderSummary({
           </span>
           <button
             onClick={onUpgrade}
-            className="bg-black text-white md:h-[38px] h-[32px] md:w-[106px] px-3 md:px-0 flex items-center justify-center text-sm font-semibold uppercase rounded-full"
+            className="bg-black text-white md:h-[38px] h-[32px] md:w-[106px] px-3 md:px-0 flex items-center justify-center text-sm font-semibold uppercase rounded-full cursor-pointer"
           >
             Upgrade
           </button>

@@ -52,7 +52,9 @@ const MembershipPlans = ({
   };
 
   const handleMembershipPlanToggleSelect = (planId: string) => {
-    setSelectedMembershipPlan(planId);
+    setSelectedMembershipPlan((prevSelectedPlanId) =>
+      prevSelectedPlanId === planId ? null : planId
+    );
   };
 
   return (
