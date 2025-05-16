@@ -53,6 +53,7 @@ export default function GetStartedModal({
   const handleStartBrief = () => {
     console.log("Starting brief");
     onOpenChange(false);
+    router.push("/finalize");
   };
 
   const handleBookCall = () => {
