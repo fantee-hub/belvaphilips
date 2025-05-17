@@ -25,7 +25,9 @@ export default function Home() {
         <TestimonialsSection />
         <ProcessSection />
         <CTASection />
-        <FAQSection />
+        <div className="px-4">
+          <FAQSection />
+        </div>
       </div>
       <Footer />
       <BackToTopButton />
