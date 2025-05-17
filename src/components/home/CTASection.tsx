@@ -86,13 +86,13 @@ const CTASection = () => {
             </p>
             <div className="flex flex-wrap gap-4 justify-center md:justify-start">
               <Link
-                href="/book-call"
+                href="/contact"
                 className="w-[126px] h-[38px] flex items-center justify-center text-sm bg-black text-white font-semibold rounded-full hover:bg-gray-900 transition-colors"
               >
                 BOOK A CALL
               </Link>
               <Link
-                href="/brief"
+                href="/finalize"
                 className="w-[180px] h-[38px] bg-[#EBEBEB] flex items-center justify-center text-[#1D1D1B] text-sm font-medium rounded-full hover:bg-gray-300 transition-colors"
               >
                 FILL A BRIEF INSTEAD
