@@ -7,6 +7,7 @@ import { FaBehance, FaPinterestP, FaXTwitter } from "react-icons/fa6";
 import { Karla } from "next/font/google";
 import { useState } from "react";
 import { PiCaretDown, PiCaretUp } from "react-icons/pi";
+import GetStartedModal from "../getStartedModal";
 
 const karla = Karla({ subsets: ["latin"] });
 
@@ -17,6 +18,7 @@ const Footer = () => {
     categories: false,
     help: false,
   });
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleSection = (section: keyof typeof openSections) => {
     setOpenSections((prev) => ({
@@ -90,7 +92,10 @@ const Footer = () => {
                 </span>
               </div>
               <div>
-                <button className="w-[162px] h-[47px] uppercase flex items-center justify-center bg-[#1D1D1B] rounded-full text-sm font-semibold text-white md:mb-0 mb-[58px]">
+                <button
+                  onClick={() => setIsModalOpen(true)}
+                  className="cursor-pointer w-[162px] h-[47px] uppercase flex items-center justify-center bg-[#1D1D1B] rounded-full text-sm font-semibold text-white md:mb-0 mb-[58px]"
+                >
                   get started
                 </button>
               </div>
@@ -476,6 +481,8 @@ const Footer = () => {
           </span>
         </div>
       </div>
+
+      <GetStartedModal open={isModalOpen} onOpenChange={setIsModalOpen} />
     </footer>
   );
 };
