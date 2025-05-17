@@ -4,6 +4,7 @@ import PricingCard from "./PricingCard";
 import Image from "next/image";
 import { useState } from "react";
 import GetStartedModal from "../getStartedModal";
+import { useRouter } from "next/navigation";
 
 const pricingOptions = [
   {
@@ -56,6 +57,7 @@ const premiumOption = {
 };
 
 export default function FixedPricingSection() {
+  const router = useRouter();
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -68,6 +70,21 @@ export default function FixedPricingSection() {
     },
   };
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleClick = (option: any) => {
+    const config = {
+      finish: option.title,
+      shootType: "",
+      quantity: 0,
+      basePrice: "",
+      category: "",
+      total: "",
+      price: "",
+      membershipPlan: "",
+    };
+    localStorage.setItem("productConfig", JSON.stringify(config));
+    router.push("/finalize");
+  };
 
   return (
     <motion.div variants={itemVariants} className="space-y-6">
@@ -93,6 +110,7 @@ export default function FixedPricingSection() {
               price={option.price}
               type={option.type}
               badge={option.badge}
+              onClick={() => handleClick(option)}
             />
           ))}
         </div>
@@ -107,6 +125,7 @@ export default function FixedPricingSection() {
             timeline={premiumOption.timeline}
             price={premiumOption.price}
             type={premiumOption.type}
+            onClick={() => handleClick(premiumOption)}
           />
         </div>
         <div className="col-span-3 md:flex items-center justify-center hidden">

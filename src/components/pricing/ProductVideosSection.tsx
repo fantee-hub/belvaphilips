@@ -69,7 +69,6 @@ export default function ProductVideosSection() {
   };
 
   const handleClick = (option: any) => {
-    // console.log("Get started clicked");
     const config = {
       finish: "",
       shootType: "VIDEO",
