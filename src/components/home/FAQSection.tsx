@@ -26,8 +26,8 @@ const faqItems = [
         <br />
         <br />
         Contact:
-        <br />
-        <span className="text-[#1D1D1B]">Omolara - 08156744356</span>
+        {/* <br />
+        <span className="text-[#1D1D1B]">Omolara - 08156744356</span> */}
         <br />
         <span className="text-[#1D1D1B]">Taiwo - 09021431136</span>
       </>
