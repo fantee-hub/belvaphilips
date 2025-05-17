@@ -63,14 +63,14 @@ export default function ContactPage() {
                 REACH US VIA
               </motion.h2>
 
-              <div className="space-y-6 flex md:gap-[38px] md:flex-row flex-col gap-0">
+              <div className=" flex md:gap-[38px] md:flex-row flex-col gap-0 items-center">
                 <motion.div
                   className="space-y-2"
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5, delay: 0.3 }}
                 >
-                  <div className="flex items-center space-x-2">
+                  {/* <div className="flex items-center space-x-2">
                     <svg
                       width="18"
                       height="18"
@@ -90,7 +90,7 @@ export default function ContactPage() {
                     >
                       08156744356
                     </a>
-                  </div>
+                  </div> */}
                   <div className="flex items-center space-x-2">
                     <svg
                       width="18"
