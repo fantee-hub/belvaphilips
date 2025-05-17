@@ -1,38 +1,38 @@
 export const portfolioItems = [
   {
-    id: 1,
+    id: 143,
     title: "Bag",
     tags: ["Catalogue", "Static"],
     price: "₦25,000/image",
-    image: "/assets/portfolio/bag.png",
+    image: "/assets/portfolio/bags/1.jpg",
   },
   {
-    id: 123,
+    id: 24,
     title: "Beauty",
     tags: ["Dynamic", "Motion"],
     price: "₦65,000/image",
-    image: "/assets/portfolio/shoe-2.png",
+    image: "/assets/portfolio/shoes/shoe1.jpg",
   },
   {
-    id: 124,
+    id: 71,
     title: "Drinks",
     tags: ["Advertising", "Hero"],
     price: "₦44,000/image",
-    image: "/assets/portfolio/drinks.png",
+    image: "/assets/portfolio/drinks/drinks3.jpg",
   },
   {
-    id: 125,
+    id: 21,
     title: "Electronics",
     tags: ["Product", "Clean"],
     price: "₦35,000/image",
-    image: "/assets/portfolio/clothing.png",
+    image: "/assets/portfolio/clothing/model/model1.jpg",
   },
   {
-    id: 126,
+    id: 123,
     title: "Fashion",
     tags: ["Lifestyle", "Model"],
     price: "₦85,000/image",
-    image: "/assets/portfolio/shoe-1.png",
+    image: "/assets/portfolio/shoes/shoe2.png",
   },
 ];
 
@@ -1148,7 +1148,7 @@ export const portfolios = [
     finish: "BASIC END FINISH",
   },
   {
-    id: 126,
+    id: 127,
     title: "Clothing",
     category: "CLOTHING",
     shootType: "FLATLAY",
@@ -1157,7 +1157,7 @@ export const portfolios = [
     finish: "BASIC END FINISH",
   },
   {
-    id: 127,
+    id: 128,
     title: "Shoe",
     category: "SHOES",
     shootType: "CATALOGUE",
@@ -1166,7 +1166,7 @@ export const portfolios = [
     image: "/assets/portfolio/shoes/shoe3.jpg",
   },
   {
-    id: 128,
+    id: 129,
     title: "Clothing",
     category: "CLOTHING",
     shootType: "FLATLAY",
@@ -1176,7 +1176,7 @@ export const portfolios = [
   },
 
   {
-    id: 129,
+    id: 130,
     title: "Clothing",
     category: "CLOTHING",
     shootType: "FLATLAY",
@@ -1186,7 +1186,7 @@ export const portfolios = [
     finish: "MEDIUM END FINISH",
   },
   {
-    id: 130,
+    id: 131,
     title: "Clothing",
     category: "CLOTHING",
     shootType: "FLATLAY",
@@ -1196,7 +1196,7 @@ export const portfolios = [
     finish: "MEDIUM END FINISH",
   },
   {
-    id: 131,
+    id: 132,
     title: "Clothing",
     category: "CLOTHING",
     shootType: "FLATLAY",
@@ -1206,7 +1206,7 @@ export const portfolios = [
     finish: "MEDIUM END FINISH",
   },
   {
-    id: 132,
+    id: 133,
     title: "Clothing",
     category: "CLOTHING",
     shootType: "FLATLAY",
@@ -1216,7 +1216,7 @@ export const portfolios = [
     finish: "MEDIUM END FINISH",
   },
   {
-    id: 133,
+    id: 134,
     title: "Clothing",
     category: "CLOTHING",
     shootType: "PINNED",
@@ -1225,7 +1225,7 @@ export const portfolios = [
     finish: "MEDIUM END FINISH",
   },
   {
-    id: 134,
+    id: 135,
     title: "Clothing",
     category: "CLOTHING",
     shootType: "PINNED",
@@ -1234,7 +1234,7 @@ export const portfolios = [
     finish: "MEDIUM END FINISH",
   },
   {
-    id: 135,
+    id: 136,
     title: "Clothing",
     category: "CLOTHING",
     shootType: "PINNED",
@@ -1243,7 +1243,7 @@ export const portfolios = [
     finish: "MEDIUM END FINISH",
   },
   {
-    id: 136,
+    id: 137,
     title: "Black and White Handbag",
     category: "BAGS",
     shootType: "CATALOGUE",
@@ -1252,7 +1252,7 @@ export const portfolios = [
     finish: "BASIC END FINISH",
   },
   {
-    id: 137,
+    id: 138,
     title: "Black and White Handbag",
     category: "BAGS",
     shootType: "CATALOGUE",
@@ -1261,7 +1261,7 @@ export const portfolios = [
     finish: "BASIC END FINISH",
   },
   {
-    id: 138,
+    id: 139,
     title: "Shoe",
     category: "SHOES",
     shootType: "CATALOGUE",
@@ -1270,7 +1270,7 @@ export const portfolios = [
     image: "/assets/portfolio/shoes/shoe4.jpg",
   },
   {
-    id: 139,
+    id: 140,
     title: "beauty",
     category: "BEAUTY",
     shootType: "SWATCH",
@@ -1279,7 +1279,7 @@ export const portfolios = [
     finish: "BASIC END FINISH",
   },
   {
-    id: 140,
+    id: 141,
     title: "flat shoe",
     category: "SHOES",
     shootType: "VIDEO",
@@ -1289,12 +1289,21 @@ export const portfolios = [
     finish: "BASIC END FINISH",
   },
   {
-    id: 141,
+    id: 142,
     title: "flat shoe",
     category: "SHOES",
     shootType: "VIDEO",
     image:
       "https://res.cloudinary.com/kingkunmi/video/upload/v1747420222/1_althou.mov",
+    details: "Product photography with soft shadows",
+    finish: "BASIC END FINISH",
+  },
+  {
+    id: 143,
+    title: "Bag",
+    category: "BAGS",
+    shootType: "CATALOGUE",
+    image: "/assets/portfolio/bags/1.jpg",
     details: "Product photography with soft shadows",
     finish: "BASIC END FINISH",
   },
