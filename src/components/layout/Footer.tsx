@@ -42,7 +42,7 @@ const Footer = () => {
                 </p>
               </div>
               <div className="flex flex-col gap-3">
-                <div className="flex gap-2">
+                {/* <div className="flex gap-2">
                   <span>
                     <Image
                       src="/assets/images/Phone.svg"
@@ -54,7 +54,7 @@ const Footer = () => {
                   <p className="md:text-lg text-base font-medium">
                     08156744356
                   </p>
-                </div>
+                </div> */}
                 <div className="flex gap-2">
                   <span>
                     <Image
