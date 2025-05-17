@@ -26,6 +26,23 @@ export default function PricingPage() {
     }
   }, [controls, isInView]);
 
+  useEffect(() => {
+    if (
+      typeof window !== "undefined" &&
+      window.location.hash === "#membership-section"
+    ) {
+      const element = document.getElementById("membership-section");
+      if (element) {
+        const headerHeight = 100;
+        const y =
+          element.getBoundingClientRect().top +
+          window.pageYOffset -
+          headerHeight;
+        window.scrollTo({ top: y, behavior: "smooth" });
+      }
+    }
+  }, []);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -51,7 +68,9 @@ export default function PricingPage() {
             <PricingHeader />
             <FixedPricingSection />
             <ProductVideosSection />
-            <MembershipsSection />
+            <div id="membership-section">
+              <MembershipsSection />
+            </div>
             <FAQSection />
           </motion.div>
         </div>

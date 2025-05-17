@@ -63,6 +63,19 @@ const PricingSection = () => {
     },
   };
 
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (
+      typeof window !== "undefined" &&
+      window.location.pathname === "/pricing"
+    ) {
+      e.preventDefault();
+      const element = document.getElementById("membership-section");
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+  };
+
   return (
     <section className="w-full py-[30px] bg-white" ref={ref}>
       <div className="container mx-auto px-4">
@@ -142,9 +155,9 @@ const PricingSection = () => {
               </p>
 
               <div className="md:h-[195px] h-[128.87px] w-full overflow-hidden relative">
-                <div className="absolute top-0 inset-0 bg-gradient-to-br from-[#FEC845]  to-black"></div>
+                <div className="absolute top-0 inset-0 bg-gradient-to-br from-[#FEC845] to-black"></div>
 
-                <div className="absolute  flex flex-col justify-end py-0 md:px-6 px-3 pt-[11px] right-0 top-0 text-white">
+                <div className="absolute flex flex-col justify-end py-0 md:px-6 px-3 pt-[11px] right-0 top-0 text-white">
                   <h4 className="md:text-[29.54px] text-[19.52px] font-black text-right">
                     Up to{" "}
                     <span className="md:text-[34px] text-[22.47px]">25%</span>
@@ -155,7 +168,9 @@ const PricingSection = () => {
                 </div>
                 <div className="flex justify-end absolute left-5 md:bottom-[23.5px] bottom-3 md:text-base text-xs">
                   <Link
-                    href="/membership"
+                    href="/pricing#membership-section"
+                    onClick={handleLinkClick}
+                    aria-label="Explore membership plans and scroll to membership section"
                     className="inline-flex items-center text-white hover:underline"
                   >
                     Explore membership plans
