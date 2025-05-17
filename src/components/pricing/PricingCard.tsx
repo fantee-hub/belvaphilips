@@ -10,6 +10,7 @@ interface PricingCardProps {
   price: string;
   type?: "basic" | "premium" | "medium" | "high";
   badge?: string;
+  onClick?: () => void;
 }
 
 export default function PricingCard({
@@ -18,12 +19,13 @@ export default function PricingCard({
   image,
   timeline,
   price,
-
+  onClick,
   badge,
 }: PricingCardProps) {
   return (
     <motion.div
-      className=" overflow-hidden border-[0.5px] border-[#C9C9C9] relative"
+      onClick={onClick}
+      className=" overflow-hidden border-[0.5px] border-[#C9C9C9] relative cursor-pointer"
       whileHover={{ y: -5 }}
       transition={{ duration: 0.2 }}
     >

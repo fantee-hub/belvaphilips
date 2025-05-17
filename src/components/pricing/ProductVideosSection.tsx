@@ -1,5 +1,7 @@
+"use client";
 import { motion } from "framer-motion";
 import PricingCard from "./PricingCard";
+import { useRouter } from "next/navigation";
 
 const videoOptions = [
   {
@@ -53,6 +55,7 @@ const videoOptions = [
 ];
 
 export default function ProductVideosSection() {
+  const router = useRouter();
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -63,6 +66,25 @@ export default function ProductVideosSection() {
         ease: "easeOut",
       },
     },
+  };
+
+  const handleClick = (option: any) => {
+    // console.log("Get started clicked");
+    const config = {
+      finish: "",
+      shootType: "VIDEO",
+      quantity: 0,
+      basePrice: "",
+      category: "",
+      total: "",
+      price: "",
+      membershipPlan: "",
+      rate: option.badge,
+      animationPackage: option.title,
+    };
+    localStorage.setItem("productConfig", JSON.stringify(config));
+    router.push("/finalize");
+    console.log(config);
   };
 
   return (
@@ -88,6 +110,7 @@ export default function ProductVideosSection() {
             timeline={option.timeline}
             price={option.price}
             badge={option.badge}
+            onClick={() => handleClick(option)}
           />
         ))}
       </div>

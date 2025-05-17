@@ -59,41 +59,52 @@ export default function OrderSummary({
                 className="overflow-hidden"
               >
                 <div className="space-y-3">
-                  <div className="flex justify-between font-semibold">
-                    <span>Product</span>
-                    <span className="capitalize">
-                      {orderDetails.category?.toLowerCase() || "Clothing"}
-                    </span>
-                  </div>
+                  {orderDetails.category && (
+                    <div className="flex justify-between font-semibold">
+                      <span>Product</span>
+                      <span className="capitalize">
+                        {orderDetails.category?.toLowerCase() || "Clothing"}
+                      </span>
+                    </div>
+                  )}
 
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Shoot type</span>
-                    <span className="font-medium capitalize">
-                      {orderDetails.shootType?.toLowerCase() || "Flatlay"}
-                    </span>
-                  </div>
+                  {orderDetails.shootType && (
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Shoot type</span>
+                      <span className="font-medium capitalize">
+                        {orderDetails.shootType?.toLowerCase() || "Flatlay"}
+                      </span>
+                    </div>
+                  )}
 
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Finish Type</span>
-                    <span className="font-medium capitalize">
-                      {orderDetails.finish?.toLowerCase() || "Basic End Finish"}
-                    </span>
-                  </div>
+                  {orderDetails.finish && (
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Finish Type</span>
+                      <span className="font-medium capitalize">
+                        {orderDetails.finish?.toLowerCase() ||
+                          "Basic End Finish"}
+                      </span>
+                    </div>
+                  )}
 
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Image Quantity</span>
-                    <span className="font-medium">
-                      x{orderDetails.quantity || 1}
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Membership Plans</span>
-                    <span className="font-medium">
-                      {orderDetails.membershipPlan}
-                    </span>
-                  </div>
+                  {orderDetails.quantity > 0 && (
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Image Quantity</span>
+                      <span className="font-medium">
+                        x{orderDetails.quantity || 1}
+                      </span>
+                    </div>
+                  )}
+                  {orderDetails.membershipPlan && (
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Membership Plans</span>
+                      <span className="font-medium">
+                        {orderDetails.membershipPlan}
+                      </span>
+                    </div>
+                  )}
 
-                  <div className="pt-4 border-t border-gray-200">
+                  {/* <div className="pt-4 border-t border-gray-200">
                     <h3 className="font-semibold mb-2">Scene:</h3>
                     <div className="space-y-2">
                       <div className="flex justify-between">
@@ -109,7 +120,7 @@ export default function OrderSummary({
                         <span className="font-medium">No Shadow</span>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
 
                   <div className="pt-4 border-t border-gray-200 flex justify-between">
                     <h3 className="font-semibold mb-2">Shots:</h3>

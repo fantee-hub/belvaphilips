@@ -1,7 +1,10 @@
+"use client";
 import { motion } from "framer-motion";
 import MembershipCard from "./MembershipCard";
+import { useRouter } from "next/navigation";
 
 export default function MembershipsSection() {
+  const router = useRouter();
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -14,8 +17,22 @@ export default function MembershipsSection() {
     },
   };
 
-  const handleGetStarted = () => {
+  const handleGetStarted = (selectedMembershipPlan: string, price: string) => {
     console.log("Get started clicked");
+    const config = {
+      finish: "",
+      shootType: "",
+      quantity: 0,
+      basePrice: "",
+      category: "",
+      total: "",
+      price,
+      membershipPlan: selectedMembershipPlan,
+    };
+
+    localStorage.setItem("productConfig", JSON.stringify(config));
+    router.push("/finalize");
+    console.log(selectedMembershipPlan, price);
   };
 
   return (
@@ -41,7 +58,7 @@ export default function MembershipsSection() {
           savingsPercentage="No image savings "
           minimumOrder="5 minimum order"
           turnaround="7 business days"
-          onGetStarted={handleGetStarted}
+          onGetStarted={() => handleGetStarted("PAY AS YOU GO", "")}
           startingPrice="₦65,000/image"
           noHeader={true}
         />
@@ -54,7 +71,7 @@ export default function MembershipsSection() {
           imagesPerMonth="8 Images per month"
           turnaround="7 business days"
           minimumOrder="No minimum order"
-          onGetStarted={handleGetStarted}
+          onGetStarted={() => handleGetStarted("STARTER", "₦5.2million/year")}
           startingPrice="₦55,000/image"
         />
 
@@ -66,7 +83,7 @@ export default function MembershipsSection() {
           imagesPerMonth="20 Images per month"
           turnaround="7 business days"
           minimumOrder="No minimum order"
-          onGetStarted={handleGetStarted}
+          onGetStarted={() => handleGetStarted("GROWTH", "₦12.6million/year")}
           startingPrice="₦45,000/image"
         />
 
@@ -78,7 +95,7 @@ export default function MembershipsSection() {
           imagesPerMonth="41 Images per month"
           turnaround="7 business days"
           minimumOrder="No minimum order"
-          onGetStarted={handleGetStarted}
+          onGetStarted={() => handleGetStarted("ENTERPRISE", "₦25million/year")}
           startingPrice="Varies/image"
         />
       </div>

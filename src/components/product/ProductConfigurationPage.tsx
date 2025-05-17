@@ -118,8 +118,6 @@ const ProductConfigurationPage = ({
     }));
   }, [filteredProducts, selectedShootType]);
 
-  console.log(productMedia);
-
   return (
     <div className="pt-[60px]">
       <div className="container mx-auto px-4 py-8 md:py-16">

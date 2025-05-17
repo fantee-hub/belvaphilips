@@ -14,7 +14,10 @@ interface ProductConfig {
   quantity?: number;
   basePrice?: number;
   total?: number;
+  price?: string;
   membershipPlan?: string;
+  rate?: string;
+  animationPackage?: string;
   details?: {
     "Video Type"?: string;
     "Animation Package"?: string;
@@ -193,18 +196,28 @@ const FinalizeProjectPage = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
           >
-            <span className="text-[#AAAAAA] font-medium">
-              {productConfig.category || "CLOTHING"}
-            </span>
-            <span>
-              <GoArrowRight />
-            </span>
-            <span className="text-[#AAAAAA] font-medium">
-              {productConfig.shootType || "FLATLAY"}
-            </span>
-            <span>
-              <GoArrowRight />
-            </span>
+            {productConfig.category && (
+              <>
+                <span className="text-[#AAAAAA] font-medium">
+                  {productConfig.category || "CLOTHING"}
+                </span>
+                <span>
+                  <GoArrowRight />
+                </span>
+              </>
+            )}
+
+            {productConfig.shootType && (
+              <>
+                <span className="text-[#AAAAAA] font-medium">
+                  {productConfig.shootType || "FLATLAY"}
+                </span>
+                <span>
+                  <GoArrowRight />
+                </span>
+              </>
+            )}
+
             <span className="text-[#1D1D1B] font-bold">FINALIZE</span>
           </motion.div>
         </div>
@@ -446,50 +459,87 @@ const FinalizeProjectPage = () => {
                         className="overflow-hidden"
                       >
                         <div className="space-y-[10px]">
-                          <div className="flex justify-between font-semibold">
-                            <span className="text-[#1D1D1B]">Product</span>
-                            <span className="text-[#1D1D1B] capitalize">
-                              {productConfig.category?.toLowerCase() ||
-                                "Clothing"}
-                            </span>
-                          </div>
+                          {productConfig.category && (
+                            <div className="flex justify-between font-semibold">
+                              <span className="text-[#1D1D1B]">Product</span>
+                              <span className="text-[#1D1D1B] capitalize">
+                                {productConfig.category?.toLowerCase() ||
+                                  "Clothing"}
+                              </span>
+                            </div>
+                          )}
+                          {productConfig.shootType && (
+                            <div className="flex justify-between">
+                              <span className="text-[#787878]">Shoot type</span>
+                              <span className="font-medium capitalize text-[#444444]">
+                                {productConfig.shootType?.toLowerCase() ||
+                                  "Flatlay"}
+                              </span>
+                            </div>
+                          )}
+                          {productConfig.finish && (
+                            <div className="flex justify-between">
+                              <span className="text-[#787878]">
+                                Finish Type
+                              </span>
+                              <span className="font-medium capitalize text-[#444444]">
+                                {productConfig.finish?.toLowerCase() ||
+                                  "Basic End Finish"}
+                              </span>
+                            </div>
+                          )}
 
-                          <div className="flex justify-between">
-                            <span className="text-[#787878]">Shoot type</span>
-                            <span className="font-medium capitalize text-[#444444]">
-                              {productConfig.shootType?.toLowerCase() ||
-                                "Flatlay"}
-                            </span>
-                          </div>
+                          {productConfig.shootType &&
+                            productConfig.quantity! > 0 && (
+                              <div className="flex justify-between">
+                                <span className="text-[#787878]">
+                                  {productConfig.shootType === "VIDEO"
+                                    ? "Video"
+                                    : "Image"}{" "}
+                                  Quantity
+                                </span>
+                                <span className="font-medium text-[#444444]">
+                                  x{productConfig.quantity || 1}
+                                </span>
+                              </div>
+                            )}
 
-                          <div className="flex justify-between">
-                            <span className="text-[#787878]">Finish Type</span>
-                            <span className="font-medium capitalize text-[#444444]">
-                              {productConfig.finish?.toLowerCase() ||
-                                "Basic End Finish"}
-                            </span>
-                          </div>
+                          {productConfig.rate && (
+                            <div className="flex justify-between">
+                              <span className="text-[#787878]">Rate</span>
+                              <span className="font-medium text-[#444444] capitalize">
+                                {productConfig.rate}
+                              </span>
+                            </div>
+                          )}
 
-                          <div className="flex justify-between">
-                            <span className="text-[#787878]">
-                              {productConfig.shootType === "VIDEO"
-                                ? "Video"
-                                : "Image"}{" "}
-                              Quantity
-                            </span>
-                            <span className="font-medium text-[#444444]">
-                              x{productConfig.quantity || 1}
-                            </span>
-                          </div>
+                          {productConfig.animationPackage && (
+                            <div className="flex justify-between">
+                              <span className="text-[#787878]">
+                                {productConfig.animationPackage}
+                              </span>
+                            </div>
+                          )}
 
-                          <div className="flex justify-between">
-                            <span className="text-[#787878]">
-                              Memebership Plans
-                            </span>
-                            <span className="font-medium text-[#444444]">
-                              {productConfig.membershipPlan}
-                            </span>
-                          </div>
+                          {productConfig.membershipPlan && (
+                            <div className="flex justify-between">
+                              <span className="text-[#1D1D1B] font-semibold">
+                                Memebership Plans
+                              </span>
+                              <span className="font-medium text-[#1D1D1B] font-semibold">
+                                {productConfig.membershipPlan}
+                              </span>
+                            </div>
+                          )}
+
+                          {productConfig.price && (
+                            <div className="flex justify-between">
+                              <span className="text-[#787878] ">Price</span>
+                              <span className="font-medium text-[#787878]">
+                                {productConfig.price}
+                              </span>
+                            </div>
+                          )}
 
                           {productConfig.shootType === "VIDEO" &&
                             productConfig.details && (
@@ -530,7 +580,7 @@ const FinalizeProjectPage = () => {
                               </div>
                             )}
 
-                          <div className="pt-4 border-t border-gray-200">
+                          {/* <div className="pt-4 border-t border-gray-200">
                             <h3 className="font-semibold mb-2 text-[#1D1D1B]">
                               Scene:
                             </h3>
@@ -556,7 +606,7 @@ const FinalizeProjectPage = () => {
                                 </span>
                               </div>
                             </div>
-                          </div>
+                          </div> */}
 
                           <div className="pt-4 border-t border-gray-200 flex justify-between">
                             <h3 className="font-semibold text-[#1D1D1B] mb-2">

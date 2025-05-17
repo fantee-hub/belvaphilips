@@ -168,19 +168,28 @@ const CheckoutPage = () => {
           {/* Breadcrumb */}
           <div className="mb-6">
             <div className="flex items-center text-sm gap-1">
-              <span className="text-[#AAAAAA] font-medium">
-                {orderDetails.category || "CLOTHING"}
-              </span>
-              <span className="text-[#AAAAAA]">
-                <GoArrowRight />
-              </span>
+              {orderDetails.category && (
+                <>
+                  <span className="text-[#AAAAAA] font-medium">
+                    {orderDetails.category || "CLOTHING"}
+                  </span>
 
-              <span className="text-[#AAAAAA] font-medium">
-                {orderDetails.shootType || "FLATLAY"}
-              </span>
-              <span className="text-[#AAAAAA]">
-                <GoArrowRight />
-              </span>
+                  <span className="text-[#AAAAAA]">
+                    <GoArrowRight />
+                  </span>
+                </>
+              )}
+              {orderDetails.shootType && (
+                <>
+                  <span className="text-[#AAAAAA] font-medium">
+                    {orderDetails.shootType || "FLATLAY"}
+                  </span>
+
+                  <span className="text-[#AAAAAA]">
+                    <GoArrowRight />
+                  </span>
+                </>
+              )}
               <span className="text-[#AAAAAA] font-medium">FINALIZE</span>
               <span className="text-[#AAAAAA]">
                 <GoArrowRight />
