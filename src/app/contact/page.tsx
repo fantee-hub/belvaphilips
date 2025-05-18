@@ -3,15 +3,36 @@ import ContactForm from "@/components/ContactForm";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 export default function ContactPage() {
   const socialLinks = [
-    { name: "Facebook", icon: "facebook", url: "#" },
-    { name: "LinkedIn", icon: "linkedin", url: "#" },
-    { name: "Instagram", icon: "instagram", url: "#" },
-    { name: "Twitter", icon: "twitter", url: "#" },
-    { name: "Behance", icon: "behance", url: "#" },
-    { name: "Pinterest", icon: "pinterest", url: "#" },
+    {
+      name: "Facebook",
+      icon: "facebook",
+      url: "https://www.facebook.com/belvaphilipsstudios",
+    },
+    {
+      name: "LinkedIn",
+      icon: "linkedin",
+      url: "https://www.linkedin.com/company/belvaphilips/",
+    },
+    {
+      name: "Instagram",
+      icon: "instagram",
+      url: "https://www.instagram.com/belvaphilips.imagery",
+    },
+    {
+      name: "Twitter",
+      icon: "twitter",
+      url: "https://x.com/belvaphilipsi?s=21",
+    },
+    {
+      name: "Behance",
+      icon: "behance",
+      url: "https://www.behance.net/belvaphimagery",
+    },
+    { name: "Pinterest", icon: "pinterest", url: "https://pin.it/1J1Et2atc" },
   ];
 
   const fadeInUp = {
@@ -124,6 +145,8 @@ export default function ContactPage() {
                     <motion.a
                       key={social.name}
                       href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       aria-label={social.name}
                       className="w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center text-gray-600 hover:border-gray-500 hover:text-gray-800 transition-colors"
                       whileHover={{ scale: 1.1, borderColor: "#000" }}

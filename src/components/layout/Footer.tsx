@@ -109,12 +109,20 @@ const Footer = () => {
                     <FaLinkedinIn size={20} />
                   </span>
                 </Link>
-                <Link href={"https://www.behance.net/belvaphimagery"}>
+                <Link
+                  href={"https://www.behance.net/belvaphimagery"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <span className="w-[40px] h-[40px] flex items-center justify-center border border-black rounded-full">
                     <FaBehance />
                   </span>
                 </Link>
-                <Link href={"https://pin.it/1J1Et2atc"}>
+                <Link
+                  href={"https://pin.it/1J1Et2atc"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <span className="w-[40px] h-[40px] flex items-center justify-center border border-black rounded-full">
                     <FaPinterestP />
                   </span>
