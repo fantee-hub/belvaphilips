@@ -72,24 +72,53 @@ const Footer = () => {
                 </div>
               </div>
               <div className="flex items-center gap-[10px]">
-                <span className="w-[40px] h-[40px] flex items-center justify-center border border-black rounded-full">
-                  <FaInstagram size={20} />
-                </span>
-                <span className="w-[40px] h-[40px] flex items-center justify-center border border-black rounded-full">
-                  <FaFacebookF size={20} />
-                </span>
-                <span className="w-[40px] h-[40px] flex items-center justify-center border border-black rounded-full">
-                  <FaXTwitter size={20} />
-                </span>
-                <span className="w-[40px] h-[40px] flex items-center justify-center border border-black rounded-full">
-                  <FaLinkedinIn size={20} />
-                </span>
-                <span className="w-[40px] h-[40px] flex items-center justify-center border border-black rounded-full">
-                  <FaBehance />
-                </span>
-                <span className="w-[40px] h-[40px] flex items-center justify-center border border-black rounded-full">
-                  <FaPinterestP />
-                </span>
+                <Link
+                  href={"https://www.instagram.com/belvaphilips.imagery"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span className="w-[40px] h-[40px] flex items-center justify-center border border-black rounded-full">
+                    <FaInstagram size={20} />
+                  </span>
+                </Link>
+                <Link
+                  href={"https://www.facebook.com/belvaphilipsstudios"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span className="w-[40px] h-[40px] flex items-center justify-center border border-black rounded-full">
+                    <FaFacebookF size={20} />
+                  </span>
+                </Link>
+
+                <Link
+                  href={"https://x.com/belvaphilipsi?s=21"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span className="w-[40px] h-[40px] flex items-center justify-center border border-black rounded-full">
+                    <FaXTwitter size={20} />
+                  </span>
+                </Link>
+                <Link
+                  href={"https://www.linkedin.com/company/belvaphilips/"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span className="w-[40px] h-[40px] flex items-center justify-center border border-black rounded-full">
+                    <FaLinkedinIn size={20} />
+                  </span>
+                </Link>
+                <Link href={"https://www.behance.net/belvaphimagery"}>
+                  <span className="w-[40px] h-[40px] flex items-center justify-center border border-black rounded-full">
+                    <FaBehance />
+                  </span>
+                </Link>
+                <Link href={"https://pin.it/1J1Et2atc"}>
+                  <span className="w-[40px] h-[40px] flex items-center justify-center border border-black rounded-full">
+                    <FaPinterestP />
+                  </span>
+                </Link>
               </div>
               <div>
                 <button
