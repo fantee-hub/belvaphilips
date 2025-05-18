@@ -11,12 +11,28 @@ const processSteps = [
     description: (
       <>
         Start by providing a{" "}
-        <span className="font-bold underline">quick brief</span> or{" "}
-        <span className="font-bold underline">selecting a product</span> for a
-        quote. Share details about your project, including the type of shots you
-        need, style preferences, and any specific requirements. If you need
-        assistance, you can also{" "}
-        <Link href="/contact" className="font-bold underline">
+        <Link
+          href={"/finalize?brief=Fill a Brief"}
+          className="font-bold underline"
+        >
+          quick brief
+        </Link>{" "}
+        or{" "}
+        <Link
+          href={"/finalize?brief=Fill a Brief"}
+          className="font-bold underline"
+        >
+          selecting a product
+        </Link>{" "}
+        for a quote. Share details about your project, including the type of
+        shots you need, style preferences, and any specific requirements. If you
+        need assistance, you can also{" "}
+        <Link
+          href="https://cal.com/belvaphilips-imagery"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-bold underline"
+        >
           book a call
         </Link>{" "}
         to discuss your project in detail.
@@ -38,7 +54,10 @@ const processSteps = [
         your vision. Retouching includes color correction, background cleanup,
         and enhancements. Any complex manipulations, such as fixing product
         damage, will incur{" "}
-        <span className="font-bold underline">additional fees</span>.
+        <Link href={"/terms-conditions"} className="font-bold underline">
+          additional fees
+        </Link>
+        .
       </>
     ),
   },
@@ -50,8 +69,10 @@ const processSteps = [
         Once the images are ready, you'll review and approve them. You can
         request revisions, but any revisions due to unclear direction from the
         client will attract{" "}
-        <span className="font-bold underline">additional fees</span>. After
-        approval, we'll arrange for the return of your product.
+        <Link href={"/terms-conditions"} className="font-bold underline">
+          additional fees
+        </Link>
+        . After approval, we'll arrange for the return of your product.
       </>
     ),
   },
