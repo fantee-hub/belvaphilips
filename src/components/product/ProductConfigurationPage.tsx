@@ -360,9 +360,15 @@ const ProductConfigurationPage = ({
                     Book a quick call with us
                   </p>
                 </div>
-                <button className="border border-[#1D1D1B] w-[126px] h-[38px] flex items-center justify-center cursor-pointer rounded-full font-semibold text-sm hover:bg-gray-50 transition-colors">
-                  BOOK A CALL
-                </button>
+                <Link
+                  href="https://cal.com/belvaphilips-imagery"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <button className="border border-[#1D1D1B] w-[126px] h-[38px] flex items-center justify-center cursor-pointer rounded-full font-semibold text-sm hover:bg-gray-50 transition-colors">
+                    BOOK A CALL
+                  </button>
+                </Link>
               </div>
             </motion.div>
           </div>

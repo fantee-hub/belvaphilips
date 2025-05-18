@@ -86,7 +86,9 @@ const CTASection = () => {
             </p>
             <div className="flex flex-wrap gap-4 justify-center md:justify-start">
               <Link
-                href="/contact"
+                href="https://cal.com/belvaphilips-imagery"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-[126px] h-[38px] flex items-center justify-center text-sm bg-black text-white font-semibold rounded-full hover:bg-gray-900 transition-colors"
               >
                 BOOK A CALL
