@@ -57,7 +57,7 @@ export default function GetStartedModal({
   };
 
   const handleBookCall = () => {
-    console.log("Booking call");
+    window.open("https://cal.com/belvaphilips-imagery", "_blank");
     onOpenChange(false);
   };
 
