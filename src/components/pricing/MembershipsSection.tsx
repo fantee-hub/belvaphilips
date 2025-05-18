@@ -50,54 +50,64 @@ export default function MembershipsSection() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:gap-6 gap-5 ">
-        <MembershipCard
-          title="PAY AS YOU GO"
-          description="No commitment. Best suited for small or one-time orders."
-          price="Per Image"
-          savingsPercentage="No image savings "
-          minimumOrder="5 minimum order"
-          turnaround="7 business days"
-          onGetStarted={() => handleGetStarted("PAY AS YOU GO", "")}
-          startingPrice="₦65,000/image"
-          noHeader={true}
-        />
+      <div className="flex md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-6 gap-5 overflow-x-auto md:overflow-x-visible snap-x snap-mandatory">
+        <div className="flex-shrink-0 w-[280px] md:w-auto snap-center">
+          <MembershipCard
+            title="PAY AS YOU GO"
+            description="No commitment. Best suited for small or one-time orders."
+            price="Per Image"
+            savingsPercentage="No image savings "
+            minimumOrder="5 minimum order"
+            turnaround="7 business days"
+            onGetStarted={() => handleGetStarted("PAY AS YOU GO", "")}
+            startingPrice="₦65,000/image"
+            noHeader={true}
+          />
+        </div>
 
-        <MembershipCard
-          title="STARTER"
-          description="For developing brands with over 100 images a year."
-          price="₦5.2million/year"
-          savingsPercentage="10% per image savings"
-          imagesPerMonth="8 Images per month"
-          turnaround="7 business days"
-          minimumOrder="No minimum order"
-          onGetStarted={() => handleGetStarted("STARTER", "₦5.2million/year")}
-          startingPrice="₦55,000/image"
-        />
+        <div className="flex-shrink-0 w-[280px] md:w-auto snap-center">
+          <MembershipCard
+            title="STARTER"
+            description="For developing brands with over 100 images a year."
+            price="₦5.2million/year"
+            savingsPercentage="10% per image savings"
+            imagesPerMonth="8 Images per month"
+            turnaround="7 business days"
+            minimumOrder="No minimum order"
+            onGetStarted={() => handleGetStarted("STARTER", "₦5.2million/year")}
+            startingPrice="₦55,000/image"
+          />
+        </div>
 
-        <MembershipCard
-          title="GROWTH"
-          description="For emerging brands with over 250 images a year."
-          price="₦12.6million/year"
-          savingsPercentage="15% per image savings"
-          imagesPerMonth="20 Images per month"
-          turnaround="7 business days"
-          minimumOrder="No minimum order"
-          onGetStarted={() => handleGetStarted("GROWTH", "₦12.6million/year")}
-          startingPrice="₦45,000/image"
-        />
+        <div className="flex-shrink-0 w-[280px] md:w-auto snap-center">
+          <MembershipCard
+            title="GROWTH"
+            description="For emerging brands with over 250 images a year."
+            price="₦12.6million/year"
+            savingsPercentage="15% per image savings"
+            imagesPerMonth="20 Images per month"
+            turnaround="7 business days"
+            minimumOrder="No minimum order"
+            onGetStarted={() => handleGetStarted("GROWTH", "₦12.6million/year")}
+            startingPrice="₦45,000/image"
+          />
+        </div>
 
-        <MembershipCard
-          title="ENTERPRISE"
-          description="For established brands with over 500 images a year."
-          price="₦25million/year"
-          savingsPercentage="25% per image savings"
-          imagesPerMonth="41 Images per month"
-          turnaround="7 business days"
-          minimumOrder="No minimum order"
-          onGetStarted={() => handleGetStarted("ENTERPRISE", "₦25million/year")}
-          startingPrice="Varies/image"
-        />
+        <div className="flex-shrink-0 w-[280px] md:w-auto snap-center">
+          <MembershipCard
+            title="ENTERPRISE"
+            description="For established brands with over 500 images a year."
+            price="₦25million/year"
+            savingsPercentage="25% per image savings"
+            imagesPerMonth="41 Images per month"
+            turnaround="7 business days"
+            minimumOrder="No minimum order"
+            onGetStarted={() =>
+              handleGetStarted("ENTERPRISE", "₦25million/year")
+            }
+            startingPrice="Varies/image"
+          />
+        </div>
       </div>
     </motion.div>
   );
