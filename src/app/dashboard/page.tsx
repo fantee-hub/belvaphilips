@@ -72,7 +72,7 @@ const UserDashboard: React.FC = () => {
           <div className="w-[146px] h-[40px] flex items-center justify-center rounded-full bg-[#EEEEEE] uppercase font-semibold text-[22px] text-[#1D1D1B]">
             Requests
           </div>
-          <div className="bg-white p-6 mt-8 max-w-[852px]">
+          <div className="bg-white p-6 mt-8 max-w-[882px]">
             <RequestTable orders={orders} isLoading={loading} />
           </div>
           {/* <OrderDetailsModal

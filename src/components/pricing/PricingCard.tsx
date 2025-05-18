@@ -9,6 +9,7 @@ interface PricingCardProps {
   timeline: string;
   price: string;
   type?: "basic" | "premium" | "medium" | "high";
+  format_type?: string;
   badge?: string;
   onClick?: () => void;
 }
@@ -21,6 +22,7 @@ export default function PricingCard({
   price,
   onClick,
   badge,
+  format_type,
 }: PricingCardProps) {
   return (
     <motion.div
@@ -30,7 +32,18 @@ export default function PricingCard({
       transition={{ duration: 0.2 }}
     >
       <div className="relative aspect-square">
-        <Image src={image} alt={title} fill className="object-cover" />
+        {format_type === "image" ? (
+          <Image src={image} alt={title} fill className="object-cover" />
+        ) : (
+          <video
+            src={image}
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="w-full h-full object-cover object-center"
+          />
+        )}
       </div>
       <div className="md:p-5 p-3 border-t-[0.5px] border-[#C9C9C9] relative">
         {(badge === "premium" || badge === "Clothing") && (

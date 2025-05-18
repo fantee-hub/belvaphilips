@@ -7,50 +7,62 @@ const videoOptions = [
   {
     title: "30 SECS ANIMATION",
     description: "",
-    image: "/assets/pricing/basic.png",
+    image:
+      "https://res.cloudinary.com/kingkunmi/video/upload/v1747420222/1_althou.mov",
     timeline: "7 business days",
     price: "₦250,000/video",
     badge: "basic" as const,
+    format_type: "video",
   },
   {
     title: "1 MIN ANIMATION",
     description: "",
-    image: "/assets/pricing/basic.png",
+    image:
+      "https://res.cloudinary.com/kingkunmi/video/upload/v1747420806/6_jh98km.mov",
     timeline: "7 business days",
     price: "₦350,000/image",
     badge: "basic" as const,
+    format_type: "video",
   },
   {
     title: "15 SECS ANIMATION",
     description: "",
-    image: "/assets/pricing/basic.png",
+    image:
+      "https://res.cloudinary.com/kingkunmi/video/upload/v1747421394/3_fjlosx.mov",
     timeline: "7 business days",
     price: "₦350,000/image",
     badge: "premium" as const,
+    format_type: "video",
   },
   {
     title: "30 SECS ANIMATION",
     description: "",
-    image: "/assets/pricing/basic.png",
+    image:
+      "https://res.cloudinary.com/kingkunmi/video/upload/v1747565053/2_iwgthp.mov",
     timeline: "7 business days",
     price: "₦450,000/image",
     badge: "premium" as const,
+    format_type: "video",
   },
   {
     title: "1 MIN ANIMATION",
     description: "",
-    image: "/assets/pricing/basic.png",
+    image:
+      "https://res.cloudinary.com/kingkunmi/video/upload/v1747565067/4_dgrown.mov",
     timeline: "7 business days",
     price: "₦650,000/image",
     badge: "premium" as const,
+    format_type: "video",
   },
   {
     title: "360° SPIN",
     description: "",
-    image: "/assets/pricing/basic.png",
+    image:
+      "https://res.cloudinary.com/kingkunmi/video/upload/v1747565079/5_soeomv.mov",
     timeline: "7 business days",
     price: "₦650,000/image",
     badge: "" as const,
+    format_type: "video",
   },
 ];
 
@@ -109,6 +121,7 @@ export default function ProductVideosSection() {
             timeline={option.timeline}
             price={option.price}
             badge={option.badge}
+            format_type={option.format_type}
             onClick={() => handleClick(option)}
           />
         ))}

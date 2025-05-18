@@ -89,7 +89,7 @@ const OrdersContent = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center py-40 max-w-[891px]">
+      <div className="flex justify-center py-40 max-w-[991px]">
         <Spinner size="lg" />
       </div>
     );

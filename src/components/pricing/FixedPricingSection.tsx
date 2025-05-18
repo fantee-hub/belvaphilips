@@ -15,6 +15,7 @@ const pricingOptions = [
     timeline: "7 business days",
     price: "₦25,000/image",
     type: "basic" as const,
+    format_type: "image",
   },
   {
     title: "MEDIUM END FINISH",
@@ -24,6 +25,7 @@ const pricingOptions = [
     timeline: "7-9 business days",
     price: "₦44,000/image",
     type: "medium" as const,
+    format_type: "image",
   },
   {
     title: "MEDIUM END FINISH",
@@ -34,6 +36,7 @@ const pricingOptions = [
     price: "₦45,000/image",
     type: "medium" as const,
     badge: "Clothing",
+    format_type: "image",
   },
   {
     title: "HIGH END FINISH",
@@ -43,6 +46,7 @@ const pricingOptions = [
     timeline: "7-9 business days",
     price: "₦65,000/image",
     type: "high" as const,
+    format_type: "image",
   },
 ];
 
@@ -54,6 +58,7 @@ const premiumOption = {
   timeline: "8-10 business days",
   price: "₦150,000/image",
   type: "premium" as const,
+  format_type: "image",
 };
 
 export default function FixedPricingSection() {
@@ -110,6 +115,7 @@ export default function FixedPricingSection() {
               price={option.price}
               type={option.type}
               badge={option.badge}
+              format_type={option.format_type}
               onClick={() => handleClick(option)}
             />
           ))}
@@ -125,6 +131,7 @@ export default function FixedPricingSection() {
             timeline={premiumOption.timeline}
             price={premiumOption.price}
             type={premiumOption.type}
+            format_type={premiumOption.format_type}
             onClick={() => handleClick(premiumOption)}
           />
         </div>
