@@ -4,6 +4,7 @@ import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useInView, useAnimation } from "framer-motion";
+import { useRouter } from "next/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, EffectFade } from "swiper/modules";
 import "swiper/css";
@@ -14,6 +15,7 @@ const CTASection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
   const [isClient, setIsClient] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     if (isInView) {
@@ -55,6 +57,24 @@ const CTASection = () => {
     "/assets/images/bags.png",
   ];
 
+  const handleFillBrief = () => {
+    const config = {
+      finish: "",
+      shootType: "",
+      quantity: 0,
+      basePrice: "",
+      category: "",
+      total: "",
+      price: "",
+      membershipPlan: "",
+      rate: "",
+      animationPackage: "",
+    };
+    localStorage.setItem("productConfig", JSON.stringify(config));
+    router.push(`/finalize?brief=Fill a Brief`);
+    console.log(config);
+  };
+
   return (
     <section
       className="w-full md:pt-[100px] pt-[90px] md:pb-[118px] pb-[79.41px] bg-white"
@@ -93,12 +113,12 @@ const CTASection = () => {
               >
                 BOOK A CALL
               </Link>
-              <Link
-                href="/finalize"
-                className="w-[180px] h-[38px] bg-[#EBEBEB] flex items-center justify-center text-[#1D1D1B] text-sm font-medium rounded-full hover:bg-gray-300 transition-colors"
+              <span
+                onClick={handleFillBrief}
+                className="cursor-pointer w-[180px] h-[38px] bg-[#EBEBEB] flex items-center justify-center text-[#1D1D1B] text-sm font-medium rounded-full hover:bg-gray-300 transition-colors"
               >
                 FILL A BRIEF INSTEAD
-              </Link>
+              </span>
             </div>
           </motion.div>
 

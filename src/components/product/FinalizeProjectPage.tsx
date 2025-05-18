@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Edit, PaperclipIcon, Pencil, Trash2, Upload } from "lucide-react";
 import { useRouter } from "next/navigation";
 import MembershipModal from "./MembershipModal";
+import { useSearchParams } from "next/navigation";
 
 interface ProductConfig {
   category?: string;
@@ -34,6 +35,8 @@ const FinalizeProjectPage = () => {
   const [selectedLighting, setSelectedLighting] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isSummaryExpanded, setIsSummaryExpanded] = useState(false);
+  const searchParams = useSearchParams();
+  const pageTitle = searchParams.get("brief");
   const shootTypes = ["Studio Shot", "Lifestyle Shot", "Dramatic Lighting"];
   const shotsTypes = [
     {
@@ -186,6 +189,8 @@ const FinalizeProjectPage = () => {
     );
   }
 
+  console.log(pageTitle);
+
   return (
     <div className="md:pt-[60px] pt-20 bg-[#F5F5F5]">
       <div className="container mx-auto px-4 py-8 md:py-16">
@@ -218,12 +223,14 @@ const FinalizeProjectPage = () => {
               </>
             )}
 
-            <span className="text-[#1D1D1B] font-bold">FINALIZE</span>
+            {!pageTitle && (
+              <span className="text-[#1D1D1B] font-bold">FINALIZE</span>
+            )}
           </motion.div>
         </div>
 
-        <h1 className="md:text-5xl text-[38px] leading-[110%] font-bold md:mb-4 mb-2">
-          FINALIZE YOUR PROJECT
+        <h1 className="md:text-5xl text-[38px] leading-[110%] font-bold md:mb-4 mb-2 uppercase">
+          {pageTitle || "FINALIZE YOUR PROJECT"}
         </h1>
         <p className="text-[#444444] mb-10 md:text-base text-sm">
           Review and customize your shoot details before checkout.
