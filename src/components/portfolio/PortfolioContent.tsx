@@ -14,6 +14,7 @@ export default function PortfolioContent() {
   const [visibleItems, setVisibleItems] = useState(9);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [hoveredItem, setHoveredItem] = useState<number | null>(null);
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -51,6 +52,14 @@ export default function PortfolioContent() {
   const dropdownVariants = {
     hidden: { opacity: 0, height: 0, transition: { duration: 0.3 } },
     visible: { opacity: 1, height: "auto", transition: { duration: 0.3 } },
+  };
+
+  const handleItemHover = (id: number) => {
+    setHoveredItem(id);
+  };
+
+  const handleItemLeave = () => {
+    setHoveredItem(null);
   };
 
   return (
@@ -147,6 +156,10 @@ export default function PortfolioContent() {
                   ease: "easeOut",
                 }}
                 className="relative aspect-square overflow-hidden group border-[0.5px] border-[#C9C9C9]"
+                onMouseEnter={() => handleItemHover(item.id)}
+                onMouseLeave={handleItemLeave}
+                onClick={() => handleItemHover(item.id)}
+                onTouchStart={() => handleItemHover(item.id)}
               >
                 <Image
                   src={item.image}
@@ -156,7 +169,13 @@ export default function PortfolioContent() {
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
 
-                <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-80 text-white py-4 px-6 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                <div
+                  className={`absolute bottom-0 left-0 right-0 bg-black bg-opacity-80 text-white py-4 px-6 transition-transform duration-300 ${
+                    hoveredItem === item.id
+                      ? "translate-y-0"
+                      : "translate-y-full"
+                  }`}
+                >
                   <Link
                     href={`/portfolio/finalize?id=${item.id}`}
                     className="flex justify-between items-center"
