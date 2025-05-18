@@ -11,7 +11,7 @@ const pricingOptions = [
     title: "BASIC END FINISH",
     description:
       "Clean, white-background images perfect for eCommerce and social media.",
-    image: "/assets/pricing/basic.png",
+    image: "/assets/pricing/basic-end.jpg",
     timeline: "7 business days",
     price: "₦25,000/image",
     type: "basic" as const,
@@ -21,7 +21,7 @@ const pricingOptions = [
     title: "MEDIUM END FINISH",
     description:
       "Styled product shots with colorful backdrops for a polished look.",
-    image: "/assets/pricing/medium-1.png",
+    image: "/assets/pricing/medium-end.jpg",
     timeline: "7-9 business days",
     price: "₦44,000/image",
     type: "medium" as const,
@@ -31,7 +31,7 @@ const pricingOptions = [
     title: "MEDIUM END FINISH",
     description:
       "Styled product shots with colorful backdrops for a polished look.",
-    image: "/assets/pricing/medium-2.png",
+    image: "/assets/pricing/medium-end2.jpg",
     timeline: "7-9 business days",
     price: "₦45,000/image",
     type: "medium" as const,
@@ -42,7 +42,7 @@ const pricingOptions = [
     title: "HIGH END FINISH",
     description:
       "High-quality visuals ideal for campaigns, branding, and product launches.",
-    image: "/assets/pricing/high.png",
+    image: "/assets/pricing/high-end.jpg",
     timeline: "7-9 business days",
     price: "₦65,000/image",
     type: "high" as const,
@@ -54,7 +54,7 @@ const premiumOption = {
   title: "PREMIUM END FINISH",
   description:
     "A fusion of photography and CGI for limitless creative possibilities.",
-  image: "/assets/pricing/premium.png",
+  image: "/assets/pricing/premium-end.jpg",
   timeline: "8-10 business days",
   price: "₦150,000/image",
   type: "premium" as const,
