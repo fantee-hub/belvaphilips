@@ -33,7 +33,6 @@ const Header = () => {
   const supabase = createClient();
 
   const checkAuth = async () => {
-    // Check Supabase user session
     const {
       data: { user },
       error,
@@ -46,7 +45,6 @@ const Header = () => {
   useEffect(() => {
     checkAuth();
 
-    // Listen for Supabase auth changes
     const { data: authListener } = supabase.auth.onAuthStateChange(() => {
       checkAuth();
     });

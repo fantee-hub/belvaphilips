@@ -26,6 +26,22 @@ const gilroy = localFont({
 export const metadata: Metadata = {
   title: "BelvaPhilips Imagery - Studio Quality Photography",
   description: "Studio quality photography made simple",
+  openGraph: {
+    title: "BelvaPhilips Imagery - Studio Quality Photography",
+    description: "Studio quality photography made simple",
+    url: "https://belvaphilips.vercel.app",
+    siteName: "BelvaPhilips Imagery",
+    images: [
+      {
+        url: "https://res.cloudinary.com/kingkunmi/image/upload/v1747587178/belvaphilips_tl8myz.svg",
+        width: 1200,
+        height: 630,
+        alt: "BelvaPhilips Imagery Open Graph Image",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
 };
 
 export default function RootLayoutServer({
