@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import RootLayoutClient from "./RootLayoutClient";
 import "./globals.css";
+import Head from "next/head";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -26,6 +27,7 @@ const gilroy = localFont({
 export const metadata: Metadata = {
   title: "BelvaPhilips Imagery - Studio Quality Photography",
   description: "Studio quality photography made simple",
+
   openGraph: {
     title: "BelvaPhilips Imagery - Studio Quality Photography",
     description: "Studio quality photography made simple",
@@ -56,6 +58,12 @@ export default function RootLayoutServer({
         cz-shortcut-listen="true"
         suppressHydrationWarning
       >
+        <Head>
+          <meta
+            name="google-site-verification"
+            content="uynsFH9sN28k9U4E1kmQ--cCkUvIH_PN_ouHwBTl3Ew"
+          />
+        </Head>
         <RootLayoutClient>{children}</RootLayoutClient>
       </body>
     </html>
