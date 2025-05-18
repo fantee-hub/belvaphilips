@@ -47,7 +47,6 @@ export default function AuthProvider({
 
     const { data: authListener } = supabase.auth.onAuthStateChange(
       (event, session) => {
-        console.log("Auth event:", event);
         if (event === "SIGNED_IN" && session?.user) {
           dispatch(
             setUser({
