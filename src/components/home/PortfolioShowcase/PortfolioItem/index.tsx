@@ -1,10 +1,27 @@
 import { portfolioItems } from "@/lib/mockData";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
 const PortfolioItem = ({ item }: { item: (typeof portfolioItems)[0] }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleHover = () => {
+    setIsHovered(true);
+  };
+
+  const handleLeave = () => {
+    setIsHovered(false);
+  };
+
   return (
-    <div className="group relative overflow-hidden bg-white ">
+    <div
+      className="group relative overflow-hidden bg-white"
+      onMouseEnter={handleHover}
+      onMouseLeave={handleLeave}
+      onClick={handleHover}
+      onTouchStart={handleHover}
+    >
       <div className="aspect-square relative overflow-hidden">
         <Image
           src={item.image}
@@ -14,7 +31,11 @@ const PortfolioItem = ({ item }: { item: (typeof portfolioItems)[0] }) => {
         />
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 transform border-b border-[#C9C9C9] translate-y-full bg-[#1D1D1B] text-white transition-transform duration-300 ease-out group-hover:translate-y-0">
+      <div
+        className={`absolute bottom-0 left-0 right-0 border-b border-[#C9C9C9] bg-[#1D1D1B] text-white transition-transform duration-300 ease-out ${
+          isHovered ? "translate-y-0" : "translate-y-full"
+        }`}
+      >
         <Link href={`/portfolio/finalize?id=${item.id}`}>
           <p className="text-[24px] font-medium py-[17px] px-6 flex items-center justify-between">
             I WANT THIS LOOK
