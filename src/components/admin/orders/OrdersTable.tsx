@@ -44,7 +44,6 @@ const OrdersTable: React.FC<OrdersTableProps> = ({
     return date.toLocaleDateString("en-US", options).toUpperCase();
   };
 
-  // Define the status workflow
   const statusWorkflow = [
     "mark_as_paid",
     "mark_received",
@@ -107,7 +106,7 @@ const OrdersTable: React.FC<OrdersTableProps> = ({
                 order.status,
                 `updated_at:`,
                 order.updated_at
-              ); // Debug log
+              );
               return (
                 <tr key={order.id}>
                   <td className="px-6 py-4 whitespace-nowrap text-base font-semibold text-[#1D1D1B]">

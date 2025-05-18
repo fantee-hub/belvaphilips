@@ -86,7 +86,7 @@ const CheckoutPage = () => {
       quantity: orderDetails.quantity,
       shoot_type: orderDetails.shootType,
       shots: orderDetails.selectedShots,
-      status: "pending",
+      status: "quote_sent",
       user_id: userId,
     };
     const token = cookies.get("user_token");
@@ -98,21 +98,21 @@ const CheckoutPage = () => {
       const { data } = await createOrder(summaryObject);
 
       if (data) {
-        toast.success("Successfully saved order", {
-          style: {
-            border: "1px solid #1D1D1B",
-            padding: "16px",
-            color: "#1D1D1B",
-            borderRadius: "6px",
-          },
-          iconTheme: {
-            primary: "#008000",
-            secondary: "#FFFAEE",
-          },
-        });
+        // toast.success("Successfully saved order", {
+        //   style: {
+        //     border: "1px solid #1D1D1B",
+        //     padding: "16px",
+        //     color: "#1D1D1B",
+        //     borderRadius: "6px",
+        //   },
+        //   iconTheme: {
+        //     primary: "#008000",
+        //     secondary: "#FFFAEE",
+        //   },
+        // });
+        setIsSubmitting(false);
+        setShowSuccessModal(true);
       }
-      setIsSubmitting(false);
-      setShowSuccessModal(true);
     } catch (error: any) {
       const message =
         (error.response &&
@@ -136,16 +136,14 @@ const CheckoutPage = () => {
       setIsSubmitting(false);
       console.log("Error message:", message);
     }
-
-    console.log(summaryObject);
   };
 
   const handleTrackStatus = () => {
-    window.location.href = "/account/projects";
+    window.location.href = "/dashboard";
   };
 
   const handleStartNewProject = () => {
-    window.location.href = "/configure";
+    window.location.href = "/";
   };
 
   if (isLoading) {

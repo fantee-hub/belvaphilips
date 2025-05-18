@@ -33,10 +33,14 @@ const StatusUpdateDropdown: React.FC<StatusUpdateDropdownProps> = ({
     }
   }, [isOpen]);
 
-  // Status options based on current status
   const getStatusOptions = () => {
-    // Define the status workflow in order
     const statusWorkflow = [
+      {
+        id: "quote_sent",
+        label: "QUOTE SENT",
+        description:
+          "We've received your quote request! Our team has reviewed the details and will get back to you through email shortly.",
+      },
       {
         id: "mark_as_paid",
         label: "MARK AS PAID",
@@ -78,14 +82,15 @@ const StatusUpdateDropdown: React.FC<StatusUpdateDropdownProps> = ({
     ];
 
     const statusMap: { [key: string]: number } = {
-      pending: 0,
-      mark_as_paid: 0,
-      mark_received: 1,
-      send_for_review: 2,
-      mark_revisions: 3,
-      mark_approved: 4,
-      mark_returned: 5,
-      mark_completed: 6,
+      pending: -1,
+      quote_sent: 0,
+      mark_as_paid: 1,
+      mark_received: 2,
+      send_for_review: 3,
+      mark_revisions: 4,
+      mark_approved: 5,
+      mark_returned: 6,
+      mark_completed: 7,
     };
 
     const normalizedStatus = (currentStatus || "pending").toLowerCase();
@@ -116,7 +121,6 @@ const StatusUpdateDropdown: React.FC<StatusUpdateDropdownProps> = ({
     }
 
     try {
-      // Update status
       await upDateStatusOfOrder(orderId, { status: statusId } as any);
       console.log(`Updated order ${orderId} status to ${statusId}`);
 

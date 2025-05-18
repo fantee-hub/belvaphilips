@@ -11,24 +11,8 @@ import Cookies from "universal-cookie";
 import setAuthToken from "@/lib/api/setAuthToken";
 import { getOrdersByUser } from "@/lib/api";
 import { useAppSelector } from "@/lib/redux/hooks";
-import Spinner from "@/components/ui/Spinner";
 
 interface Order {
-  //   id: string;
-  //   created_at: string;
-  //   updated_at?: string;
-  //   status?: string;
-  //   product_name: string;
-  //   shoot_type: string;
-  //   finish_type: string;
-  //   quantity: number;
-  //   shots: string[];
-  //   details: {
-  //     shots?: string[];
-  //     [key: string]: any;
-  //   };
-  //   user_email: string;
-
   created_at: string;
   updated_at: string;
   product_description: string;
@@ -47,25 +31,7 @@ interface Order {
   quantity: number;
 }
 
-interface UserDashboardProps {
-  orders: Order[];
-}
-// const orders = [
-//   {
-//     id: "SEY1001",
-//     created_at: "2025-05-04T12:00:00Z",
-//     updated_at: "2025-05-04T12:00:00Z",
-//     status: "quote_received",
-//   },
-//   {
-//     id: "SEY1002",
-//     created_at: "2025-05-03T10:00:00Z",
-//     updated_at: "2025-05-03T10:00:00Z",
-//     status: "awaiting_confirmation",
-//   },
-// ];
 const UserDashboard: React.FC = () => {
-  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(false);
   const cookies = new Cookies();

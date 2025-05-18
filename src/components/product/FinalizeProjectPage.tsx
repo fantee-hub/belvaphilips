@@ -423,6 +423,7 @@ const FinalizeProjectPage = () => {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={handleCheckout}
+              disabled={!projectDescription}
             >
               CONTINUE TO CHECKOUT
             </motion.button>
