@@ -67,7 +67,7 @@ const Footer = () => {
                     />
                   </span>
                   <p className="md:text-lg text-base font-medium">
-                    09021431336
+                    09021431136
                   </p>
                 </div>
               </div>
