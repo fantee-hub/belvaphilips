@@ -104,7 +104,8 @@ const faqItems = [
         <br />
         <span className="font-semibold text-[#1D1D1B]">RUSH</span> takes{" "}
         <span className="font-semibold text-[#1D1D1B]">4 business days</span>{" "}
-        since we receive the products and the payment.
+        since we receive the products and the payment. This attracts additional
+        fees.
       </>
     ),
   },
