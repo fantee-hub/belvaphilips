@@ -42,7 +42,7 @@ const pricingOptions = [
     title: "HIGH END FINISH",
     description:
       "High-quality visuals ideal for campaigns, branding, and product launches.",
-    image: "/assets/pricing/high-end.jpg",
+    image: "/assets/pricing/high-2.jpg",
     timeline: "7-9 business days",
     price: "₦65,000/image",
     type: "high" as const,
