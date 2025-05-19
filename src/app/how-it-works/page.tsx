@@ -221,7 +221,9 @@ const HowItWorksPage = () => {
             </motion.div>
           </motion.div>
         </div>
-        <FAQSection />
+        <div className="px-4 md:px-0">
+          <FAQSection />
+        </div>
 
         <GetStartedModal open={isModalOpen} onOpenChange={setIsModalOpen} />
       </div>
