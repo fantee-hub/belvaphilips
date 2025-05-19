@@ -210,7 +210,7 @@ const HowItWorksPage = () => {
                 </div>
                 <div className="flex justify-end absolute left-5 md:bottom-[23.5px] bottom-3">
                   <Link
-                    href="/membership"
+                    href="/pricing#membership-section"
                     className="inline-flex items-center text-white hover:underline md:text-base text-xs"
                   >
                     Explore membership plans
