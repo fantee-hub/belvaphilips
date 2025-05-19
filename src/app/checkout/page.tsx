@@ -222,7 +222,7 @@ const CheckoutPage = () => {
                   />
                   <DeliverySpeedCard
                     title="RUSH"
-                    description="Delivered within 8 business days after we receive your products and payment."
+                    description="Delivered within 4 business days after we receive your products and payment. This attracts additional fees."
                     selected={selectedDeliveryType === "RUSH"}
                     onClick={() => setSelectedDeliveryType("RUSH")}
                   />
