@@ -9,6 +9,7 @@ import {
   AnimatePresence,
 } from "framer-motion";
 import { Plus, Minus, Headphones } from "lucide-react";
+import Link from "next/link";
 
 const faqItems = [
   {
@@ -273,14 +274,16 @@ const FAQSection = () => {
             ))}
 
             <motion.div variants={itemVariants} className="md:col-span-1 ">
-              <div className="flex items-center justify-between h-[56px] py-5 md:px-6 px-4 border border-[#C9C9C9]">
-                <div className="flex items-center">
-                  <Headphones className="h-6 w-6 mr-4" />
-                  <span className="font-semibold md:text-base text-xs">
-                    CAN’T FIND YOUR QUESTION? CHAT WITH SUPPORT
-                  </span>
+              <Link href={"/contact"}>
+                <div className="flex items-center justify-between h-[56px] py-5 md:px-6 px-4 border border-[#C9C9C9]">
+                  <div className="flex items-center">
+                    <Headphones className="h-6 w-6 mr-4" />
+                    <span className="font-semibold md:text-base text-xs">
+                      CAN’T FIND YOUR QUESTION? CHAT WITH SUPPORT
+                    </span>
+                  </div>
                 </div>
-              </div>
+              </Link>
             </motion.div>
           </motion.div>
         </motion.div>

@@ -27,8 +27,6 @@ export default function SigninComponent() {
   const baseUrl = getBaseUrl();
   const supabase = createClient();
 
-  console.log(baseUrl);
-
   const requestOtp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSigningIn(true);
