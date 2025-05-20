@@ -78,8 +78,8 @@ export function LoginContent() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-white">
-      <div className="bg-white p-8 border-[0.5px] border-[#C9C9C9] w-full max-w-[423px]">
-        <div className="max-w-[300px] mx-auto text-center">
+      <div className="bg-white md:p-8 px-4 md:border-[0.5px] md:border-[#C9C9C9] w-full md:max-w-[423px]">
+        <div className="md:max-w-[300px] mx-auto md:text-center">
           <h1 className="text-[24px] font-semibold leading-[125%]">
             BELVAPHILIPS’ ADMIN
           </h1>
