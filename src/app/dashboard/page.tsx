@@ -66,13 +66,13 @@ const UserDashboard: React.FC = () => {
   return (
     <>
       <Header />
-      <div className="container mx-auto pt-[140px]">
+      <div className="container mx-auto sm:pt-[140px] py-[120px] px-4">
         <div>
           <DashboardHeader />
-          <div className="w-[146px] h-[40px] flex items-center justify-center rounded-full bg-[#EEEEEE] uppercase font-semibold text-[22px] text-[#1D1D1B]">
+          <div className="sm:w-[146px] sm:h-[40px] w-[120px] h-[33px] flex items-center justify-center rounded-full bg-[#EEEEEE] uppercase font-semibold sm:text-[22px] text-lg text-[#1D1D1B]">
             Requests
           </div>
-          <div className="bg-white p-6 mt-8 max-w-[882px]">
+          <div className="bg-white sm:p-6 mt-8 max-w-full">
             <RequestTable orders={orders} isLoading={loading} />
           </div>
           {/* <OrderDetailsModal

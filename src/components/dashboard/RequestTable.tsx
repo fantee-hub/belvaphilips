@@ -37,50 +37,105 @@ const RequestTable: React.FC<RequestTableProps> = ({ orders, isLoading }) => {
 
   return (
     <div>
-      <table className="w-full divide-y divide-gray-200">
-        <thead>
-          <tr>
-            <th className="px-6 py-3 text-left text-base font-medium text-[#787878] uppercase tracking-wider">
-              REQUEST ID
-            </th>
-            <th className="px-6 py-3 text-left text-base font-medium text-[#787878] uppercase tracking-wider">
-              DATE CREATED
-            </th>
-            <th className="px-6 py-3 text-left text-base font-medium text-[#787878] uppercase tracking-wider  flex justify-end">
-              STATUS
-            </th>
-          </tr>
-        </thead>
-        <tbody className="bg-white divide-y divide-gray-200">
-          {sortedOrders.length > 0 ? (
-            sortedOrders.map((order) => (
-              <tr key={order.id}>
-                <td className="px-6 py-4 whitespace-nowrap text-base font-semibold text-[#1D1D1B]">
-                  {order.id}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-base text-[#1D1D1B] font-semibold">
-                  <span className="flex items-center gap-1">
-                    <PiCalendarDots className="text-lg" />
-                    {formatDate(order.created_at)}
-                  </span>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold">
-                  <StatusBadge status={order.status} />
+      <div className="hidden md:block overflow-x-scroll scrollbar-hide">
+        <table className="w-full divide-y divide-gray-200">
+          <thead>
+            <tr>
+              <th className="px-6 py-3 text-left text-base font-medium text-[#787878] uppercase tracking-wider">
+                REQUEST ID
+              </th>
+              <th className="px-6 py-3 text-left text-base font-medium text-[#787878] uppercase tracking-wider">
+                DATE CREATED
+              </th>
+              <th className="px-6 py-3 text-left text-base font-medium text-[#787878] uppercase tracking-wider  flex justify-end">
+                STATUS
+              </th>
+            </tr>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {sortedOrders.length > 0 ? (
+              sortedOrders.map((order) => (
+                <tr key={order.id}>
+                  <td className="px-6 py-4 whitespace-nowrap text-base font-semibold text-[#1D1D1B]">
+                    {order.id}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-base text-[#1D1D1B] font-semibold">
+                    <span className="flex items-center gap-1">
+                      <PiCalendarDots className="text-lg" />
+                      {formatDate(order.created_at)}
+                    </span>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold">
+                    <StatusBadge status={order.status} />
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td
+                  colSpan={4}
+                  className="px-6 py-4 text-center text-sm text-gray-500"
+                >
+                  No requests found
                 </td>
               </tr>
-            ))
-          ) : (
-            <tr>
-              <td
-                colSpan={4}
-                className="px-6 py-4 text-center text-sm text-gray-500"
+            )}
+          </tbody>
+        </table>
+      </div>
+      <div className="block md:hidden">
+        {sortedOrders.length > 0 ? (
+          <div className="space-y-10">
+            {sortedOrders.map((order) => (
+              <div
+                key={order.id}
+                className="border-b-[0.5px] border-[#D1D1D1] pb-7"
               >
-                No requests found
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+                <div className="space-y-7">
+                  {/* Request ID */}
+                  <div>
+                    <p className="text-sm font-medium text-[#787878] uppercase pb-2">
+                      REQUEST ID
+                    </p>
+                    <p className="text-base font-semibold text-[#1D1D1B]">
+                      {order.order_name}
+                    </p>
+                  </div>
+
+                  {/* Date Created */}
+                  <div>
+                    <p className="text-sm font-medium text-[#787878] uppercase pb-2">
+                      DATE CREATED
+                    </p>
+                    <p className="text-base font-semibold text-[#1D1D1B] flex items-center gap-1">
+                      <span className="flex items-center gap-1">
+                        <PiCalendarDots className="text-lg" />
+                        {formatDate(order.created_at)}
+                      </span>
+                    </p>
+                  </div>
+
+                  {/* Action */}
+                  <div>
+                    <p className="text-sm font-medium text-[#787878] uppercase pb-2">
+                      Status
+                    </p>
+                    <div className="md:px-6 sm:py-4 whitespace-nowrap text-sm font-semibold">
+                      <StatusBadge status={order.status} />
+                    </div>
+                  </div>
+
+                  {/* Status */}
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center text-sm text-gray-500 py-4">
+            No requests found
+          </div>
+        )}
+      </div>
     </div>
   );
 };

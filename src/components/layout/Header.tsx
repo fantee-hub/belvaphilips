@@ -66,6 +66,11 @@ const Header = () => {
     router.push("/signin");
   };
 
+  const routeToDashboard = () => {
+    router.push("/dashboard");
+    setIsMenuOpen(false);
+  };
+
   const logout = async () => {
     try {
       const { error } = await supabase.auth.signOut();
@@ -259,8 +264,8 @@ const Header = () => {
         </nav>
 
         {/* Auth Buttons */}
-        <div className="hidden md:flex space-x-3 items-center">
-          {userId ? (
+        <div className="hidden lg:flex space-x-3 items-center">
+          {userId && (
             <HoverCard openDelay={0} closeDelay={200}>
               <HoverCardTrigger asChild>
                 <Link href={"/dashboard"}>
@@ -311,14 +316,8 @@ const Header = () => {
                 </button>
               </HoverCardContent>
             </HoverCard>
-          ) : (
-            <Link
-              href="/signin"
-              className="w-[84px] h-[38px] flex items-center justify-center rounded-full bg-[#EBEBEB] uppercase text-sm font-medium"
-            >
-              LOGIN
-            </Link>
           )}
+
           <button
             onClick={() => setIsModalOpen(true)}
             className="w-[144px] h-[38px] flex items-center cursor-pointer justify-center bg-[#1D1D1B] text-white rounded-full uppercase text-sm font-semibold"
@@ -461,10 +460,10 @@ const Header = () => {
             <div className="flex flex-col space-y-3">
               {isUserAuthenticated ? (
                 <button
-                  onClick={handleUserLogout}
-                  className="px-4 py-2 border border-gray-300 rounded-md uppercase"
+                  onClick={routeToDashboard}
+                  className=" rounded-full font-medium text-sm uppercase w-full h-[40px] flex items-center justify-center text-[#1D1D1B] bg-[#EBEBEB]"
                 >
-                  Logout
+                  My Profile
                 </button>
               ) : (
                 <Link

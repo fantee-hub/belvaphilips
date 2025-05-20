@@ -80,7 +80,7 @@ const StatusBadge: React.FC<StatusBadgeProps> = ({ status }) => {
 
   return (
     <div className="">
-      <div className="flex items-center text-right justify-end gap-[6px]">
+      <div className="flex items-center md:text-right md:justify-end gap-[6px]">
         <div className="relative w-[12px] h-[12px] flex items-center justify-center">
           <div
             style={{ backgroundColor: statusColor, opacity: "40%" }}
@@ -95,8 +95,10 @@ const StatusBadge: React.FC<StatusBadgeProps> = ({ status }) => {
           {statusName}{" "}
         </span>
       </div>
-      <div className="text-right pt-3 text-[#444444] leading-[155%] w-[438px] whitespace-normal break-words ">
-        {description}
+      <div className="flex  md:justify-end">
+        <div className="md:text-right sm:pt-3 pt-2 text-[#444444] leading-[155%] md:max-w-[438px]  max-w-[343px] w-full whitespace-normal break-words ">
+          {description}
+        </div>
       </div>
     </div>
   );
