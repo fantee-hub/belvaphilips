@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import EditorToolbar from "../EditorToolBar";
+import ActionButtons from "../ActionButtons";
 
 interface BlogEditorProps {
   title: string;
@@ -163,7 +164,7 @@ const BlogEditor: React.FC<BlogEditorProps> = ({
           placeholder="Generate a slug"
           value={slug}
           readOnly
-          className="w-full px-5 h-[47px] bg-[#F4F4F4] outline-none rounded-full placeholder:text-[#585858]"
+          className="w-full px-5 sm:h-[47px] h-[78px] bg-[#F4F4F4] outline-none sm:rounded-full rounded-[14px] placeholder:text-[#585858]"
         />
         <button
           onClick={handleGenerateSlug}
@@ -182,6 +183,14 @@ const BlogEditor: React.FC<BlogEditorProps> = ({
         />
         <EditorToolbar
           handleFormat={handleFormat}
+          onSaveDraft={onSaveDraft}
+          onPost={onPost}
+          isCreatingPost={isCreatingPost}
+          isDrafting={isDrafting}
+        />
+      </div>
+      <div className="block sm:hidden">
+        <ActionButtons
           onSaveDraft={onSaveDraft}
           onPost={onPost}
           isCreatingPost={isCreatingPost}

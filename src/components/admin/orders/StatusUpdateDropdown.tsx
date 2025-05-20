@@ -19,18 +19,45 @@ const StatusUpdateDropdown: React.FC<StatusUpdateDropdownProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
-  const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0 });
+  const [dropdownPosition, setDropdownPosition] = useState({
+    top: 0,
+    left: 0,
+    maxHeight: "auto",
+  });
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const cookies = new Cookies();
 
   useEffect(() => {
-    if (isOpen && buttonRef.current) {
-      const rect = buttonRef.current.getBoundingClientRect();
-      setDropdownPosition({
-        top: rect.bottom + window.scrollY + 4,
-        left: rect.left + window.scrollX,
-      });
-    }
+    const updatePosition = () => {
+      if (isOpen && buttonRef.current) {
+        const rect = buttonRef.current.getBoundingClientRect();
+        const scrollY = window.scrollY || window.pageYOffset;
+        const scrollX = window.scrollX || window.pageXOffset;
+
+        // Calculate the maximum height for the dropdown (desktop only)
+        const viewportHeight = window.innerHeight;
+        const spaceBelow = viewportHeight - (rect.bottom + scrollY);
+        const maxHeight = Math.min(spaceBelow - 10, viewportHeight * 0.6); // 60% of viewport height as a fallback
+
+        setDropdownPosition({
+          top: rect.bottom + scrollY + 4,
+          left: rect.left + scrollX,
+          maxHeight: `${maxHeight}px`,
+        });
+      }
+    };
+
+    updatePosition();
+
+    // Update position on scroll or resize (desktop only)
+    window.addEventListener("scroll", updatePosition);
+    window.addEventListener("resize", updatePosition);
+
+    return () => {
+      window.removeEventListener("scroll", updatePosition);
+      window.removeEventListener("resize", updatePosition);
+    };
   }, [isOpen]);
 
   const getStatusOptions = () => {
@@ -151,7 +178,7 @@ const StatusUpdateDropdown: React.FC<StatusUpdateDropdownProps> = ({
         ref={buttonRef}
         onClick={() => setIsOpen(!isOpen)}
         disabled={isUpdating}
-        className="inline-flex justify-between items-center px-4 py-2 border border-[#1D1D1B] shadow-sm text-sm font-medium rounded-full cursor-pointer text-[#6E6E6E] bg-white hover:bg-gray-50 focus:outline-none"
+        className="inline-flex justify-center items-center w-[228px] sm:w-auto md:px-4 py-2  border border-[#1D1D1B] shadow-sm text-sm font-medium rounded-full cursor-pointer text-[#6E6E6E] bg-white hover:bg-gray-50 focus:outline-none uppercase"
       >
         {isUpdating ? "Updating..." : "SELECT A STATUS UPDATE"}
         <PiCaretDownBold
@@ -163,12 +190,21 @@ const StatusUpdateDropdown: React.FC<StatusUpdateDropdownProps> = ({
 
       {isOpen && (
         <div
-          className="fixed z-50 max-w-[455px] bg-white shadow rounded-[12px] border-[0.5px] border-[#C9C9C9] focus:outline-none"
+          ref={dropdownRef}
+          className="absolute mt-2 md:fixed z-50 w-[90vw] sm:max-w-[455px] bg-white shadow rounded-[12px] border-[0.5px] border-[#C9C9C9] focus:outline-none sm:top-auto sm:left-auto top-[100%] left-0"
           style={{
-            top: `${dropdownPosition.top}px`,
-            left: `${dropdownPosition.left}px`,
-            maxHeight: "341px",
-            overflowY: "auto",
+            ...(window.innerWidth < 640
+              ? {
+                  top: "100%",
+                  left: 0,
+                  overflowY: "auto",
+                }
+              : {
+                  top: `${dropdownPosition.top}px`,
+                  left: `${dropdownPosition.left}px`,
+                  maxHeight: "341px",
+                  overflowY: "auto",
+                }),
           }}
         >
           <style jsx>{`

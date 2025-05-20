@@ -151,12 +151,12 @@ const BlogPostPage: React.FC = () => {
   };
 
   return (
-    <div className="pt-[110px]">
-      <div className="container mx-auto p-6">
+    <div className="py-[110px]">
+      <div className="container mx-auto mx:p-6 px-4">
         <h1 className="text-[22px] font-semibold mb-6 uppercase">
           Post a Blog
         </h1>
-        <div className="flex space-x-6">
+        <div className="flex space-x-6 sm:flex-row flex-col gap-[30px] md:gap-0">
           <CoverImageUpload
             coverImage={coverImage}
             setCoverImage={setCoverImage}

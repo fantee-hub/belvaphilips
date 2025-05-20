@@ -147,7 +147,7 @@ const AllPostsPage: React.FC = () => {
   }
 
   return (
-    <div className="container mx-auto pt-[140px]">
+    <div className="container mx-auto py-[140px]  px-4">
       <TabsComponent activeTab={activeTab} setActiveTab={handleTabChange} />
 
       {currentPosts.length === 0 ? (
@@ -156,7 +156,7 @@ const AllPostsPage: React.FC = () => {
         </div>
       ) : (
         <>
-          <div className="grid grid-cols-3 gap-5">
+          <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5">
             {paginatedPosts.map((post) => (
               <PostCard
                 key={post.id}

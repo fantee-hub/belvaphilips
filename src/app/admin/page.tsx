@@ -50,7 +50,7 @@ export default function Admin() {
   }
 
   return (
-    <div className="pt-[100px] pb-[100px] ">
+    <div className="md:pt-[100px] py-[70px] pb-[100px] ">
       <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-[60px] mt-8 md:container px-4  md:mx-auto pt-5 max-w-[272px]">
         <div className="text-left">
           <p className="text-[#787878] font-semibold uppercase text-[22px]">
@@ -124,7 +124,7 @@ export default function Admin() {
             Blog
           </p>
           <div className="items-end ">
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center md:space-x-2 justify-between md:justify-start">
               <Link href={"/admin/blog/post"}>
                 <button className="w-[80px] h-[37px] flex items-center justify-center  bg-[#1D1D1B] text-[13px] font-semibold text-white rounded-full hover:bg-gray-800 cursor-pointer">
                   POST

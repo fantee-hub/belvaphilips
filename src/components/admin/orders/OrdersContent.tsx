@@ -12,6 +12,7 @@ import OrdersTable from "./OrdersTable";
 
 interface Order {
   id: string;
+  order_name: string;
   created_at: string;
   updated_at: string;
   status?: string;
@@ -96,7 +97,7 @@ const OrdersContent = () => {
   }
 
   return (
-    <div className="overflow-auto">
+    <div className="">
       <OrdersTable orders={orders} status={status} />
       <div className="max-w-[891px] ">
         <OrdersPagination

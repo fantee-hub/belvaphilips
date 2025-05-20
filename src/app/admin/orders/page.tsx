@@ -18,7 +18,7 @@ export default function OrdersPage() {
         </div>
       }
     >
-      <div className="container mx-auto pt-[140px]">
+      <div className="container mx-auto md:pt-[140px] py-[120px] px-4 md:px-0">
         <OrdersTabs />
         <Suspense fallback={<OrdersLoadingSkeleton />}>
           <OrdersContent />

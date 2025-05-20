@@ -5,7 +5,7 @@ const TabsComponent: React.FC<{
   setActiveTab: Dispatch<SetStateAction<"posts" | "drafts">>;
 }> = ({ activeTab, setActiveTab }) => {
   return (
-    <div className="flex space-x-11 mb-[46px]">
+    <div className="flex md:space-x-11 space-x-5 mb-[46px]">
       <button
         className={`text-[22px] font-semibold uppercase cursor-pointer ${
           activeTab === "posts" ? "text-[#1D1D1B] " : "text-[#ACACAC]"

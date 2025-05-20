@@ -21,7 +21,7 @@ const CoverImageUpload: React.FC<CoverImageUploadProps> = ({
   };
 
   return (
-    <div className="w-[373px] h-[571px] border-1 border-dashed border-[#C9C9C9] rounded-[16px] flex flex-col items-center justify-center relative">
+    <div className="md:w-[373px]  md:h-[571px] w-full h-[152px] border border-dashed border-[#C9C9C9] rounded-[16px] flex flex-col items-center justify-center relative">
       {coverImage ? (
         <img
           src={URL.createObjectURL(coverImage)}

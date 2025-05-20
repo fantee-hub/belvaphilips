@@ -31,9 +31,9 @@ const DeleteModal: React.FC<{
 }) => {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="!max-w-[599px] !rounded-none">
+      <DialogContent className="sm:!max-w-[599px] !max-w-[333px] !rounded-none">
         <DialogHeader>
-          <DialogTitle className="text-[26px] font-bold">
+          <DialogTitle className="text-[26px] font-bold text-left">
             CONFIRM DELETE
           </DialogTitle>
           <div className="border-[0.5px] border-[#C9C9C9] !max-w-[503px] p-5 mt-4">
@@ -43,7 +43,7 @@ const DeleteModal: React.FC<{
                 {formatDate(date)}
               </span>
             </div>
-            <div className="mt-4">
+            <div className="mt-4 text-left">
               <h1 className="uppercase text-[22px] font-semibold leading-[-1px] text-[#1D1D1B]">
                 {title}
               </h1>

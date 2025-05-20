@@ -36,11 +36,11 @@ const EditorToolbar: React.FC<EditorToolbarProps> = ({
   };
 
   return (
-    <div className="px-4 py-2 bg-white rounded-b-[16px] border-[0.5px] border-[#C9C9C9] absolute bottom-0 w-full flex justify-between items-center">
-      <div className="flex items-center space-x-5 ">
+    <div className="md:px-4 px-2 py-2 bg-white rounded-b-[16px] border-[0.5px] border-[#C9C9C9] absolute bottom-0 w-full flex justify-between items-center">
+      <div className="flex items-center md:space-x-5 justify-between w-full md:justify-start md:w-auto">
         <button
           onClick={() => handleFormat("attachment")}
-          className="p-1 hover:bg-gray-200 rounded text-[20px] cursor-pointer"
+          className="md:p-1 hover:bg-gray-200 rounded text-[20px] cursor-pointer"
           title="Add attachment"
         >
           <HiPaperClip />
@@ -131,12 +131,14 @@ const EditorToolbar: React.FC<EditorToolbarProps> = ({
           U
         </button>
       </div>
-      <ActionButtons
-        onSaveDraft={onSaveDraft}
-        onPost={onPost}
-        isCreatingPost={isCreatingPost}
-        isDrafting={isDrafting}
-      />
+      <div className="sm:block hidden">
+        <ActionButtons
+          onSaveDraft={onSaveDraft}
+          onPost={onPost}
+          isCreatingPost={isCreatingPost}
+          isDrafting={isDrafting}
+        />
+      </div>
     </div>
   );
 };

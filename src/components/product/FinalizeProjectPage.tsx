@@ -588,34 +588,6 @@ const FinalizeProjectPage = () => {
                               </div>
                             )}
 
-                          {/* <div className="pt-4 border-t border-gray-200">
-                            <h3 className="font-semibold mb-2 text-[#1D1D1B]">
-                              Scene:
-                            </h3>
-                            <div className="space-y-2">
-                              <div className="flex justify-between">
-                                <span className="text-[#444444]">Backdrop</span>
-                                <span className="font-medium text-[#444444]">
-                                  White
-                                </span>
-                              </div>
-                              <div className="flex justify-between">
-                                <span className="text-[#444444]">
-                                  Items in frame
-                                </span>
-                                <span className="font-medium text-[#444444]">
-                                  Single
-                                </span>
-                              </div>
-                              <div className="flex justify-between">
-                                <span className="text-[#444444]">Shadow</span>
-                                <span className="font-medium text-[#444444]">
-                                  No Shadow
-                                </span>
-                              </div>
-                            </div>
-                          </div> */}
-
                           <div className="pt-4 border-t border-gray-200 flex justify-between">
                             <h3 className="font-semibold text-[#1D1D1B] mb-2">
                               Shots:
