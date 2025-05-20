@@ -77,7 +77,7 @@ export function LoginContent() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-white">
+    <div className="sm:min-h-screen flex items-center justify-center bg-white pt-[120px] sm:pt-0">
       <div className="bg-white md:p-8 px-4 md:border-[0.5px] md:border-[#C9C9C9] w-full md:max-w-[423px]">
         <div className="md:max-w-[300px] mx-auto md:text-center">
           <h1 className="text-[24px] font-semibold leading-[125%]">
