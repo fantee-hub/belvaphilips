@@ -265,7 +265,7 @@ const Header = () => {
 
         {/* Auth Buttons */}
         <div className="hidden lg:flex space-x-3 items-center">
-          {userId && (
+          {userId ? (
             <HoverCard openDelay={0} closeDelay={200}>
               <HoverCardTrigger asChild>
                 <Link href={"/dashboard"}>
@@ -316,6 +316,13 @@ const Header = () => {
                 </button>
               </HoverCardContent>
             </HoverCard>
+          ) : (
+            <Link
+              href="/signin"
+              className=" rounded-full font-medium text-sm uppercase w-[84px] h-[40px] flex items-center justify-center text-[#1D1D1B] bg-[#EBEBEB]"
+            >
+              log in
+            </Link>
           )}
 
           <button

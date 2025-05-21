@@ -1,7 +1,14 @@
 "use client";
-import React, { useState } from "react";
-import EditorToolbar from "../EditorToolBar";
+import React, { useState, useEffect } from "react";
+import { EditorContent } from "@tiptap/react";
+
+import { uploadImage } from "@/lib/api";
+import Cookies from "universal-cookie";
+
 import ActionButtons from "../ActionButtons";
+import EditorToolbar from "../EditorToolBar";
+import setAuthToken from "@/lib/api/setAuthToken";
+import { toast } from "react-hot-toast";
 
 interface BlogEditorProps {
   title: string;
@@ -14,6 +21,9 @@ interface BlogEditorProps {
   onPost: () => void;
   isCreatingPost: boolean;
   isDrafting: boolean;
+  editor: any;
+  isEditing?: boolean;
+  onUpdate: () => Promise<void>;
 }
 
 const BlogEditor: React.FC<BlogEditorProps> = ({
@@ -27,120 +37,63 @@ const BlogEditor: React.FC<BlogEditorProps> = ({
   onPost,
   isCreatingPost,
   isDrafting,
+  editor,
+  isEditing,
+  onUpdate,
 }) => {
-  const [fontSizeClass, setFontSizeClass] = useState<string>("text-base");
+  const [isUploading, setIsUploading] = useState(false);
+  const cookies = new Cookies();
 
-  const handleFormat = (format: string, param?: string): void => {
-    const textarea = document.getElementById(
-      "blog-content"
-    ) as HTMLTextAreaElement;
-    const start = textarea.selectionStart;
-    const end = textarea.selectionEnd;
-    const selectedText = content.substring(start, end);
+  const handleImageUpload = async (file: File) => {
+    setIsUploading(true);
+    const token = cookies.get("admin_token");
 
-    let formattedText = selectedText;
-    let insertText = "";
-    let newPosition = end;
-
-    switch (format) {
-      case "bold":
-        formattedText = `**${selectedText}**`;
-        newPosition = selectedText ? end + 4 : start + 2;
-        break;
-      case "italic":
-        formattedText = `*${selectedText}*`;
-        newPosition = selectedText ? end + 2 : start + 1;
-        break;
-      case "underline":
-        formattedText = `<u>${selectedText}</u>`;
-        newPosition = selectedText ? end + 7 : start + 3;
-        break;
-      case "bulletList":
-        if (selectedText) {
-          const lines = selectedText.split("\n");
-          formattedText = lines.map((line) => `- ${line}`).join("\n");
-        } else {
-          insertText = "- ";
-          formattedText = "";
-          newPosition = start + 2;
-        }
-        break;
-      case "numberedList":
-        if (selectedText) {
-          const lines = selectedText.split("\n");
-          formattedText = lines
-            .map((line, index) => `${index + 1}. ${line}`)
-            .join("\n");
-        } else {
-          insertText = "1. ";
-          formattedText = "";
-          newPosition = start + 3;
-        }
-        break;
-      case "link":
-        if (selectedText) {
-          formattedText = `[${selectedText}](url)`;
-          newPosition = end + 6;
-        } else {
-          formattedText = `[Link text](url)`;
-          newPosition = start + 1;
-        }
-        break;
-      case "image":
-        formattedText = selectedText
-          ? `![${selectedText}](image-url)`
-          : `![Image description](image-url)`;
-        newPosition = selectedText ? end + 12 : start + 18;
-        break;
-      case "attachment":
-        const input = document.createElement("input");
-        input.type = "file";
-        input.onchange = (e) => {
-          const target = e.target as HTMLInputElement;
-          if (target.files && target.files[0]) {
-            const file = target.files[0];
-            // Here you would typically upload the file and get a URL
-
-            const placeholderText = `[File: ${file.name}](file-url)`;
-            handleInsertText(placeholderText, start);
-          }
-        };
-        input.click();
-        return;
-      case "fontSize":
-        if (param === "Small") setFontSizeClass("text-sm");
-        else if (param === "Medium") setFontSizeClass("text-base");
-        else if (param === "Large") setFontSizeClass("text-lg");
-        return;
+    if (token) {
+      setAuthToken(token);
     }
 
-    const newContent =
-      content.substring(0, start) +
-      insertText +
-      formattedText +
-      content.substring(end);
+    const formData = new FormData();
 
-    setContent(newContent);
+    formData.append("post_id", slug);
+    if (file) {
+      formData.append("image", file);
+    }
 
-    setTimeout(() => {
-      textarea.focus();
-      textarea.setSelectionRange(newPosition, newPosition);
-    }, 0);
-  };
+    console.log(file);
+    try {
+      const { data } = await uploadImage(formData);
 
-  const handleInsertText = (text: string, position: number) => {
-    const newContent =
-      content.substring(0, position) + text + content.substring(position);
-    setContent(newContent);
+      if (!data) {
+        throw new Error("Image upload failed");
+      }
 
-    setTimeout(() => {
-      const textarea = document.getElementById(
-        "blog-content"
-      ) as HTMLTextAreaElement;
-      textarea.focus();
-      const newPosition = position + text.length;
-      textarea.setSelectionRange(newPosition, newPosition);
-    }, 0);
+      console.log(data.data);
+
+      const imageUrl = data.data.image_url;
+
+      if (editor) {
+        editor.chain().focus().setImage({ src: imageUrl }).run();
+      }
+    } catch (error: any) {
+      console.error("Image upload failed:", error);
+      toast.error(
+        `Failed to upload image: ${error.message || "Unknown error"}`,
+        {
+          style: {
+            border: "0.5px solid #1D1D1B",
+            padding: "16px",
+            color: "#1D1D1B",
+            borderRadius: "6px",
+          },
+          iconTheme: {
+            primary: "#FF0000",
+            secondary: "#FFFAEE",
+          },
+        }
+      );
+    } finally {
+      setIsUploading(false);
+    }
   };
 
   return (
@@ -152,13 +105,13 @@ const BlogEditor: React.FC<BlogEditorProps> = ({
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           maxLength={120}
-          className="w-full h-[47px] px-5  bg-[#F4F4F4] rounded-full focus:outline-none focus:ring-1 focus:ring-gray-400 placeholder:text-[#585858]"
+          className="w-full h-[47px] px-5 bg-[#F4F4F4] rounded-full focus:outline-none focus:ring-1 focus:ring-gray-400 placeholder:text-[#585858]"
         />
         <p className="text-sm text-[#585858] text-right mt-1">
           Maximum characters: 120
         </p>
       </div>
-      <div className="flex items-center  relative">
+      <div className="flex items-center relative">
         <input
           type="text"
           placeholder="Generate a slug"
@@ -168,34 +121,40 @@ const BlogEditor: React.FC<BlogEditorProps> = ({
         />
         <button
           onClick={handleGenerateSlug}
-          className="w-[93px] h-[26px] flex items-center cursor-pointer justify-center text-sm uppercase font-medium bg-black text-white rounded-full hover:bg-gray-800 absolute right-5 "
+          className="w-[93px] h-[26px] flex items-center cursor-pointer justify-center text-sm uppercase font-medium bg-black text-white rounded-full hover:bg-gray-800 absolute right-5"
         >
           GENERATE
         </button>
       </div>
       <div className="relative">
-        <textarea
-          id="blog-content"
-          placeholder="Enter your blog content"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          className={`w-full h-[483px] px-5 pt-4 pb-14 border-[0.5px] border-[#C9C9C9] bg-[#F4F4F4] rounded-[16px] outline-none placeholder:text-[#585858] ${fontSizeClass} `}
-        />
+        <div className="bg-[#F4F4F4] rounded-[16px] rounded-b-none">
+          <EditorContent
+            editor={editor}
+            className="min-h-[483px] outline-none"
+          />
+        </div>
         <EditorToolbar
-          handleFormat={handleFormat}
+          editor={editor}
+          handleImageUpload={handleImageUpload}
+          isUploading={isUploading}
+          bucketExists={true}
           onSaveDraft={onSaveDraft}
           onPost={onPost}
           isCreatingPost={isCreatingPost}
           isDrafting={isDrafting}
+          isEditing={isEditing}
+          onUpdate={onUpdate}
         />
-      </div>
-      <div className="block sm:hidden">
-        <ActionButtons
-          onSaveDraft={onSaveDraft}
-          onPost={onPost}
-          isCreatingPost={isCreatingPost}
-          isDrafting={isDrafting}
-        />
+        <div className="sm:hidden block mt-5">
+          <ActionButtons
+            onSaveDraft={onSaveDraft}
+            onPost={onPost}
+            isCreatingPost={isCreatingPost}
+            isDrafting={isDrafting}
+            isEditing={isEditing}
+            onUpdate={onUpdate}
+          />
+        </div>
       </div>
     </div>
   );

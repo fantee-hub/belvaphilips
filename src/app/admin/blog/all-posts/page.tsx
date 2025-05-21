@@ -10,6 +10,7 @@ import { getAllPosts, getAllDrafts, deletePost } from "@/lib/api";
 import Spinner from "@/components/ui/Spinner";
 import Cookies from "universal-cookie";
 import setAuthToken from "@/lib/api/setAuthToken";
+import { toast } from "react-hot-toast";
 
 interface PostData {
   created_at: string;
@@ -120,6 +121,18 @@ const AllPostsPage: React.FC = () => {
     if (postToDelete) {
       if (activeTab === "posts") {
         await deletePost(postToDelete.id);
+        toast.success("Deleted Successfully", {
+          style: {
+            border: "1px solid #1D1D1B",
+            padding: "16px",
+            color: "#1D1D1B",
+            borderRadius: "6px",
+          },
+          iconTheme: {
+            primary: "#008000",
+            secondary: "#FFFAEE",
+          },
+        });
         setPublishedPosts((prev) =>
           prev.filter((post) => post.id !== postToDelete.id)
         );
@@ -127,6 +140,20 @@ const AllPostsPage: React.FC = () => {
         fetchPublishedPosts();
       } else {
         await deletePost(postToDelete.id);
+
+        toast.success("Deleted Successfully", {
+          style: {
+            border: "1px solid #1D1D1B",
+            padding: "16px",
+            color: "#1D1D1B",
+            borderRadius: "6px",
+          },
+          iconTheme: {
+            primary: "#008000",
+            secondary: "#FFFAEE",
+          },
+        });
+
         setDraftPosts((prev) =>
           prev.filter((post) => post.id !== postToDelete.id)
         );

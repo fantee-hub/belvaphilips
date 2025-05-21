@@ -6,6 +6,7 @@ const contactusUrl = "/contact";
 const adminLoginUrl = "/admin/login";
 const getAdminUserUrl = "/admin/get_users";
 const createPostUrl = "/posts";
+const uploadImageUrl = "/posts/upload-image";
 
 /** General url */
 const getAllPostsUrl = "/posts";
@@ -42,6 +43,10 @@ export const createPost = async (data: any) => {
   return httpService.post(createPostUrl, data);
 };
 
+export const updatePost = async (id: string | number, data: any) => {
+  return httpService.put(`${createPostUrl}/${id}`, data);
+};
+
 export const deletePost = async (id: string | number) => {
   return httpService.delete(`${deletePostUrl}/${id}`);
 };
@@ -62,6 +67,10 @@ export const getAllDrafts = async (
 
 export const getPostById = async (id: string | number) => {
   return httpService.get(`${getPostByIdUrl}/${id}`);
+};
+
+export const uploadImage = async (data: any) => {
+  return httpService.post(uploadImageUrl, data);
 };
 
 /** ORDERS */

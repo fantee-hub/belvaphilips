@@ -4,11 +4,13 @@ import React from "react";
 
 interface CoverImageUploadProps {
   coverImage: File | null;
+  coverImageUrl?: string;
   setCoverImage: React.Dispatch<React.SetStateAction<File | null>>;
 }
 
 const CoverImageUpload: React.FC<CoverImageUploadProps> = ({
   coverImage,
+  coverImageUrl,
   setCoverImage,
 }) => {
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -20,11 +22,13 @@ const CoverImageUpload: React.FC<CoverImageUploadProps> = ({
     }
   };
 
+  console.log(coverImageUrl);
+
   return (
-    <div className="md:w-[373px]  md:h-[571px] w-full h-[152px] border border-dashed border-[#C9C9C9] rounded-[16px] flex flex-col items-center justify-center relative">
-      {coverImage ? (
+    <div className="md:w-[373px] md:h-[571px] w-full h-[152px] border border-dashed border-[#C9C9C9] rounded-[16px] flex flex-col items-center justify-center relative overflow-hidden">
+      {coverImage || coverImageUrl ? (
         <img
-          src={URL.createObjectURL(coverImage)}
+          src={coverImage ? URL.createObjectURL(coverImage) : coverImageUrl}
           alt="Cover"
           className="w-full h-full object-cover rounded-lg"
         />
@@ -46,14 +50,14 @@ const CoverImageUpload: React.FC<CoverImageUploadProps> = ({
             </span>
           </p>
           <p className="text-xs text-[#787878] mt-1">PNG and JPG supported</p>
-          <input
-            type="file"
-            accept="image/png, image/jpeg"
-            onChange={handleImageUpload}
-            className="absolute w-64 h-64 opacity-0 cursor-pointer"
-          />
         </>
       )}
+      <input
+        type="file"
+        accept="image/png, image/jpeg"
+        onChange={handleImageUpload}
+        className="absolute inset-0 opacity-0 cursor-pointer z-10"
+      />
     </div>
   );
 };

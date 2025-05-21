@@ -1,5 +1,6 @@
 import { formatDate } from "@/lib/helperFunctions";
 import { Pencil, Trash2 } from "lucide-react";
+import Link from "next/link";
 import { PiCalendarDots } from "react-icons/pi";
 
 const PostCard: React.FC<{
@@ -34,10 +35,12 @@ const PostCard: React.FC<{
             {formatDate(post.created_at)}
           </span>
           <div className=" pb-[2px] gap-1  flex items-center space-x-1 bg-white ">
-            <button className="bg-white rounded-full p-1 cursor-pointer flex items-center gap-1 uppercase font-semibold text-[#787878]">
-              <Pencil className="h-4 w-4" />
-              <span>Edit</span>
-            </button>
+            <Link href={`/admin/blog/post?id=${post.id}`}>
+              <button className="bg-white rounded-full p-1 cursor-pointer flex items-center gap-1 uppercase font-semibold text-[#787878]">
+                <Pencil className="h-4 w-4" />
+                <span>Edit</span>
+              </button>
+            </Link>
             <div className="w-[0.5px] h-[15px] bg-[#CFCFCF]"></div>
             <button
               onClick={() => onDelete(post.id, post.title, post.created_at)}

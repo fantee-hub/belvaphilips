@@ -3,8 +3,13 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { formatDate } from "@/lib/helperFunctions";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { PiCalendarDots } from "react-icons/pi";
 import LatestPosts from "./LatestPosts";
+import { Components } from "react-markdown";
+import { ImgHTMLAttributes } from "react";
+import rehypeRaw from "rehype-raw";
+import parse from "html-react-parser";
 
 interface Post {
   id: string;
@@ -24,6 +29,30 @@ interface PostDetailsProps {
 const contentVariants = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+};
+
+interface MarkdownImageProps extends ImgHTMLAttributes<HTMLImageElement> {
+  src?: any;
+  alt?: string;
+}
+
+const components: Components = {
+  img: ({ src, alt }: MarkdownImageProps) => {
+    console.log("Markdown Image Src:", src, "Alt:", alt);
+    return (
+      <Image
+        src={
+          (src instanceof Blob ? URL.createObjectURL(src) : src) ||
+          "/assets/images/blog-placeholder.png"
+        }
+        alt={alt || "Post Image"}
+        width={600}
+        height={400}
+        sizes="(max-width: 768px) 100vw, 50vw"
+        className="object-cover w-full h-auto"
+      />
+    );
+  },
 };
 
 export default function PostDetails({
@@ -68,13 +97,18 @@ export default function PostDetails({
               />
             </div>
 
-            <div className="prose max-w-none text-[#444444]">
-              <ReactMarkdown>{post.content}</ReactMarkdown>
+            <div
+              className="max-w-none text-[#444444] space-y-4 
+  [&_h1]:text-3xl [&_h1]:font-bold [&_h1]:mb-4 [&_h1]:text-left 
+  [&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:mb-3 
+  [&_h3]:text-xl [&_h3]:font-medium [&_h3]:mb-2 
+  [&_p]:leading-relaxed [&_p]:mb-4"
+            >
+              {parse(post.content)}
             </div>
           </div>
 
           {/* Latest Posts Sidebar */}
-
           <div className="md:col-span-1">
             <LatestPosts posts={latestPosts} currentPostId={currentPostId} />
           </div>
