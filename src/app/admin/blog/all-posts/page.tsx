@@ -30,6 +30,7 @@ const AllPostsPage: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isFetchingPosts, setIsFetchingPosts] = useState<boolean>(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [postToDelete, setPostToDelete] = useState<{
     id: string;
     title: string;
@@ -118,42 +119,32 @@ const AllPostsPage: React.FC = () => {
   };
 
   const confirmDelete = async () => {
-    if (postToDelete) {
+    if (!postToDelete) return;
+
+    setIsDeleting(true);
+
+    try {
+      await deletePost(postToDelete.id);
+
+      toast.success("Deleted Successfully", {
+        style: {
+          border: "1px solid #1D1D1B",
+          padding: "16px",
+          color: "#1D1D1B",
+          borderRadius: "6px",
+        },
+        iconTheme: {
+          primary: "#008000",
+          secondary: "#FFFAEE",
+        },
+      });
+
       if (activeTab === "posts") {
-        await deletePost(postToDelete.id);
-        toast.success("Deleted Successfully", {
-          style: {
-            border: "1px solid #1D1D1B",
-            padding: "16px",
-            color: "#1D1D1B",
-            borderRadius: "6px",
-          },
-          iconTheme: {
-            primary: "#008000",
-            secondary: "#FFFAEE",
-          },
-        });
         setPublishedPosts((prev) =>
           prev.filter((post) => post.id !== postToDelete.id)
         );
-
         fetchPublishedPosts();
       } else {
-        await deletePost(postToDelete.id);
-
-        toast.success("Deleted Successfully", {
-          style: {
-            border: "1px solid #1D1D1B",
-            padding: "16px",
-            color: "#1D1D1B",
-            borderRadius: "6px",
-          },
-          iconTheme: {
-            primary: "#008000",
-            secondary: "#FFFAEE",
-          },
-        });
-
         setDraftPosts((prev) =>
           prev.filter((post) => post.id !== postToDelete.id)
         );
@@ -162,6 +153,11 @@ const AllPostsPage: React.FC = () => {
       }
 
       setPostToDelete(null);
+    } catch (error) {
+      console.error("Failed to delete post:", error);
+      toast.error("Failed to delete post.");
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -214,6 +210,7 @@ const AllPostsPage: React.FC = () => {
           postType={activeTab === "posts" ? "published" : "draft"}
           publishedPosts={fetchPublishedPosts}
           draftPosts={fetchDrafts}
+          isDeleting={isDeleting}
         />
       )}
     </div>

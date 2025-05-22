@@ -19,6 +19,7 @@ const DeleteModal: React.FC<{
   postType: string;
   publishedPosts: () => Promise<void>;
   draftPosts: () => Promise<void>;
+  isDeleting: boolean;
 }> = ({
   isOpen,
   onClose,
@@ -28,6 +29,7 @@ const DeleteModal: React.FC<{
   postId,
   postType,
   publishedPosts,
+  isDeleting,
 }) => {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -54,9 +56,10 @@ const DeleteModal: React.FC<{
         <div className="flex justify-start items-center gap-3 mt-2">
           <button
             onClick={onConfirm}
+            disabled={isDeleting}
             className="w-[123px] h-[32px] flex items-center justify-center bg-[#E72E2E] text-white rounded-full uppercase text-sm font-semibold cursor-pointer"
           >
-            Delete post
+            {isDeleting ? "Deleting..." : "Delete post"}
           </button>
           <button
             onClick={onClose}
