@@ -80,7 +80,7 @@ export default function PostDetails({
           {/* Main Post Content */}
           <div className="md:col-span-2">
             <div>
-              <h1 className="text-[44px] font-semibold text-[#1D1D1B] mb-4 uppercase tracking-[-1.58px] leading-[115%]">
+              <h1 className="md:text-[44px] text-[30px] font-semibold text-[#1D1D1B] mb-4 uppercase tracking-[-1.58px] leading-[115%]">
                 {post.title}
               </h1>
               <p className="text-sm text-[#787878] mb-6">
@@ -102,7 +102,7 @@ export default function PostDetails({
   [&_h1]:text-3xl [&_h1]:font-bold [&_h1]:mb-4 [&_h1]:text-left 
   [&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:mb-3 
   [&_h3]:text-xl [&_h3]:font-medium [&_h3]:mb-2 
-  [&_p]:leading-relaxed [&_p]:mb-4"
+  [&_p]:leading-relaxed [&_p]:mb-4 sm:text-base text-sm"
             >
               {parse(post.content)}
             </div>

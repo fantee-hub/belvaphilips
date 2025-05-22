@@ -27,27 +27,34 @@ export default function LatestPosts({
     .slice(0, 3);
 
   return (
-    <div className=" pl-6 border-l-[0.5px] border-[#C9C9C9]">
-      <h2 className="text-[44px] font-semibold text-[#C9C9C9] mb-6 tracking-[-1.58px] leading-[115%] uppercase">
+    <div className="md:pl-6 md:border-l-[0.5px] md:border-[#C9C9C9]">
+      <h2 className="md:text-[44px] text-[30px] font-semibold text-[#C9C9C9] md:mb-6 mb-5 tracking-[-1.58px] leading-[115%] uppercase">
         Latest Posts
       </h2>
-      <div className="space-y-5">
-        {filteredPosts.map((post: Post) => (
-          <Link key={post.id} href={`/blog/${post.id}`} className="block">
-            <div className="flex items-center gap-4 border-[0.5px] border-[#C9C9C9] p-5">
-              <div>
-                <p className="text-xs text-[#787878] mb-2">
-                  <PiCalendarDots className="inline-block mr-1 text-lg" />
-                  {formatDate(post.created_at || "")}
-                </p>
-                <h3 className="text-[22px] uppercase font-medium text-[#444444] line-clamp-2 tracking-[-1px] leading-[130%] max-w-[463px]">
-                  {post.title}
-                </h3>
+
+      {filteredPosts.length === 0 ? (
+        <p className="text-[#787878] text-base italic">
+          No posts available at the moment.
+        </p>
+      ) : (
+        <div className="space-y-5">
+          {filteredPosts.map((post: Post) => (
+            <Link key={post.id} href={`/blog/${post.id}`} className="block">
+              <div className="flex items-center gap-4 border-[0.5px] border-[#C9C9C9] p-5">
+                <div>
+                  <p className="text-xs text-[#787878] mb-2">
+                    <PiCalendarDots className="inline-block mr-1 text-lg" />
+                    {formatDate(post.created_at || "")}
+                  </p>
+                  <h3 className="text-[22px] uppercase font-medium text-[#444444] line-clamp-2 tracking-[-1px] leading-[130%] max-w-[463px]">
+                    {post.title}
+                  </h3>
+                </div>
               </div>
-            </div>
-          </Link>
-        ))}
-      </div>
+            </Link>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
