@@ -23,7 +23,7 @@ export async function middleware(request: NextRequest) {
 
   console.log(`Middleware: Checking path ${pathname}`);
 
-  // Skip middleware for excluded paths (static assets, etc.)
+  // Skip middleware for excluded paths
   if (EXCLUDED_PATHS.some((path) => pathname.startsWith(path))) {
     console.log(`Middleware: Skipping excluded path ${pathname}`);
     return NextResponse.next();
@@ -35,13 +35,12 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Check Supabase-protected routes (including root route)
   if (matchesRoute(pathname, SUPABASE_PROTECTED_ROUTES)) {
     console.log(`Middleware: Running Supabase auth check for ${pathname}`);
     const supabaseResponse = await updateSession(request);
 
     console.log(supabaseResponse);
-    // If Supabase redirects (e.g., to /signin), return the redirect response
+
     if (supabaseResponse.status === 307) {
       console.log(
         `Middleware: Supabase redirected to ${supabaseResponse.headers.get(
