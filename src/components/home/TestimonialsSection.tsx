@@ -59,8 +59,7 @@ const testimonials = [
     company: "HENEDENA",
     logo: "/assets/brands/henedena.png",
     position: "Creative Head at Stychies",
-    quote:
-      "I'm very impressed and happy with your work on my project, it's amazing. i also wanted to thank you for accomodating my request.",
+    quote: "These images are outstanding, I dont't regret using you guys",
     highlight: " click-through rates have doubled",
   },
 ];

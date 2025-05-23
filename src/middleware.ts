@@ -72,27 +72,6 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  // Check for user protected routes (uncomment if needed)
-  /*
-  if (matchesRoute(pathname, USER_PROTECTED_ROUTES)) {
-    const userToken = request.cookies.get("user_token")?.value;
-    console.log(
-      `Middleware: User token ${
-        userToken ? "found" : "not found"
-      } for ${pathname}`
-    );
-
-    if (!userToken) {
-      const loginUrl = new URL("/signin", request.url);
-      if (pathname !== "/signin") {
-        loginUrl.searchParams.set("redirect", pathname);
-      }
-      console.log(`Middleware: Redirecting to ${loginUrl.toString()}`);
-      return NextResponse.redirect(loginUrl);
-    }
-  }
-  */
-
   console.log(`Middleware: Allowing access to ${pathname}`);
   return NextResponse.next();
 }
