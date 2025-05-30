@@ -350,6 +350,22 @@ const ProductConfigurationPage = ({
                   }
                 />
               </div>
+              <div className="mt-8">
+                <Accordion
+                  title="WHAT IF I WANT TO BOOK MULTIPLE SERVICES?"
+                  content={
+                    <>
+                      If you’d like to book multiple services — including
+                      different shot types or finish types — you can specify
+                      that in the project brief.
+                      <br />
+                      <br />
+                      Just click the “Continue to Finalize” button to view and
+                      complete the brief.
+                    </>
+                  }
+                />
+              </div>
 
               <div className="mt-5 flex flex-col md:flex-row justify-between md:items-center border-t border-gray-200 pt-4 gap-4">
                 <div>
