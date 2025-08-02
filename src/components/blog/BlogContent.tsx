@@ -18,21 +18,6 @@ interface Post {
   id: string;
 }
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2,
-    },
-  },
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-};
-
 export default function BlogContent() {
   const [posts, setPublishedPosts] = useState<Post[]>([]);
   const [isFetchingPosts, setIsFetchingPosts] = useState<boolean>(false);
@@ -64,7 +49,6 @@ export default function BlogContent() {
     currentPage * postsPerPage
   );
 
-  console.log("posts", posts);
   if (isFetchingPosts) {
     return (
       <div className="container mx-auto h-screen flex items-center justify-center">
