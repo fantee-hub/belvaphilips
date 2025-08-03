@@ -1,5 +1,8 @@
+"use client";
+
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import Image from "next/image";
+import { useState } from "react";
+import CancelModal from "./CancelModal";
 
 interface ClientGalleriesModalProps {
   open: boolean;
@@ -10,6 +13,12 @@ export default function ClientGalleriesModal({
   open,
   onOpenChange,
 }: ClientGalleriesModalProps) {
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+
+  const handleCancelClick = () => {
+    setShowConfirmModal(true);
+  };
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-3xl w-full p-6 !border-none rounded-none md:!max-w-[716px] max-w-[332.77px]">
@@ -24,7 +33,7 @@ export default function ClientGalleriesModal({
         </div>
 
         <div>
-          <div className=" space-y-5">
+          <div className="space-y-5">
             <div>
               <label
                 htmlFor="galleryName"
@@ -35,7 +44,7 @@ export default function ClientGalleriesModal({
               <input
                 type="text"
                 id="galleryName"
-                className="w-full mt-3 h-[39px] block w-full border-none outline-none p-4 rounded-full  sm:text-sm bg-[#F4F4F4]"
+                className="w-full mt-3 h-[39px] block w-full border-none outline-none p-4 rounded-full sm:text-sm bg-[#F4F4F4]"
               />
             </div>
 
@@ -46,7 +55,7 @@ export default function ClientGalleriesModal({
               >
                 Upload Images <span className="text-[#CE2B2B]">*</span>
               </label>
-              <div className="md:w-full mt-3 md:h-[115px] w-full  border border-dashed border-[#C9C9C9] rounded-[8px] bg-[#F4F4F4] flex flex-col items-center justify-center relative overflow-hidden">
+              <div className="md:w-full mt-3 md:h-[115px] w-full border border-dashed border-[#C9C9C9] rounded-[8px] bg-[#F4F4F4] flex flex-col items-center justify-center relative overflow-hidden">
                 <>
                   <div className="text-2xl text-gray-500 mb-1">
                     <svg
@@ -72,7 +81,6 @@ export default function ClientGalleriesModal({
                       />
                     </svg>
                   </div>
-
                   <p className="text-xs text-[#444444] mt-1">
                     <span className="font-xs">Click here to upload images</span>
                   </p>
@@ -89,7 +97,7 @@ export default function ClientGalleriesModal({
                 />
               </div>
             </div>
-            <div className="flex items-center justify-between  gap-2">
+            <div className="flex items-center justify-between gap-2">
               <div className="flex items-center relative flex-5">
                 <input
                   type="text"
@@ -97,12 +105,12 @@ export default function ClientGalleriesModal({
                   readOnly
                   className="w-full px-5 sm:h-[39px] h-[78px] bg-[#F4F4F4] outline-none sm:rounded-full rounded-[14px] placeholder:text-[#585858]"
                 />
-                <button className="w-[83px] h-[22px] flex items-center cursor-pointer justify-center text-sm  font-medium bg-[#E4E4E4] text-[#4C4C4C] rounded-full hover:bg-[#dcdcdc] absolute right-2">
+                <button className="w-[83px] h-[22px] flex items-center cursor-pointer justify-center text-sm font-medium bg-[#E4E4E4] text-[#4C4C4C] rounded-full hover:bg-[#dcdcdc] absolute right-2">
                   Copy Link
                 </button>
               </div>
               <div className="flex-1">
-                <button className="w-full h-[39px] flex items-center cursor-pointer justify-center text-sm  font-medium bg-black text-white rounded-full hover:bg-gray-800">
+                <button className="w-full h-[39px] flex items-center cursor-pointer justify-center text-sm font-medium bg-black text-white rounded-full hover:bg-gray-800">
                   Generate link
                 </button>
               </div>
@@ -115,7 +123,10 @@ export default function ClientGalleriesModal({
                 </button>
               </div>
               <div>
-                <button className="w-[82px] h-[38px] uppercase rounded-full bg-white border border-[#1D1D1B] text-[#1D1D1B] text-sm font-semibold cursor-pointer">
+                <button
+                  onClick={handleCancelClick}
+                  className="w-[82px] h-[38px] uppercase rounded-full bg-white border border-[#1D1D1B] text-[#1D1D1B] text-sm font-semibold cursor-pointer"
+                >
                   CANCEL
                 </button>
               </div>
@@ -123,6 +134,12 @@ export default function ClientGalleriesModal({
           </div>
         </div>
       </DialogContent>
+
+      <CancelModal
+        onOpenChange={onOpenChange}
+        showConfirmModal={showConfirmModal}
+        setShowConfirmModal={setShowConfirmModal}
+      />
     </Dialog>
   );
 }
