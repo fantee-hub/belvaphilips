@@ -1,13 +1,12 @@
 "use client";
 
 import Cookies from "universal-cookie";
-import { useRouter } from "next/navigation";
-import { useAdminAuth } from "@/hooks/useAuth";
 import { useEffect, useState } from "react";
 import { getOrders } from "@/lib/api";
 import Link from "next/link";
 import setAuthToken from "@/lib/api/setAuthToken";
 import Spinner from "@/components/ui/Spinner";
+import ClientGalleriesModal from "@/components/admin/client-galleries/ClientGalleriesModal";
 
 interface OrdersCount {
   active_orders: number;
@@ -18,6 +17,7 @@ interface OrdersCount {
 export default function Admin() {
   const [ordersCount, setOrdersCount] = useState<OrdersCount | null>(null);
   const [isFetchingOrders, setIsFetchingOrders] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const cookies = new Cookies();
 
   useEffect(() => {
@@ -145,11 +145,13 @@ export default function Admin() {
           </p>
           <div className="items-end ">
             <div className="flex items-center md:space-x-2 justify-between md:justify-start">
-              <Link href={""}>
-                <button className="w-[80px] h-[37px] uppercase flex items-center justify-center  bg-[#1D1D1B] text-[13px] font-semibold text-white rounded-full hover:bg-gray-800 cursor-pointer">
-                  Create
-                </button>
-              </Link>
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="w-[80px] h-[37px] uppercase flex items-center justify-center  bg-[#1D1D1B] text-[13px] font-semibold text-white rounded-full hover:bg-gray-800 cursor-pointer"
+              >
+                Create
+              </button>
+
               <Link href={""}>
                 <button className="w-[89px] h-[37px] flex items-center justify-center text-[13px] font-semibold text-[#1D1D1B]  border border-[#1D1D1B] rounded-full  hover:bg-gray-100 cursor-pointer">
                   VIEW ALL
@@ -159,6 +161,8 @@ export default function Admin() {
           </div>
         </div>
       </div>
+      {/* Modal for Client Galleries */}
+      <ClientGalleriesModal open={isModalOpen} onOpenChange={setIsModalOpen} />
     </div>
   );
 }

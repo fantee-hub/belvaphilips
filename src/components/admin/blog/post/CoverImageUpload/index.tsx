@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import React from "react";
+import { toast } from "react-hot-toast";
 
 interface CoverImageUploadProps {
   coverImage: File | null;
@@ -18,14 +19,23 @@ const CoverImageUpload: React.FC<CoverImageUploadProps> = ({
     if (file && (file.type === "image/png" || file.type === "image/jpeg")) {
       setCoverImage(file);
     } else {
-      alert("Please upload a PNG or JPG image.");
+      toast.error("Please upload a PNG or JPG image", {
+        style: {
+          border: "0.5px solid #1D1D1B",
+          padding: "16px",
+          color: "#1D1D1B",
+          borderRadius: "6px",
+        },
+        iconTheme: {
+          primary: "#FF0000",
+          secondary: "#FFFAEE",
+        },
+      });
     }
   };
 
-  console.log(coverImageUrl);
-
   return (
-    <div className="md:w-[373px] md:h-[571px] w-full h-[152px] border border-dashed border-[#C9C9C9] rounded-[16px] flex flex-col items-center justify-center relative overflow-hidden">
+    <div className="md:w-[373px] md:h-[571px] w-full h-[152px]  border border-dashed border-[#C9C9C9] rounded-[16px] flex flex-col items-center justify-center relative overflow-hidden ">
       {coverImage || coverImageUrl ? (
         <img
           src={coverImage ? URL.createObjectURL(coverImage) : coverImageUrl}

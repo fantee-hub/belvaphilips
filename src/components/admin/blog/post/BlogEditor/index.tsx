@@ -59,7 +59,6 @@ const BlogEditor: React.FC<BlogEditorProps> = ({
       formData.append("image", file);
     }
 
-    console.log(file);
     try {
       const { data } = await uploadImage(formData);
 
@@ -67,15 +66,12 @@ const BlogEditor: React.FC<BlogEditorProps> = ({
         throw new Error("Image upload failed");
       }
 
-      console.log(data.data);
-
       const imageUrl = data.data.image_url;
 
       if (editor) {
         editor.chain().focus().setImage({ src: imageUrl }).run();
       }
     } catch (error: any) {
-      console.error("Image upload failed:", error);
       toast.error(
         `Failed to upload image: ${error.message || "Unknown error"}`,
         {
