@@ -1,7 +1,7 @@
 "use client";
 
 import Pagination from "@/components/admin/blog/allPosts/Pagination";
-import OrdersPagination from "@/components/admin/orders/OrdersPagination";
+
 import { formatDate } from "@/lib/helperFunctions";
 import { useState } from "react";
 import { PiCalendarDots } from "react-icons/pi";
@@ -29,7 +29,7 @@ export default function ClientGalleries() {
     <div className="container mx-auto md:pt-[140px] py-[120px] px-4 md:px-0">
       <div className="pb-[56px] pl-6">
         <h1 className="text-[22px] font-semibold text-[#1D1D1B]">
-          CLIENT GALLERIES{" "}
+          CLIENT GALLERIES
         </h1>
       </div>
       {/* Desktop View */}
@@ -89,7 +89,6 @@ export default function ClientGalleries() {
             {paginatedOrders.map((order) => (
               <div key={order.id} className="">
                 <div className="space-y-7">
-                  {/* Request ID */}
                   <div>
                     <p className="text-xs font-medium text-[#787878] uppercase">
                       REQUEST ID
@@ -99,7 +98,6 @@ export default function ClientGalleries() {
                     </p>
                   </div>
 
-                  {/* Date Created */}
                   <div>
                     <p className="text-xs font-medium text-[#787878] uppercase">
                       DATE CREATED
@@ -110,7 +108,6 @@ export default function ClientGalleries() {
                     </p>
                   </div>
 
-                  {/* Action */}
                   <div>
                     <p className="text-xs font-medium text-[#787878] uppercase">
                       ACTION
