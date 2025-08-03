@@ -164,13 +164,13 @@ export default function ClientGalleriesModal({
   return (
     <>
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="max-w-3xl w-full p-6 !border-none rounded-none md:!max-w-[716px] max-w-[332.77px]">
+        <DialogContent className="max-w-3xl w-full md:p-7 p-4 !border-none rounded-none md:!max-w-[716px] max-w-[332.77px]">
           <DialogTitle className="hidden"></DialogTitle>
           <div className="border-[#D1D1D1] border-b pb-[20px]">
             <h2 className="text-base font-semibold uppercase text-[#1D1D1B]">
               CREATE A NEW GALLERY
             </h2>
-            <p className="text-sm text-[#787878]">
+            <p className="text-sm text-[#787878] md:max-w-full max-w-[227px] pt-2 md:pt-0">
               Upload product images and generate a custom link for a user
             </p>
           </div>
@@ -203,7 +203,7 @@ export default function ClientGalleriesModal({
 
                 {uploadedImages.length === 0 ? (
                   <div
-                    className="md:w-full mt-3 md:h-[115px] w-full border border-dashed border-[#C9C9C9] rounded-[8px] bg-[#F4F4F4] flex flex-col items-center justify-center relative overflow-hidden cursor-pointer"
+                    className="w-full mt-3 h-[115px] w-full border border-dashed border-[#C9C9C9] rounded-[8px] bg-[#F4F4F4] flex flex-col items-center justify-center relative overflow-hidden cursor-pointer"
                     onDragOver={handleDragOver}
                     onDrop={handleDrop}
                     onClick={triggerFileInput}
@@ -242,7 +242,7 @@ export default function ClientGalleriesModal({
                     </p>
                   </div>
                 ) : (
-                  <div className="mt-3 w-full overflow-hidden md:max-w-[670px] max-w-[280px]">
+                  <div className="mt-3 w-full overflow-hidden md:max-w-[655px] max-w-[300px]">
                     <div className="w-full overflow-x-auto overflow-y-auto ">
                       <div className="flex gap-4 pb-2 min-w-fit ">
                         <div
@@ -311,19 +311,19 @@ export default function ClientGalleriesModal({
                 />
               </div>
 
-              <div className="flex items-center justify-between gap-2">
-                <div className="flex items-center relative flex-5">
+              <div className="flex md:items-center md:justify-between md:gap-2 md:flex-row flex-col gap-3 border-b pb-6 md:border-none md:pb-0">
+                <div className="flex items-center relative md:flex-5 md:flex-row flex-col">
                   <input
                     type="text"
                     placeholder={generatedLink || "Generate a link"}
                     value={generatedLink}
                     readOnly
-                    className="w-full px-5 sm:h-[39px] h-[78px] bg-[#F4F4F4] outline-none sm:rounded-full rounded-[14px] placeholder:text-[#585858]"
+                    className="w-full px-5 h-[39px] bg-[#F4F4F4] outline-none rounded-full rounded-[14px] placeholder:text-[#585858]"
                   />
                   {generatedLink && (
                     <button
                       onClick={handleCopyLink}
-                      className={`w-[83px] h-[22px] flex items-center cursor-pointer justify-center text-sm font-medium rounded-full absolute right-2 transition-colors 
+                      className={`w-[83px] h-[22px] md:flex hidden items-center cursor-pointer justify-center text-sm font-medium rounded-full absolute right-2 transition-colors 
                       
                           bg-[#E4E4E4] text-[#4C4C4C] hover:bg-[#dcdcdc]
                       `}
@@ -332,14 +332,25 @@ export default function ClientGalleriesModal({
                     </button>
                   )}
                 </div>
-                <div className="flex-1">
+                <div className="md:flex-1 flex items-center gap-[10px] md:gap-0">
                   <button
                     onClick={handleGenerateLink}
                     disabled={isGeneratingLink || !galleryName.trim()}
-                    className="w-full h-[39px] flex items-center cursor-pointer justify-center text-sm font-medium bg-black text-white rounded-full hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="md:w-full w-[113px] md:h-[39px] h-[29px] flex items-center cursor-pointer justify-center text-sm font-medium bg-black text-white rounded-full hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isGeneratingLink ? "Generating..." : "Generate link"}
                   </button>
+                  {generatedLink && (
+                    <button
+                      onClick={handleCopyLink}
+                      className={`w-[77px] h-[29px] flex md:hidden items-center cursor-pointer justify-center text-xs font-medium rounded-full  transition-colors 
+                      
+                          bg-[#E4E4E4] text-[#4C4C4C] hover:bg-[#dcdcdc]
+                      `}
+                    >
+                      {copySuccess ? "Copied!" : "Copy Link"}
+                    </button>
+                  )}
                 </div>
               </div>
 
