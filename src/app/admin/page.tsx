@@ -152,7 +152,7 @@ export default function Admin() {
                 Create
               </button>
 
-              <Link href={""}>
+              <Link href={"/admin/client-galleries"}>
                 <button className="w-[89px] h-[37px] flex items-center justify-center text-[13px] font-semibold text-[#1D1D1B]  border border-[#1D1D1B] rounded-full  hover:bg-gray-100 cursor-pointer">
                   VIEW ALL
                 </button>

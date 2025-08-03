@@ -35,7 +35,7 @@ const OrdersTable: React.FC<OrdersTableProps> = ({
   const [orders, setOrders] = useState<Order[]>(initialOrders);
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const ordersPerPage = 5; // Adjust as needed for mobile pagination
+  const ordersPerPage = 5;
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -82,7 +82,6 @@ const OrdersTable: React.FC<OrdersTableProps> = ({
     return dateB - dateA;
   });
 
-  // Pagination logic for mobile
   const totalPages = Math.ceil(sortedOrders.length / ordersPerPage);
   const paginatedOrders = sortedOrders.slice(
     (currentPage - 1) * ordersPerPage,
