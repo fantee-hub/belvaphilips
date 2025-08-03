@@ -5,21 +5,17 @@ interface CancelModalProps {
 
   showConfirmModal: boolean;
   setShowConfirmModal: (show: boolean) => void;
+  handleDeleteChanges: () => void;
+  handleStay: () => void;
 }
 
 export default function CancelModal({
   onOpenChange,
   showConfirmModal,
+  handleDeleteChanges,
+  handleStay,
   setShowConfirmModal,
 }: CancelModalProps) {
-  const handleDeleteChanges = () => {
-    setShowConfirmModal(false);
-    onOpenChange(false);
-  };
-
-  const handleStay = () => {
-    setShowConfirmModal(false);
-  };
   return (
     <Dialog open={showConfirmModal} onOpenChange={setShowConfirmModal}>
       <DialogContent className="sm:max-w-[425px] p-6 rounded-none">
