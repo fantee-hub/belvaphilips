@@ -1,10 +1,33 @@
 "use client";
 
 import Pagination from "@/components/admin/blog/allPosts/Pagination";
+import ClientGalleryTableModal from "@/components/admin/client-galleries/ClientGalleryTableModal";
+import Spinner from "@/components/ui/Spinner";
+import { getAllGallery } from "@/lib/api";
+import setAuthToken from "@/lib/api/setAuthToken";
 
 import { formatDate } from "@/lib/helperFunctions";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { PiCalendarDots } from "react-icons/pi";
+import Cookies from "universal-cookie";
+
+interface Image {
+  [key: string]: string;
+}
+
+interface Gallery {
+  created_at: string;
+  updated_at: string;
+  title: string;
+  slug: string;
+  id: string;
+  images: string[];
+}
+
+interface ClientGallery {
+  galleries: Gallery[];
+  total: number;
+}
 
 const sortedOrders = [
   {
@@ -18,13 +41,52 @@ const sortedOrders = [
 
 export default function ClientGalleries() {
   const [currentPage, setCurrentPage] = useState(1);
+  const [allGalleries, setAllGalleries] = useState<Gallery[]>([]);
+  const [selectedGallery, setSelectedGallery] = useState<Gallery | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const cookies = new Cookies();
+
   const ordersPerPage = 5;
 
-  const totalPages = Math.ceil(sortedOrders.length / ordersPerPage);
-  const paginatedOrders = sortedOrders.slice(
+  const totalPages = Math.ceil(allGalleries.length / ordersPerPage);
+  const paginatedOrders = allGalleries?.slice(
     (currentPage - 1) * ordersPerPage,
     currentPage * ordersPerPage
   );
+
+  useEffect(() => {
+    const fetchGalleries = async () => {
+      setIsLoading;
+      const token = cookies.get("admin_token");
+      if (token) {
+        setAuthToken(token);
+      }
+
+      try {
+        const { data } = await getAllGallery();
+        if (data) {
+          setAllGalleries(data.data.galleries);
+
+          console.log("Fetched Galleries:", data.data.galleries);
+        }
+      } catch (error) {
+        console.error("Error fetching galleries:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchGalleries();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center py-40 max-w-[991px]">
+        <Spinner size="lg" />
+      </div>
+    );
+  }
+
   return (
     <div className="container mx-auto md:pt-[140px] py-[120px] px-4 md:px-0">
       <div className="pb-[56px] pl-6">
@@ -49,11 +111,11 @@ export default function ClientGalleries() {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {sortedOrders.length > 0 ? (
-              sortedOrders.map((order) => (
+            {paginatedOrders.length > 0 ? (
+              paginatedOrders.map((order) => (
                 <tr key={order.id}>
                   <td className="px-6 py-4 whitespace-nowrap text-base font-semibold text-[#1D1D1B]">
-                    {order.order_name}
+                    {order.title}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-base text-[#1D1D1B] font-semibold">
                     <span className="flex items-center gap-1">
@@ -62,7 +124,10 @@ export default function ClientGalleries() {
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-base text-gray-500 flex justify-end">
-                    <button className="bg-black text-white px-4 py-2 rounded-full text-sm font-semibold uppercase cursor-pointer">
+                    <button
+                      onClick={() => setSelectedGallery(order)}
+                      className="bg-black text-white px-4 py-2 rounded-full text-sm font-semibold uppercase cursor-pointer"
+                    >
                       VIEW DETAILS
                     </button>
                   </td>
@@ -74,7 +139,7 @@ export default function ClientGalleries() {
                   colSpan={4}
                   className="px-6 py-4 text-center text-sm text-gray-500"
                 >
-                  No {status} orders found
+                  No galleries found
                 </td>
               </tr>
             )}
@@ -94,7 +159,7 @@ export default function ClientGalleries() {
                       REQUEST ID
                     </p>
                     <p className="text-base font-semibold text-[#1D1D1B]">
-                      {order.order_name}
+                      {order.slug}
                     </p>
                   </div>
 
@@ -112,7 +177,10 @@ export default function ClientGalleries() {
                     <p className="text-xs font-medium text-[#787878] uppercase">
                       ACTION
                     </p>
-                    <button className="mt-1 bg-black text-white px-4 py-2 rounded-full text-sm font-semibold uppercase cursor-pointer">
+                    <button
+                      onClick={() => setSelectedGallery(order)}
+                      className="mt-1 bg-black text-white px-4 py-2 rounded-full text-sm font-semibold uppercase cursor-pointer"
+                    >
                       VIEW DETAILS
                     </button>
                   </div>
@@ -122,7 +190,7 @@ export default function ClientGalleries() {
           </div>
         ) : (
           <div className="text-center text-sm text-gray-500 py-4">
-            No data found
+            No galleries found
           </div>
         )}
       </div>
@@ -133,6 +201,12 @@ export default function ClientGalleries() {
           onPageChange={setCurrentPage}
         />
       </div>
+
+      <ClientGalleryTableModal
+        order={selectedGallery}
+        isOpen={!!selectedGallery}
+        onClose={() => setSelectedGallery(null)}
+      />
     </div>
   );
 }

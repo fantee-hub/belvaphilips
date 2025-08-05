@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
     domains: [
       "orooxuyvcuisiwhhlzih.supabase.co",
       "ioljpmwzlunhfrtecuyt.supabase.co",
+      "res.cloudinary.com",
     ],
   },
 };

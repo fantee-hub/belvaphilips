@@ -5,6 +5,10 @@ import { useState, useRef } from "react";
 import CancelModal from "./CancelModal";
 import { Eye, Trash2 } from "lucide-react";
 import ImagePreviewModal from "./ImagePreviewModal";
+import { toast } from "react-hot-toast";
+import Cookies from "universal-cookie";
+import setAuthToken from "@/lib/api/setAuthToken";
+import { createGallery } from "@/lib/api";
 
 interface ClientGalleriesModalProps {
   open: boolean;
@@ -28,11 +32,13 @@ export default function ClientGalleriesModal({
   const [isGeneratingLink, setIsGeneratingLink] = useState(false);
   const [generatedLink, setGeneratedLink] = useState("");
   const [copySuccess, setCopySuccess] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
   const [selectedImage, setSelectedImage] = useState<UploadedImage | null>(
     null
   );
   const [showImageModal, setShowImageModal] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const cookies = new Cookies();
 
   const handleCancelClick = () => {
     setShowConfirmModal(true);
@@ -57,6 +63,23 @@ export default function ClientGalleriesModal({
     });
 
     setUploadedImages((prev) => [...prev, ...newImages]);
+  };
+
+  const uploadToCloudinary = async (file: File): Promise<string> => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", `${process.env.NEXT_PUBLIC_PRESET_NAME}`);
+
+    const res = await fetch(
+      `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUD_NAME}/image/upload`,
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
+
+    const data = await res.json();
+    return data.secure_url;
   };
 
   const handleDragOver = (event: React.DragEvent) => {
@@ -115,7 +138,6 @@ export default function ClientGalleriesModal({
 
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    // Generate a link based on gallery name
     const slugifiedName = galleryName
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, "-")
@@ -159,6 +181,99 @@ export default function ClientGalleriesModal({
 
   const handleStay = () => {
     setShowConfirmModal(false);
+  };
+
+  const handleSaveAndExit = async () => {
+    if (!galleryName.trim() || uploadedImages.length === 0) {
+      toast.error(
+        "Please provide a gallery name and upload at least one image.",
+        {
+          style: {
+            border: "0.5px solid #1D1D1B",
+            padding: "16px",
+            color: "#1D1D1B",
+            borderRadius: "6px",
+          },
+          iconTheme: {
+            primary: "#FF0000",
+            secondary: "#FFFAEE",
+          },
+        }
+      );
+      return;
+    }
+
+    setIsSaving(true);
+
+    const token = cookies.get("admin_token");
+
+    if (token) {
+      setAuthToken(token);
+    }
+
+    try {
+      const uploadedUrls = await Promise.all(
+        uploadedImages.map((img) => uploadToCloudinary(img.file))
+      );
+
+      const galleryData = {
+        title: galleryName,
+        slug: galleryName.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
+        images: uploadedUrls,
+      };
+
+      const { data } = await createGallery(galleryData);
+
+      if (data) {
+        toast.success("Gallery created successfully", {
+          style: {
+            border: "1px solid #1D1D1B",
+            padding: "16px",
+            color: "#1D1D1B",
+            borderRadius: "6px",
+          },
+          iconTheme: {
+            primary: "#008000",
+            secondary: "#FFFAEE",
+          },
+        });
+        onOpenChange(false);
+        setIsSaving(false);
+
+        setGalleryName("");
+        setUploadedImages([]);
+        setGeneratedLink("");
+        setCopySuccess(false);
+        setIsGeneratingLink(false);
+        setShowImageModal(false);
+        setSelectedImage(null);
+        if (fileInputRef.current) {
+          fileInputRef.current.value = "";
+        }
+      }
+    } catch (error: any) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      toast.error(message, {
+        style: {
+          border: "0.5px solid #1D1D1B",
+          padding: "16px",
+          color: "#1D1D1B",
+          borderRadius: "6px",
+        },
+        iconTheme: {
+          primary: "#FF0000",
+          secondary: "#FFFAEE",
+        },
+      });
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   return (
@@ -356,8 +471,12 @@ export default function ClientGalleriesModal({
 
               <div className="flex items-center gap-3">
                 <div>
-                  <button className="w-[113px] h-[38px] uppercase rounded-full bg-[#1D1D1B] text-white border-none outline-none text-sm font-semibold cursor-pointer">
-                    SAVE & EXIT
+                  <button
+                    onClick={handleSaveAndExit}
+                    disabled={isSaving}
+                    className="w-[113px] h-[38px] uppercase rounded-full bg-[#1D1D1B] text-white border-none outline-none text-sm font-semibold cursor-pointer"
+                  >
+                    {isSaving ? "Saving..." : "Save & Exit"}
                   </button>
                 </div>
                 <div>

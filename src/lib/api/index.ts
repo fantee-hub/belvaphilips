@@ -22,6 +22,12 @@ const getOrdersByUserUrl = "/orders/user";
 const createUserUrl = "/users";
 const getUserByIdUrl = "/users";
 
+/** GALLERY */
+const getAllGalleryUrl = "/gallery";
+const createGalleryUrl = "/gallery";
+const deleteGalleryUrl = "/gallery";
+const getGalleryBySlugUrl = "/gallery";
+
 export const contactUs = async (data: any) => {
   return httpService.post(contactusUrl, data);
 };
@@ -114,4 +120,22 @@ export const createUsers = async (data: any) => {
 
 export const getUserById = async (id: string | number) => {
   return httpService.get(`${getUserByIdUrl}/${id}`);
+};
+
+/** GALLERY */
+
+export const getAllGallery = async () => {
+  return httpService.get(getAllGalleryUrl);
+};
+
+export const createGallery = async (data: any) => {
+  return httpService.post(createGalleryUrl, data);
+};
+
+export const deleteGallery = async (id: string | number) => {
+  return httpService.delete(`${deleteGalleryUrl}/${id}`);
+};
+
+export const getGalleryBySlug = async (slug: string) => {
+  return httpService.get(`${getGalleryBySlugUrl}/${slug}`);
 };

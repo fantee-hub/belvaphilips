@@ -104,7 +104,6 @@ const PostContent: React.FC = () => {
   };
 
   const handleSaveDraft = async () => {
-    console.log("Saving to drafts:", { title, slug, content, coverImage });
     setIsDrafting(true);
     const token = cookies.get("admin_token");
 

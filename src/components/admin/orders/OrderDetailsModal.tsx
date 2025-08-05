@@ -141,47 +141,6 @@ const OrderDetailsModal: React.FC<OrderDetailsModalProps> = ({
                       </div>
                     </div>
                   )}
-                  {/* 
-                  {productConfig.shootType &&
-                            productConfig.quantity! > 0 && (
-                              <div className="flex justify-between">
-                                <span className="text-[#787878]">
-                                  {productConfig.shootType === "VIDEO"
-                                    ? "Video"
-                                    : "Image"}{" "}
-                                  Quantity
-                                </span>
-                                <span className="font-medium text-[#444444]">
-                                  x{productConfig.quantity || 1}
-                                </span>
-                              </div>
-                            )} */}
-
-                  {/* <div className="pt-4 mt-4 border-t-[0.5px] border-[#D1D1D1]">
-                    <h3 className="font-semibold mb-2 text-[#1D1D1B]">
-                      Scene:
-                    </h3>
-                    <div className="space-y-2">
-                      <div className="flex justify-between">
-                        <span className="text-[#444444]">Backdrop</span>
-                        <span className="font-medium text-[#444444]">
-                          White
-                        </span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-[#444444]">Items in frame</span>
-                        <span className="font-medium text-[#444444]">
-                          Single
-                        </span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-[#444444]">Shadow</span>
-                        <span className="font-medium text-[#444444]">
-                          No Shadow
-                        </span>
-                      </div>
-                    </div>
-                  </div> */}
 
                   <div className="pt-4 mt-4 border-t-[0.5px] border-[#D1D1D1] flex justify-between">
                     <h3 className="font-semibold text-[#1D1D1B] mb-2">
