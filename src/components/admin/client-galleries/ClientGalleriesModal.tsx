@@ -143,7 +143,7 @@ export default function ClientGalleriesModal({
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/(^-|-$)/g, "");
 
-    const link = `belvaphilips.com/${slugifiedName}-gallery`;
+    const link = `belvaphilips.com/${slugifiedName}`;
     setGeneratedLink(link);
     setIsGeneratingLink(false);
   };
