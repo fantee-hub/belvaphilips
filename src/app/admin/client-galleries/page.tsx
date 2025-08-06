@@ -7,7 +7,7 @@ import { getAllGallery } from "@/lib/api";
 import setAuthToken from "@/lib/api/setAuthToken";
 
 import { formatDate } from "@/lib/helperFunctions";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { PiCalendarDots } from "react-icons/pi";
 import Cookies from "universal-cookie";
 
@@ -54,28 +54,28 @@ export default function ClientGalleries() {
     currentPage * ordersPerPage
   );
 
+  const fetchGalleries = useCallback(async () => {
+    setIsLoading(true);
+
+    const token = cookies.get("admin_token");
+    if (token) {
+      setAuthToken(token);
+    }
+
+    try {
+      const { data } = await getAllGallery();
+      if (data) {
+        setAllGalleries(data.data.galleries);
+        console.log("Fetched Galleries:", data.data.galleries);
+      }
+    } catch (error) {
+      console.error("Error fetching galleries:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [getAllGallery, cookies, setAuthToken]);
+
   useEffect(() => {
-    const fetchGalleries = async () => {
-      setIsLoading;
-      const token = cookies.get("admin_token");
-      if (token) {
-        setAuthToken(token);
-      }
-
-      try {
-        const { data } = await getAllGallery();
-        if (data) {
-          setAllGalleries(data.data.galleries);
-
-          console.log("Fetched Galleries:", data.data.galleries);
-        }
-      } catch (error) {
-        console.error("Error fetching galleries:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
     fetchGalleries();
   }, []);
 
@@ -206,6 +206,7 @@ export default function ClientGalleries() {
         order={selectedGallery}
         isOpen={!!selectedGallery}
         onClose={() => setSelectedGallery(null)}
+        fetchGalleries={fetchGalleries}
       />
     </div>
   );

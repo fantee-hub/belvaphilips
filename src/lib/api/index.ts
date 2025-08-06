@@ -27,6 +27,7 @@ const getAllGalleryUrl = "/gallery";
 const createGalleryUrl = "/gallery";
 const deleteGalleryUrl = "/gallery";
 const getGalleryBySlugUrl = "/gallery";
+const updateGalleryUrl = "/gallery";
 
 export const contactUs = async (data: any) => {
   return httpService.post(contactusUrl, data);
@@ -138,4 +139,8 @@ export const deleteGallery = async (id: string | number) => {
 
 export const getGalleryBySlug = async (slug: string) => {
   return httpService.get(`${getGalleryBySlugUrl}/${slug}`);
+};
+
+export const updateGallery = async (id: string, data: any) => {
+  return httpService.put(`${updateGalleryUrl}/${id}`, data);
 };
