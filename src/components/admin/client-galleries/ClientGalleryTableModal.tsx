@@ -16,8 +16,7 @@ import { toast } from "react-hot-toast";
 import Cookies from "universal-cookie";
 import setAuthToken from "@/lib/api/setAuthToken";
 import ImagePreviewModal from "./ImagePreviewModal";
-import { deleteGallery, updateGallery } from "@/lib/api";
-import { on } from "events";
+import { deleteGalleryImage, updateGallery } from "@/lib/api";
 
 interface Gallery {
   created_at: string;
@@ -254,6 +253,63 @@ const ClientGalleryTableModal: React.FC<ClientGalleryTableModalProps> = ({
     }
   };
 
+  const handleDeleteExistingImage = async (image: string, id: string) => {
+    setIsDeleting(true);
+    const token = cookies.get("admin_token");
+
+    if (token) {
+      setAuthToken(token);
+    }
+
+    const deleteImageData = {
+      public_urls: [image],
+    };
+
+    const deletePromise = deleteGalleryImage(id, deleteImageData).then(() => {
+      onClose();
+      fetchGalleries();
+    });
+
+    toast.promise(
+      deletePromise,
+      {
+        loading: "Deleting image...",
+        success: "Image deleted successfully",
+        error: (err) => {
+          const message =
+            (err.response && err.response.data && err.response.data.message) ||
+            err.message ||
+            "Something went wrong";
+          return message;
+        },
+      },
+      {
+        style: {
+          border: "1px solid #1D1D1B",
+          padding: "16px",
+          color: "#1D1D1B",
+          borderRadius: "6px",
+        },
+        success: {
+          iconTheme: {
+            primary: "#008000",
+            secondary: "#FFFAEE",
+          },
+        },
+        error: {
+          iconTheme: {
+            primary: "#FF0000",
+            secondary: "#FFFAEE",
+          },
+        },
+      }
+    );
+
+    deletePromise.finally(() => {
+      setIsDeleting(false);
+    });
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-3xl w-full md:p-7 p-4 !border-none rounded-none md:!max-w-[716px] max-w-[332.77px]">
@@ -346,15 +402,17 @@ const ClientGalleryTableModal: React.FC<ClientGalleryTableModalProps> = ({
                           >
                             <Eye size={16} className="ml-1" />
                           </button>
-                          {/* <div className="w-[0.5px] h-[15px] bg-[#CFCFCF]"></div>
+                          <div className="w-[0.5px] h-[15px] bg-[#CFCFCF]"></div>
                           <button
-                            onClick={() => handleDeleteExistingImage()}
+                            onClick={() =>
+                              handleDeleteExistingImage(image, order?.id || "")
+                            }
                             className="flex items-center justify-center cursor-pointer hover:opacity-70"
                             title="Delete"
                             disabled={isDeleting}
                           >
                             <Trash2 size={16} />
-                          </button> */}
+                          </button>
                         </div>
                       </div>
                     ))}
